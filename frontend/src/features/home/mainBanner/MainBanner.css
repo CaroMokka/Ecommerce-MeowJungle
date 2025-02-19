@@ -1,4 +1,4 @@
-.banner{
+.main-banner{
     /* display: flex;
     justify-content: center;
     border: solid 1px #242940; */
@@ -16,7 +16,7 @@
     border: solid 1px #242940;
 }
 
-.banner-title{
+.main-banner__title{
     color: #fff;
     font-size: 7.5rem;
     font-family: "Paytone One", serif;
@@ -26,7 +26,7 @@
     line-height: 100%;
 }
 
-.btn-action {
+.main-banner__btn-action {
     color: #242940;
     text-align: center;
     text-transform: uppercase;
@@ -41,7 +41,7 @@
     cursor: pointer;
 }
 
-.btn-action:hover {
+.main-banner__btn-action:hover {
     background: white;
     color: black;
 }
