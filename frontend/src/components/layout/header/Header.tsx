@@ -1,5 +1,5 @@
-import Stripe from '../stripePromotion/Stripe'
-import Navbar from '../navbar/Navbar'
+import Stripe from '../header/stripePromotion/Stripe'
+import Navbar from '../header/navbar/Navbar'
 function Header() {
   return (
     <>
