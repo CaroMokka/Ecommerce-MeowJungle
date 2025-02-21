@@ -3,6 +3,7 @@ import DailySection from "../features/home/dailySection/DailySection";
 import MainBanner from "../features/home/mainBanner/MainBanner";
 import LoversSection from "../features/home/loversSection/LoversSection";
 import DarkSection from "../features/home/darkSection/DarkSection";
+import Footer from "../components/layout/footer/Footer"
 import "./style.css";
 
 function Home() {
@@ -15,6 +16,7 @@ function Home() {
         <LoversSection />
         <DarkSection />
       </div>
+      <Footer/>
     </section>
   );
 }

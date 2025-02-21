@@ -2,16 +2,19 @@ import './Footer.css'
 
 function Footer() {
   return (
-    <section className='footer-section__wrapper'>
-      <nav>
-          <ul>
-              <li>HOME</li>
-              <li>ABOUT</li>
-              <li>PRODUCTS</li>
-              <li>OUR LOCATIONS</li>
-              <li>CONTACT</li>
-          </ul>
-      </nav>
+    <section className="footer-section__wrapper">
+      <div className="footer-section__image" >
+        <img src="/img/img_footer.png" />
+      </div>
+      <div className="footer-section__navbar" >  
+          <nav>
+              <a>HOME</a>
+              <a>ABOUT</a>
+              <a>PRODUCTS</a>
+              <a>OUR LOCATIONS</a>
+              <a>CONTACT</a>
+          </nav>
+      </div>
       <form>join our newsletter</form>
       <nav>
           <ul>
