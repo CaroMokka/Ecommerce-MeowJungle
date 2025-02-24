@@ -1,0 +1,26 @@
+.card{
+    width: 14rem;
+    border: 1px solid #000;
+    border-radius: 10px;
+    padding: 1rem;
+}
+.card-img-top{
+    width: 100%;
+    object-fit: cover;
+}
+.card-body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: Outfit, sans-serif;
+}
+.btn-primary{
+    max-width: 100px;
+    color: #c1fba4;
+    background-color: #242940;
+    border-radius: 60px;
+    padding: 10px 15px;
+    font-size: 1rem;
+    text-decoration: none;
+    text-align: center;
+}

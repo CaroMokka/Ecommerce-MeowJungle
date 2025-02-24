@@ -57,6 +57,7 @@
     padding: 20px 25px 19px;
     font-size: 1rem;
     transition: background-color .4s;
+    cursor: pointer;
 }
 .footer-section__paragraph{
     color: var(--light-black);

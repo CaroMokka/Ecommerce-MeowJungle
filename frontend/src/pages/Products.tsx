@@ -1,10 +1,13 @@
 
 import Header from "../components/layout/header/Header"
+import Footer from "../components/layout/footer/Footer"
+import GridProducts from "../features/products/gridProducts/GridProducts"
 function Products() {
   return (
     <section>
       <Header/>
-      <h1>Aquí están los productos</h1>
+      <GridProducts/>
+      <Footer/>
     </section>
   )
 }
