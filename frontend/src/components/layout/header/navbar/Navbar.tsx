@@ -1,11 +1,12 @@
+import { Link } from "react-router-dom"
 import "./Navbar.css";
 function Navbar() {
   return (
     <nav className="container_nav">
       <section className="wrapper_nav">
-        <a href="#">Home</a>
+        <a href="#"><Link to="/" className="nav-link">Home</Link></a>
         <a href="#">About</a>
-        <a href="#">Products</a>
+        <a href="#"><Link to="/products" className="nav-link">Products</Link></a>
       </section>
       <section>
         <div className="wrapper_title">MEOW ** JUNGLE</div>
