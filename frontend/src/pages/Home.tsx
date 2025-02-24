@@ -10,7 +10,7 @@ function Home() {
   return (
     <section className="home__container">
       <Header />
-      <div className="home__wrapper">
+      <div className="global-page__wrapper">
         <MainBanner />
         <DailySection />
         <LoversSection />

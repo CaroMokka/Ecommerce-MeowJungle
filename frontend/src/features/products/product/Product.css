@@ -1,8 +1,10 @@
+
 .card{
-    width: 14rem;
+    width: 18rem;
     border: 1px solid #000;
     border-radius: 10px;
-    padding: 1rem;
+    padding: .5rem;
+    background-color: #F8F1E8 ;
 }
 .card-img-top{
     width: 100%;
@@ -15,7 +17,7 @@
     font-family: Outfit, sans-serif;
 }
 .btn-primary{
-    max-width: 100px;
+    max-width: 80%;
     color: #c1fba4;
     background-color: #242940;
     border-radius: 60px;

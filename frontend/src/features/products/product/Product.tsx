@@ -1,7 +1,7 @@
 import "./product.css";
 function product() {
   return (
-    <div>
+    <div className="card-container">
       <div className="card">
         <img src="/img/soap_sea.webp" className="card-img-top" alt="..." />
         <div className="card-body">
