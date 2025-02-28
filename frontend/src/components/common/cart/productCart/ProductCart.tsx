@@ -1,4 +1,5 @@
 import QuantityProduct from "./quantityProduct/QuantityProduct";
+import DeleteProduct from "./deleteProduct/DeleteProduct";
 function ProductCart() {
   return (
     <>
@@ -21,6 +22,7 @@ function ProductCart() {
                 </small>
               </p>
               <QuantityProduct />
+              <DeleteProduct />
             </div>
           </div>
         </div>

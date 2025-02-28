@@ -1,5 +1,6 @@
 import ListCart from "./listCart/ListCart"
 import ResumeCart from "./resumeCart/ResumeCart"
+import EmptyCartMessage from "./emptyCartMessage/EmptyCartMessage"
 function Cart() {
   return (
     <>
@@ -48,14 +49,8 @@ function Cart() {
           ></button>
         </div>
         <div className="offcanvas-body" style={{width:"60vh"}}>
-            <p>
-            ¡Tu carrito está vacío!
-            </p>
-            <p>
-            Añade productos para comenzar.
-            </p>
+            <EmptyCartMessage/>
            < ListCart/>
-
         </div>
         <ResumeCart/>
       </div>
