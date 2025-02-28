@@ -1,5 +1,5 @@
 import ButtonPay from "../../cart/buttonsCart/ButtonPay";
-import ButtonBuy from "../buttonsCart/ButtonBuy";
+import ButtonBuy from "../../cart/buttonsCart/ButtonBuy";
 function ResumeCart() {
   return (
     <div className="d-flex flex-column align-items-end p-3" >

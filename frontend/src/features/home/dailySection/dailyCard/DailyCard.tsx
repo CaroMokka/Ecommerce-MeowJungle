@@ -7,7 +7,7 @@ function DailyCard() {
           <svg
             className="daily_box__svg"
             width="100%"
-            height="auto"
+            height="100%"
             viewBox="0 0 900 600"
             preserveAspectRatio="xMidYMid meet"
           >

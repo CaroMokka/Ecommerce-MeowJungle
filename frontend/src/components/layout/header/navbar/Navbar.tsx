@@ -5,17 +5,17 @@ function Navbar() {
   return (
     <nav className="container_nav">
       <section className="wrapper_nav">
-        <a href="#"><Link to="/" className="nav-link">Home</Link></a>
-        <a href="#">About</a>
-        <a href="#"><Link to="/products" className="nav-link">Products</Link></a>
+        <button><Link to="/" className="nav-link">Home</Link></button>
+        <button>About</button>
+        <button><Link to="/products" className="nav-link">Products</Link></button>
       </section>
       <section>
         <div className="wrapper_title">MEOW ** JUNGLE</div>
       </section>
       <section className="wrapper_icons">
-        <a href="#" className="icons-locations">
-          Our locations
-        </a>
+        <div  className="icons-locations">
+          <Link to="/cart">Our locations</Link>
+        </div>
         <Cart/>
       </section>
     </nav>

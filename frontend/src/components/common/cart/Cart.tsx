@@ -19,9 +19,9 @@ function Cart() {
           fill="black"
           xmlns="http://www.w3.org/2000/svg"
           stroke="black"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         >
           <path d="M6 6h15l-2 8H8"></path>
           <circle cx="9" cy="20" r="2"></circle>
@@ -51,8 +51,9 @@ function Cart() {
         <div className="offcanvas-body" style={{width:"60vh"}}>
             <EmptyCartMessage/>
            < ListCart/>
+           <ResumeCart/>
         </div>
-        <ResumeCart/>
+        
       </div>
     </>
   );

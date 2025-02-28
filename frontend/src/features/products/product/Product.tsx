@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./product.css";
 function product() {
   return (
@@ -11,7 +12,7 @@ function product() {
             bulk of the card's content.
           </p>
           <a href="#" className="btn btn-primary">
-            Add to cart
+            <Link to="/cart">Add to cart</Link>
           </a>
         </div>
       </div>
