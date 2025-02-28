@@ -1,4 +1,5 @@
-import ProductCart from "./productCart/ProductCart"
+import ListCart from "./listCart/ListCart"
+import ResumeCart from "./resumeCart/ResumeCart"
 function Cart() {
   return (
     <>
@@ -33,6 +34,7 @@ function Cart() {
         tabIndex={-1}
         id="offcanvasRight"
         aria-labelledby="offcanvasRightLabel"
+        style={{width: "60vh"}}
       >
         <div className="offcanvas-header">
           <h5 className="offcanvas-title" id="offcanvasRightLabel">
@@ -45,15 +47,17 @@ function Cart() {
             aria-label="Close"
           ></button>
         </div>
-        <div className="offcanvas-body">
+        <div className="offcanvas-body" style={{width:"60vh"}}>
             <p>
             ¡Tu carrito está vacío!
             </p>
             <p>
             Añade productos para comenzar.
             </p>
-            <ProductCart/>
+           < ListCart/>
+
         </div>
+        <ResumeCart/>
       </div>
     </>
   );
