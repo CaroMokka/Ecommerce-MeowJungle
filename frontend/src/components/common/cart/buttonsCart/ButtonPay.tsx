@@ -7,11 +7,11 @@ function ButtonPay() {
     <div>
       <button type="button" className="btn btn-outline-dark">
         <Link
-          to="/cart"
+          to="/checkout"
           style={{ textDecoration: "none", color: "#000" }}
           onClick={closeOffcanvas}
         >
-          Pagar
+          Continuar con la compra
         </Link>
       </button>
     </div>

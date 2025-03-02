@@ -14,7 +14,7 @@ function Navbar() {
       </section>
       <section className="wrapper_icons">
         <div  className="icons-locations">
-          <Link to="/cart">Our locations</Link>
+          <Link to="/checkout">Our locations</Link>
         </div>
         <Cart/>
       </section>

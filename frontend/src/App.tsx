@@ -3,8 +3,8 @@ import ScrollToTop from "./components/common/scrollToTop/ScrollToTop";
 import Home from "./pages/Home";
 import Products from "./pages/Products";
 import "./App.css";
-import CartView from "./pages/CartView";
-import Checkout from "./pages/Checkout";
+import Checkout from "./pages/checkout/Checkout";
+import Shipping from "./pages/checkout/Shipping";
 
 function App() {
   return (
@@ -14,8 +14,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<Products />} />
-          <Route path="/cart" element={<CartView />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/shipping" element={<Shipping />} />
         </Routes>
       </BrowserRouter>
   
