@@ -11,9 +11,9 @@ function product() {
             Some quick example text to build on the card title and make up the
             bulk of the card's content.
           </p>
-          <a href="#" className="btn btn-primary">
+          <div className="btn btn-primary">
             <Link to="/cart">Add to cart</Link>
-          </a>
+          </div>
         </div>
       </div>
     </div>
