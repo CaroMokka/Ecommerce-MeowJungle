@@ -1,4 +1,5 @@
 import Stripe from "../../components/layout/header/stripePromotion/Stripe"
+import ShippingForm from "../../features/checkout/formsCheckout/ShippingForm"
 import ResumeCheckout from "../../features/checkout/resumeCheckout/ResumeCheckout"
 function Shipping() {
   return (
@@ -7,7 +8,8 @@ function Shipping() {
 
     <div className="container-fluid d-flex">
       <div className="col-6 border border-black">
-        <h1>Información de entrega</h1>
+        <h2>Datos de entrega</h2>
+        <ShippingForm/>
         <h1>Modo de Pago</h1>
       </div>
       <div className="col-6 border border-black">
