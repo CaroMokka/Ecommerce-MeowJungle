@@ -8,7 +8,6 @@ function Shipping() {
 
     <div className="container-fluid d-flex">
       <div className="col-6 border border-black">
-        <h2>Datos de entrega</h2>
         <ShippingForm/>
         <h1>Modo de Pago</h1>
       </div>
@@ -16,7 +15,6 @@ function Shipping() {
         <ResumeCheckout/>
       </div>
     </div>
-    <div>Vitrina de productos relacionados</div>
   </section>
   )
 }
