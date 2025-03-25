@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import "./product.css";
+import "./Product.css";
 function product() {
   return (
     <div className="card-container">
