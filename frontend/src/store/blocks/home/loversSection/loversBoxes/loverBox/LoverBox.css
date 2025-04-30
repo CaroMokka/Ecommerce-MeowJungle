@@ -1,0 +1,12 @@
+.lover-box__content{
+    text-align: center;
+    border: 1px solid #f57302;
+    width: 30%;
+    padding: 15vh 5vh;
+}
+.lover-box__text{
+    margin-bottom: 2vh;
+    font-family: Outfit, sans-serif;
+    font-size: 1.2rem;
+    line-height: 120%;
+}

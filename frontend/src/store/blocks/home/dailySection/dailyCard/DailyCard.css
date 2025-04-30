@@ -1,0 +1,27 @@
+.daily_box{
+    max-width: 420px;
+    text-align: center;
+}
+/* .daily_box__image{
+    position: relative;
+}
+.daily_box__svg{
+position: absolute;
+} */
+.daily_box__title{
+    color: #f57302;
+    text-transform: uppercase;
+    margin-top: 0;
+    margin-bottom: 20px;
+    padding: 0 20px;
+    font-family: Paytone One, sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 100%;
+}
+.daily_box__text--content{
+    font-family: Outfit, sans-serif;
+    font-size: 1.2rem;
+    line-height: 120%;
+    padding: 0 65px;
+}

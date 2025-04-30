@@ -1,0 +1,41 @@
+.daily_content{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin: 0 5% 5% 5%;
+}
+.daily_content-title{
+    color: #f57302;
+    font-size: 4.6rem;
+    text-align: center;
+    font-family: "Paytone One", serif;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 3rem 2rem 1rem 2rem;
+    line-height: 100%;
+}
+.daily_content-text > p {
+    text-transform: uppercase;
+    font-family: "Outfit", serif;
+    text-align: center;
+    padding: 0 1rem 1rem 1rem;
+}
+.daily_content-btn{
+    color: #242940;
+    text-align: center;
+    text-transform: uppercase;
+    background-color: #3898ec00;
+    border: 2px solid #242940;
+    border-radius: 27px;
+    min-width: 215px;
+    max-width: 215px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    font-size: 1rem;
+    transition: background-color .5s;
+    cursor: pointer;
+}
+.daily_content-btn:hover {
+    background: white;
+    color: black;
+}

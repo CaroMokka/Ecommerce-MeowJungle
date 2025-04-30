@@ -1,0 +1,8 @@
+.grid-products{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5vh;
+    justify-content: center;
+    margin: 5vh 0;
+}
