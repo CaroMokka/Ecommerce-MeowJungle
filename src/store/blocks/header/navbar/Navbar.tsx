@@ -6,7 +6,7 @@ function Navbar() {
     <nav className="container_nav">
       <section className="wrapper_nav">
         <button><Link to="/" className="nav-link">Home</Link></button>
-        <button>About</button>
+        <button><Link to="/about" className="nav-link">About us</Link></button>
         <button><Link to="/products" className="nav-link">Products</Link></button>
       </section>
       <section>

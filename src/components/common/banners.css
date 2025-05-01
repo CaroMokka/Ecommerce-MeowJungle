@@ -1,0 +1,34 @@
+/* Styles 01 - banner about */
+.banner-about__content{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 5%;
+}
+.banner-about__title{
+    color: #f57302;
+    font-size: 7.5rem;
+    font-family: "Paytone One", serif;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 1rem 2rem;
+    line-height: 100%;
+}
+.banner-about__subtitle{
+    color: #242940;
+    font-size: 2rem;
+    font-weight: 400;
+    font-family: "Paytone One", serif;
+    text-align: center;
+    padding: 1rem 2rem;
+    line-height: 100%;
+}
+.banner-about__description{
+    color: #242940;
+    font-size: 1.2rem;
+    padding: 2rem;
+    margin: 0 5vw;
+    font-family: "Outfit", serif;
+}
