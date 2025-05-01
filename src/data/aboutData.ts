@@ -23,11 +23,44 @@ export const aboutBannerData = [
     title: "The Meow Jungle Eco Studio",
     subtitle: "",
     description:
-      "At the heart of Meow Jungle Eco is our carefully curated studio — a space where sustainability, intention, and sensory beauty come together. Every element of our creation process reflects our deep respect for nature and our commitment to ethical, conscious living. Our studio operates with eco-friendly practices at its core: from low-impact materials and mindful packaging to the use of natural light and sustainable energy sources. We collaborate with local artisans and source our plants, essences, and wellness items responsibly — always prioritizing organic, cruelty-free, and small-batch producers. The Meow Jungle Eco Studio is more than a workspace — it’s a sanctuary where the love for nature, relaxation, and soulful design flourishes. Every product we share carries the essence of that mission: to nourish your space, your spirit, and the planet.",
+      "At Meow Jungle Eco, our studio is a sanctuary where sustainability, mindful design, and a deep connection to nature come together. Each creation begins with intention — we use eco-conscious materials, natural light, and renewable energy, while partnering with local, ethical artisans. More than just a workspace, it’s a place where each piece is nurtured with care and purpose. Everything we share with you is made to nourish your home, your well-being, and the Earth.",
     image: "/img/studio-jungle.png",
     alt: "The Meow Jungle Eco Studio",
     cardFooter: "We’d love to connect — whether you're a fellow plant lover, a scent enthusiast, or simply seeking to bring more calm into your everyday life.",
     cardFooterBotton: "Get in touch with us",
+  },
+  {
+    id: 4,
+    title: "Meow Jungle Eco Founders",
+    subtitle: "",
+    description:
+      "Driven by a shared love for innovation and a deep connection to nature, we came together to bring Meow Jungle Eco to life — a project where creativity blossoms with purpose and every choice honors an ethical, conscious, and sustainable way of living.",
+    image: "",
+    alt: "",
+    cardFooter: "",
+    cardFooterBotton: "",
+  },
+  {
+    id: 5,
+    title: "It's Eco-Friendly",
+    subtitle: "",
+    description:
+      "At Meow Jungle Eco, we’re proud to offer eco-friendly products that bring nature into your home while respecting the planet. Our sustainable plants, biodegradable materials, and cruelty-free essentials allow you to enjoy a serene environment without compromise. Each product is thoughtfully crafted to help you create your own peaceful sanctuary, all while making a positive impact on the Earth. Choose MeoJungle for a greener, healthier lifestyle – where beauty meets sustainability.",
+    image: "",
+    alt: "Experience Eco-Friendly",
+    cardFooter: "",
+    cardFooterBotton: "",
+  },
+  {
+    id: 6,
+    title: "Our climate footprint",
+    subtitle: "",
+    description:
+      "At Meow Jungle Eco, we are committed to minimizing our climate footprint. From sourcing to production, every step of our process is designed with sustainability in mind. We use renewable energy, prioritize local and organic materials, and employ innovative technology to reduce water usage and waste. Whether it’s our plants, artwork, aromas, essences, soaps, or creams, we ensure that each product is created with the planet in mind.",
+    image: "/img/earth.png",
+    alt: "Our climate footprint",
+    cardFooter: "",
+    cardFooterBotton: "",
   },
 ];
 

@@ -8,7 +8,7 @@ type BannerProps = {
   alt?: string;
   cardFooter?: string;
   cardFooterButton?: string;
-  variant?: "default-row" | "default-col" | "centered" | "reverse" | "minimal";
+  variant?: "default-row" | "default-col" | "centered" | "reverse" | "minimal" | "reverse-col" | "reverse-vibrant";
 };
 function Banner({
   title,
