@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import useOffcanvas from "../../../../hooks/useOffCanvas";
+import useOffcanvas from "../../../../hooks/useOffcanvas";
 
 function ButtonBuy() {
   const { closeOffcanvas } = useOffcanvas();
