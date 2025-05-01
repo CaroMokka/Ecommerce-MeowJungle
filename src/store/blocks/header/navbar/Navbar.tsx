@@ -1,19 +1,19 @@
 import { Link } from "react-router-dom"
 import Cart from "../../minicart/Cart"
-import "./Navbar.css";
+import styles from "./navbar.module.scss";
 function Navbar() {
   return (
-    <nav className="container_nav">
-      <section className="wrapper_nav">
-        <button><Link to="/" className="nav-link">Home</Link></button>
-        <button>About</button>
-        <button><Link to="/products" className="nav-link">Products</Link></button>
+    <nav className={styles["navbar"]}>
+      <section className={styles["navbar__wrapper"]}>
+      <Link to="/" className={styles["navbar-link"]}>Home</Link>
+      <Link to="/about" className={styles["navbar-link"]}>About</Link>
+      <Link to="/products" className={styles["navbar-link"]}>Products</Link>
       </section>
       <section>
-        <div className="wrapper_title">MEOW ** JUNGLE</div>
+        <div className={styles["navbar-title"]}>MEOW * JUNGLE * ECO</div>
       </section>
-      <section className="wrapper_icons">
-        <div  className="icons-locations">
+      <section className={styles["navbar__icons"]}>
+        <div  className={styles["navbar__icons-locations"]}>
           <Link to="/checkout">Our locations</Link>
         </div>
         <Cart/>
