@@ -10,24 +10,17 @@ export const aboutBannerData = [
 
 export const aboutCardsData = [
   {
-    title: "Web Development",
+    title: "Our Mission",
     description:
-      "I specialize in building responsive and user-friendly web applications using modern technologies.",
+      "To create a boutique experience that fuses exotic botanicals, mindful aromatherapy, and intentional living — helping people cultivate beauty, relaxation, and grounded joy in their everyday life.",
     image: "https://example.com/web-development.jpg",
-    alt: "Web Development",
+    alt: "Our Mission",
   },
   {
-    title: "UI/UX Design",
+    title: "Our Vision",
     description:
-      "I have a keen eye for design and strive to create intuitive user interfaces that enhance the user experience.",
+      "A world where every home becomes a personal oasis — where nature, scent, and self-care meet to awaken the senses and restore balance.",
     image: "https://example.com/ui-ux-design.jpg",
-    alt: "UI/UX Design",
-  },
-  {
-    title: "JavaScript",
-    description:
-      "I am proficient in JavaScript and enjoy using it to create interactive web applications.",
-    image: "https://example.com/javascript.jpg",
-    alt: "JavaScript",
-  },
+    alt: "Our Vision",
+  }
 ];
