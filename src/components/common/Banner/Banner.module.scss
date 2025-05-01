@@ -1,0 +1,126 @@
+/* Styles 01 - banner about */
+.banner-about {
+    display: flex;
+    flex-direction: column; // default para móviles
+    align-items: center;
+    padding: 2rem;
+    text-align: center;
+
+    &--default-row {
+        flex-direction: row; // fila principal
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+        padding: 2rem;
+
+        .banner-about__image {
+            flex: 1;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .banner-about__content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+            gap: 1rem;
+
+            .banner-about__title {
+                color: #f57302;
+                font-size: 3.5rem;
+                font-family: "Paytone One", serif;
+                text-transform: uppercase;
+                text-align: left;
+                line-height: 100%;
+            }
+            .banner-about__description{
+                color: #242940;
+                font-size: 1.2rem;
+                font-family: "Outfit", serif;
+            }
+            .banner-about__btn-action{
+                width: 40%;
+                background-color: transparent;
+                border: 2px solid #f57302;
+                border-radius: 50px;
+                padding: .5rem 1rem;
+                color: #242940;
+                text-align: center;
+                text-transform: uppercase;
+                font-size: .8rem;
+                font-family: "Paytone One", serif;
+            }
+            .banner-about__btn-action:hover{
+                background-color: #f57302;
+                color: #fff;
+                transition: all 0.3s ease-in-out;
+            }
+        }
+    }
+
+    &--default-col {
+        border: 1px solid #f57302;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: row-reverse;
+        padding: 2rem;
+        text-align: center;
+    }
+
+    &--centered {
+        background-color: #f57302;
+    }
+
+    &--reverse {
+        flex-direction: column-reverse;
+    }
+
+    &--minimal {
+        background-color: #f57302;
+        padding: 2rem;
+        text-align: center;
+    }
+}
+
+.banner-about__img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.5rem;
+}
+
+/* .banner-about__content{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 5%;
+}
+.banner-about__title{
+    color: #f57302;
+    font-size: 7.5rem;
+    font-family: "Paytone One", serif;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 1rem 2rem;
+    line-height: 100%;
+}
+.banner-about__subtitle{
+    color: #242940;
+    font-size: 2rem;
+    font-weight: 400;
+    font-family: "Paytone One", serif;
+    text-align: center;
+    padding: 1rem 2rem;
+    line-height: 100%;
+}
+.banner-about__description{
+    color: #242940;
+    font-size: 1.2rem;
+    padding: 2rem;
+    margin: 0 5vw;
+    font-family: "Outfit", serif;
+} */
