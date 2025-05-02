@@ -1,6 +1,6 @@
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
-import GridProducts from "./products-list/gridProducts/GridProducts";
+import GridProducts from "./gridProducts/GridProducts";
 function Products() {
   return (
     <div>
