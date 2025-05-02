@@ -1,4 +1,4 @@
-import ProductSummary from "../product-summary/ProductSummary"
+import ProductSummary from "../../../../components/ui/product-summary/ProductSummary"
 import FilterProducts from "../filterProducts/FilterProducts"
 import "./GridProduct.css"
 function GridProducts() {
