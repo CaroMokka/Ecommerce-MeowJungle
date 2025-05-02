@@ -5,7 +5,7 @@ import Products from "./store/blocks/plp/ProductsList";
 import "./App.css";
 import Checkout from "./checkout/Checkout";
 import Shipping from "./checkout/Shipping";
-import About from "./pages/About";
+import About from "./pages/About-us";
 
 function App() {
   return (

@@ -5,3 +5,7 @@ declare global {
     bootstrap: any; // 👈 This tells TypeScript that "bootstrap" exists on window
   }
 }
+declare module "*.json" {
+  const value: any;
+  export default value;
+}
