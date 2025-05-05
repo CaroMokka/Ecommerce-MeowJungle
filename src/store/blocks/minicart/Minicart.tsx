@@ -1,7 +1,7 @@
 import ListCart from "./listCart/ListCart"
 import ResumeCart from "./resumeCart/ResumeCart"
 import EmptyCartMessage from "./emptyCartMessage/EmptyCartMessage"
-function Cart() {
+function Minicart() {
   return (
     <>
       <a
@@ -59,4 +59,4 @@ function Cart() {
   );
 }
 
-export default Cart;
+export default Minicart;

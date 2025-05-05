@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import Cart from "../../minicart/Cart"
+import Minicart from "../../minicart/minicart"
 import styles from "./navbar.module.scss";
 function Navbar() {
   return (
@@ -16,7 +16,7 @@ function Navbar() {
         <div  className={styles["navbar__icons-locations"]}>
           <Link to="/checkout">Our locations</Link>
         </div>
-        <Cart/>
+        <Minicart/>
       </section>
     </nav>
   );
