@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import Minicart from "../../minicart/minicart"
+import Minicart from "../../minicart/Minicart"
 import styles from "./navbar.module.scss";
 function Navbar() {
   return (

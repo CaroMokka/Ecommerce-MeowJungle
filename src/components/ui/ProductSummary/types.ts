@@ -6,3 +6,8 @@ export interface ProductSummaryProps {
     variant?: ProductSummaryVariant;
     onClick?: () => void;
 }
+export interface ProductInfoProps {
+    product: Product;
+    variant?: ProductSummaryVariant;
+    onClick?: () => void;
+}
