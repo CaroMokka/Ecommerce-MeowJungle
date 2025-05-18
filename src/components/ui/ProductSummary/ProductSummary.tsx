@@ -1,7 +1,7 @@
 // import { Link } from "react-router-dom";
 import ProductImage from "./ProductImage";
 import { ProductSummaryProps } from "./types";
-import styles from "./productSummary.module.scss";
+import styles from "./ProductSummary.module.scss";
 import ProductInfo from "./ProductInfo";
 
 
