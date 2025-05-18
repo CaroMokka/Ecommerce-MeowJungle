@@ -4,6 +4,7 @@ import { ProductSummaryProps } from "./types";
 import styles from "./productSummary.module.scss";
 import ProductInfo from "./ProductInfo";
 
+
 function ProductSummary({ product, variant, onClick }: ProductSummaryProps) {
   const isLink = variant === "pdp" || variant === "shelf";
   return (
@@ -18,6 +19,7 @@ function ProductSummary({ product, variant, onClick }: ProductSummaryProps) {
           alt={product.alt}
           linkTo={isLink ? `/product/${product.id}` : undefined}
         />
+        
         <ProductInfo product={product} variant={variant} onClick={onClick} />
       </div>
     </div>
