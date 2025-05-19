@@ -31,12 +31,12 @@ export const cartReducer = (
       };
     }
     case "CHANGE_QUANTITY": {
-        const idCartItem = Number(action.payload);
+        const {id, quantity} = action.payload;
       return {
         ...state,
         cart: state.cart.map((item) =>
-          item.id === idCartItem
-            ? { ...item, quantity: action.payload.quantity }
+          item.id === Number(id)
+            ? { ...item, quantity }
             : item
         ),
       };

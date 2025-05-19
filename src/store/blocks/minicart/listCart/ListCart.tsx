@@ -1,9 +1,12 @@
+import { CartItem } from "../../../../api/cart/cartTypes";
 import ProductSummary from "../../../../components/ui/ProductSummary/ProductSummary";
-import useCart from "../../../../api/cart/useCart"
 
-function ListCart() {
-  const { state } = useCart();
-  const { cart } = state;
+
+type ListCartProps = {
+  cart: CartItem[];
+}
+function ListCart({ cart }: ListCartProps) {
+
 
 
   return (

@@ -2,17 +2,18 @@ import TagList from "./TagList";
 import BuyButton from "./BuyButton";
 import ProductPrice from "./ProductPrice";
 import ProductQuantity from "./ProductQuantity";
-import useProductCart  from "../../../hooks/useProductCart";
 import styles from "./productSummary.module.scss";
 import { ProductInfoProps } from "./types";
-
+import useCart from "../../../api/cart/useCart";
 
 function ProductInfo({ product, variant }: ProductInfoProps) {
-  const { quantity, subTotal, changeQuantity} = useProductCart(product.price ?? 0, 1);
+  const { state } = useCart();
+  const { cart } = state;
 
+  const productInCart = cart.find((item) => item.id === product.id);
+  const quantity = productInCart?.quantity ?? 1;
+  const subTotal = (product.price ?? 0) * quantity;
 
-
-  
   return (
     <div className={styles["product-summary__col-right"]}>
       <div className={styles["product-summary__content"]}>
@@ -31,20 +32,14 @@ function ProductInfo({ product, variant }: ProductInfoProps) {
         <ProductPrice unitPrice={product.price} />
 
         {(variant === "pdp" || variant === "shelf") && (
-         <BuyButton product={product} />
+          <BuyButton product={product} />
         )}
         {variant === "minicart" && (
           <>
-          <ProductQuantity
-            quantity={quantity ?? 1}
-            onChange={changeQuantity}
-          />
-          {
-            quantity > 1 && (<ProductPrice subTotalPrice={subTotal} />)
-          }
+            <ProductQuantity quantity={quantity ?? 1} productId={product.id} />
+            {quantity > 1 && <ProductPrice subTotalPrice={subTotal} />}
           </>
-          
-)}
+        )}
       </div>
     </div>
   );

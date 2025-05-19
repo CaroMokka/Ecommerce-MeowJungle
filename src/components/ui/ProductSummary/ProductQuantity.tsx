@@ -1,20 +1,26 @@
 import { useState, useEffect } from "react";
 import styles from "./productSummary.module.scss";
+import useCart from "../../../api/cart/useCart";
 
 type Props = {
   quantity?: number;
-  onChange?: (newQty: number) => void;
+  productId: string | number;
 }
-function ProductQuantity({ quantity = 1,onChange }: Props) {
+function ProductQuantity({ quantity = 1, productId }: Props) {
     const [localQty, setLocalQty] = useState<number>(quantity);
+    const { dispatch } = useCart()
 
     useEffect(() => {
         setLocalQty(quantity);
     }, [quantity]);
     const handleQuantityChange = (newQuantity: number) => {
         if(newQuantity < 1) return;
+        dispatch({
+          type: "CHANGE_QUANTITY",
+          payload: { id: productId, quantity: newQuantity }
+        })
         setLocalQty(newQuantity);
-        onChange?.(newQuantity); 
+        // onChange?.(newQuantity); 
     } 
   return (
     <div className={styles["product-summary__quantity"]}>

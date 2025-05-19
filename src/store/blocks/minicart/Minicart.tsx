@@ -1,7 +1,15 @@
 import ListCart from "./listCart/ListCart"
 import ResumeCart from "./resumeCart/ResumeCart"
 import EmptyCartMessage from "./emptyCartMessage/EmptyCartMessage"
+import useCart from "../../../api/cart/useCart";
 function Minicart() {
+  const { state } = useCart();
+  const { cart } = state;
+ 
+
+  const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
+  const totalAmount = cart.reduce((acc, item)=> acc + item.quantity * (item.price ?? 0), 0)
+
   return (
     <>
       <a
@@ -49,9 +57,19 @@ function Minicart() {
           ></button>
         </div>
         <div className="offcanvas-body" style={{width:"60vh"}}>
-            <EmptyCartMessage/>
-           < ListCart/>
-           <ResumeCart/>
+          {
+            cart.length === 0 ? (
+              <EmptyCartMessage/>
+            ) :
+            (
+              <>
+              < ListCart cart={cart}/>
+              <ResumeCart totalItems={totalItems} totalAmount={totalAmount} />
+              </>
+            )
+          }
+           
+          
         </div>
         
       </div>
