@@ -11,3 +11,7 @@ export interface ProductInfoProps {
     variant?: ProductSummaryVariant;
     onClick?: () => void;
 }
+export interface MinicartItemProps {
+    product: Product;
+    onClick?: () => void;
+}

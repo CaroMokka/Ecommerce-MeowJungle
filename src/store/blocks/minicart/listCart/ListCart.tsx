@@ -1,13 +1,24 @@
-import ProductSummary from "../../../../components/ui/ProductSummary/ProductSummary"
-import { products } from "../../../../data/productSummaryData"
-//import ProductCart from "../productCart/ProductCart"
-// import ProductSummary from "../../../../components/ui/product-summary/ProductSummary"
+import ProductSummary from "../../../../components/ui/ProductSummary/ProductSummary";
+import useCart from "../../../../api/cart/useCart"
+
 function ListCart() {
+  const { state } = useCart();
+  const { cart } = state;
+
+
   return (
     <div>
-      <ProductSummary product={products[0]} variant="minicart"/>
+      {cart.map((item) => {
+        return (
+          <ProductSummary
+            key={item.id}
+            product={item}
+            variant="minicart"
+          />
+        );
+      })}
     </div>
-  )
+  );
 }
 
-export default ListCart
+export default ListCart;
