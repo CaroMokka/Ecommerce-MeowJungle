@@ -7,7 +7,7 @@ import styles from "./productSummary.module.scss";
 import { ProductInfoProps } from "./types";
 
 
-function ProductInfo({ product, variant, onClick }: ProductInfoProps) {
+function ProductInfo({ product, variant }: ProductInfoProps) {
   const { quantity, subTotal, changeQuantity} = useProductCart(product.price ?? 0, 1);
 
 
@@ -31,7 +31,7 @@ function ProductInfo({ product, variant, onClick }: ProductInfoProps) {
         <ProductPrice unitPrice={product.price} />
 
         {(variant === "pdp" || variant === "shelf") && (
-          <BuyButton to="/cart" onClick={onClick} />
+         <BuyButton product={product} />
         )}
         {variant === "minicart" && (
           <>
