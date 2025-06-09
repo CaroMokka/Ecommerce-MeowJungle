@@ -1,50 +1,54 @@
-# React + TypeScript + Vite
+# 🐒 Co-Jungle – Ecommerce
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+Bienvenida/o a **Co-Jungle**, somos una boutique creada por y para amantes de la belleza, la naturaleza y la vida lenta. Este proyecto fullstack fue desarrollado como un MVP (Producto Mínimo Viable) con el objetivo de ofrecer una experiencia de compra fluida, moderna y atractiva, integrando funcionalidades clave como catálogo, carrito, autenticación, dashboard admin y pasarela de pagos.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 🌱 Tabla de contenidos
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- [🚀 Demo](#-demo)
+- [🛠️ Stack Tecnológico](#-stack-tecnológico)
+- [📦 Estructura del Proyecto](#-estructura-del-proyecto)
+- [🧠 Funcionalidades](#-funcionalidades)
+- [📲 Cómo ejecutar el proyecto](#-cómo-ejecutar-el-proyecto)
+- [📤 Despliegue](#-despliegue)
+- [🧪 Testing](#-testing)
+- [👥 Equipo](#-equipo)
+- [📌 Estado actual](#-estado-actual)
 
-- Configure the top-level `parserOptions` property like this:
+---
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## 🚀 Demo
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+🔗 [Ver demo en producción (deploy frontend)](https://co-jungle.vercel.app) ( 🛠️ En construcción... )
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+🔗 [Ver demo API REST (backend)]()
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+---
+
+## 🛠️ Stack Tecnológico
+
+### Frontend:
+- [React](https://reactjs.org/)
+- [Vite](https://vitejs.dev/)
+- [Bootstrap](https://getbootstrap.com/)
+- [React Router](https://reactrouter.com/)
+- [Context API / Zustand] para manejo de estado global
+- [JWT](https://jwt.io/) para autenticación
+
+### Backend:
+- [Node.js](https://nodejs.org/)
+- [Express](https://expressjs.com/)
+- [Sequelize ORM](https://sequelize.org/)
+- [PostgreSQL](https://www.postgresql.org/)
+- [JWT](https://jwt.io/) y middleware de autenticación
+- [bcryptjs](https://www.npmjs.com/package/bcryptjs) para hashing de contraseñas
+
+### Infraestructura:
+- Frontend en [Vercel](https://vercel.com/)
+- Backend en [Render / Railway](https://render.com/)
+- Base de datos en [Supabase / Neon](https://neon.tech/)
+
+---
+
