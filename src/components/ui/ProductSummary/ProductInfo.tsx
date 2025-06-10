@@ -2,6 +2,7 @@ import TagList from "./TagList";
 import BuyButton from "./BuyButton";
 import ProductPrice from "./ProductPrice";
 import ProductQuantity from "./ProductQuantity";
+import DeleteButton from "./DeleteButton"
 import styles from "./productSummary.module.scss";
 import { ProductInfoProps } from "./types";
 import useCart from "../../../api/cart/useCart";
@@ -38,6 +39,9 @@ function ProductInfo({ product, variant }: ProductInfoProps) {
           <>
             <ProductQuantity quantity={quantity ?? 1} productId={product.id} />
             {quantity > 1 && <ProductPrice subTotalPrice={subTotal} />}
+            <DeleteButton
+              product={product}
+            />
           </>
         )}
       </div>
