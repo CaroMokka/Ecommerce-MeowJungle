@@ -1,4 +1,4 @@
-import { CartItem } from "../../../../api/cart/cartTypes";
+import { CartItem } from "../../../../context/cart/cartTypes";
 import ProductSummary from "../../../../components/ui/ProductSummary/ProductSummary";
 
 

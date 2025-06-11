@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ScrollToTop from "./components/common/scrollToTop/ScrollToTop";
-import { CartProvider } from "./api/cart/cartContext";
+import { CartProvider } from "./context/cart/cartContext";
 import Home from "./store/blocks/home/Home";
 import Products from "./store/blocks/plp/ProductsList";
 import ProductPage from "./pages/ProductPage"

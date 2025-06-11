@@ -1,5 +1,5 @@
 import styles from "./productSummary.module.scss";
-import useCart from "../../../api/cart/useCart";
+import useCart from "../../../context/cart/useCart";
 import { ProductInfoProps } from "../../../components/ui/ProductSummary/types"
 
 type BuyButtonProps = {

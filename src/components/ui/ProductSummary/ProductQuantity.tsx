@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import styles from "./productSummary.module.scss";
-import useCart from "../../../api/cart/useCart";
+import useCart from "../../../context/cart/useCart";
 
 type Props = {
   quantity?: number;

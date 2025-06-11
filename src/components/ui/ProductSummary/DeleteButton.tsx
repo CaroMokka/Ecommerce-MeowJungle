@@ -1,4 +1,4 @@
-import useCart  from "../../../api/cart/useCart";
+import useCart  from "../../../context/cart/useCart";
 import { ProductInfoProps } from "./types";
 
 type DeleteButtonProps = {

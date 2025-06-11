@@ -1,7 +1,7 @@
 import ListCart from "./listCart/ListCart"
 import ResumeCart from "./resumeCart/ResumeCart"
 import EmptyCartMessage from "./emptyCartMessage/EmptyCartMessage"
-import useCart from "../../../api/cart/useCart";
+import useCart from "../../../context/cart/useCart";
 function Minicart() {
   const { state } = useCart();
   const { cart } = state;

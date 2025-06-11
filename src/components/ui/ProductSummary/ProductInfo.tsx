@@ -5,7 +5,7 @@ import ProductQuantity from "./ProductQuantity";
 import DeleteButton from "./DeleteButton"
 import styles from "./productSummary.module.scss";
 import { ProductInfoProps } from "./types";
-import useCart from "../../../api/cart/useCart";
+import useCart from "../../../context/cart/useCart";
 
 function ProductInfo({ product, variant }: ProductInfoProps) {
   const { state } = useCart();
