@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Product } from "../../../types/Product";
+import { useProductFilter } from "../../../context/filterProducts/useFilterProduct"
 
 interface ProductFilterProps {
   products: Product[];
@@ -10,29 +11,29 @@ function ProductFilter({ products }: ProductFilterProps) {
   const [department, setDepartment] = useState("");
   const [category, setCategory] = useState("");
 
-  const departments = Array.from(
-    new Set(products.map((product) => product.department).filter(Boolean))
-  );
+  const { setProducts, setFilteredProducts } = useProductFilter();
+
+  useEffect(() => {
+    setProducts(products);
+  }, [products, setProducts]);
+
+  useEffect(() => {
+    const filtered = products.filter((product) => {
+      const matchName = product.name?.toLowerCase().includes(searchName.toLowerCase());
+      const matchDepartment = department ? product.department === department : true;
+      const matchCategory = category ? product.category === category : true;
+
+      return matchName && matchDepartment && matchCategory;
+    });
+
+    setFilteredProducts(filtered);
+}, [searchName, department, category, products, setFilteredProducts]);
+
+const departments = Array.from(new Set(products.map((p) => p.department).filter(Boolean)));
   const categories = Array.from(
-    new Set(
-        products
-          .filter((product) => !department || product.department === department)
-          .map((product) => product.category)
-          .filter(Boolean)
-      )
-  );
+    new Set(products.filter((p) => !department || p.department === department).map((p) => p.category).filter(Boolean))
+  ); 
 
-  const filteredProducts = products.filter((product) => {
-    const matchName = product.name
-      ?.toLowerCase()
-      .includes(searchName.toLowerCase());
-    const matchDepartment = department
-      ? product.department === department
-      : true;
-    const matchCategory = category ? product.category === category : true;
-
-    return matchName && matchDepartment && matchCategory;
-  });
 
   return (
     <div>
@@ -41,6 +42,7 @@ function ProductFilter({ products }: ProductFilterProps) {
         placeholder="Buscar producto..."
         value={searchName}
         onChange={(e) => setSearchName(e.target.value)}
+        onBlur={() => setSearchName("")}
       />
       <select
         value={department}
@@ -64,11 +66,6 @@ function ProductFilter({ products }: ProductFilterProps) {
           </option>
         ))}
       </select>
-      <ul>
-        {filteredProducts.map((product) => (
-          <li key={product.id}>{product.name}</li>
-        ))}
-      </ul>
     </div>
   );
 }

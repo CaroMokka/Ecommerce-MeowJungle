@@ -2,6 +2,7 @@ import Header from "../header/Header";
 import Footer from "../footer/Footer";
 import GridProducts from "./gridProducts/GridProducts";
 import ProductFilter from "../../../components/ui/ProductFilter/ProductFilter";
+import { ProductFilterProvider } from "../../../context/filterProducts/filterProductProvider";
 import { products } from "../../../data/productSummaryData";
 
 function ProductsList() {
@@ -10,8 +11,11 @@ function ProductsList() {
       <Header />
       <div className="global-page__wrapper">
         <div className="products-list__wrapper d-flex">
+        
+        <ProductFilterProvider>
         <ProductFilter products={products} />
-        <GridProducts />
+          <GridProducts />
+        </ProductFilterProvider>
         </div>
       </div>
       <Footer />
