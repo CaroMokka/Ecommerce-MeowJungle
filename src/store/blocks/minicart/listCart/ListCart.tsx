@@ -6,9 +6,6 @@ type ListCartProps = {
   cart: CartItem[];
 }
 function ListCart({ cart }: ListCartProps) {
-
-
-
   return (
     <div>
       {cart.map((item) => {

@@ -1,33 +1,23 @@
-import ProductCart from "../../store/blocks/minicart/productCart/ProductCart"
+import ProductSummary from "../../components/ui/ProductSummary/ProductSummary";
+import { CartItem } from "../../context/cart/cartTypes";
 
-function ProductsListCheckout() {
+type ProductsListCheckoutProps = {
+  cart: CartItem[];
+}
+
+function ProductsListCheckout({ cart }: ProductsListCheckoutProps) {
+
   return (
-    <div className="accordion" id="accordionExample">
-      <div className="accordion-item">
-        <h2 className="accordion-header">
-          <button
-            className="accordion-button"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#collapseOne"
-            aria-expanded="true"
-            aria-controls="collapseOne"
-          >
-            Productos
-          </button>
-        </h2>
-        <div
-          id="collapseOne"
-          className="accordion-collapse collapse show"
-          data-bs-parent="#accordionExample"
-        >
-          <div className="accordion-body">
-            <ProductCart/>
-            <ProductCart/>
-            <ProductCart/>
-          </div>
-        </div>
-      </div>
+    <div>
+      {cart.map((item) => {
+        return (
+          <ProductSummary
+            key={item.id}
+            product={item}
+            variant="minicart"
+          />
+        );
+      })}
     </div>
   );
 }
