@@ -1,7 +1,6 @@
 import CheckoutLayout from "./checkoutLayout/CheckoutLayout";
-
-function Shipping() {
+function Cart() {
   return <CheckoutLayout />;
 }
 
-export default Shipping;
+export default Cart;

@@ -14,7 +14,7 @@ function Navbar() {
       </section>
       <section className={styles["navbar__icons"]}>
         <div  className={styles["navbar__icons-locations"]}>
-          <Link to="/checkout">Our locations</Link>
+          <Link to="/">Our locations</Link>
         </div>
         <Minicart/>
       </section>

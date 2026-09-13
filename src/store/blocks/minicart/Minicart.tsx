@@ -1,5 +1,5 @@
 import ListCart from "./listCart/ListCart"
-import ResumeCart from "./resumeCart/ResumeCart"
+import CartSummary from "./cartSummary/CartSummary"
 import EmptyCartMessage from "./emptyCartMessage/EmptyCartMessage"
 import useCart from "../../../context/cart/useCart";
 function Minicart() {
@@ -64,7 +64,7 @@ function Minicart() {
             (
               <>
               < ListCart cart={cart}/>
-              <ResumeCart totalItems={totalItems} totalAmount={totalAmount} />
+              <CartSummary totalItems={totalItems} totalAmount={totalAmount} />
               </>
             )
           }

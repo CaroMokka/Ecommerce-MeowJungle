@@ -5,7 +5,7 @@ type ResumeCartProps = {
   totalItems: number;
   totalAmount: number;
 }
-function ResumeCart({ totalItems, totalAmount }: ResumeCartProps) {
+function CartSummary({ totalItems, totalAmount }: ResumeCartProps) {
   return (
     <div className="d-flex flex-column align-items-end p-3" >
       <ul className="list-group list-group-flush">
@@ -35,4 +35,4 @@ function ResumeCart({ totalItems, totalAmount }: ResumeCartProps) {
   );
 }
 
-export default ResumeCart;
+export default CartSummary;
