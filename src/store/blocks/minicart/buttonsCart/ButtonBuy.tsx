@@ -7,7 +7,7 @@ function ButtonBuy() {
     <div>
       <button type="button" className="btn btn-outline-dark">
         <Link
-          to="/"
+          to="/products"
           style={{ textDecoration: "none", color: "#000" }}
           onClick={closeOffcanvas}
         >
