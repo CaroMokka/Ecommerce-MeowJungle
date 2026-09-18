@@ -4,7 +4,7 @@ import BuyButton from "./BuyButton";
 
 const mockDispatch = jest.fn();
 
-jest.mock("../../../api/cart/useCart", () => ({
+jest.mock("../../../context/cart/useCart", () => ({
   __esModule: true,
   default: () => ({
     dispatch: mockDispatch,
