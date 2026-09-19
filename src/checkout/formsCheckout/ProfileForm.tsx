@@ -20,7 +20,7 @@ export const ProfileForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} style={{ maxWidth: "400px" }}>
+    <form onSubmit={(event) => void handleSubmit(onSubmit)(event)} style={{ maxWidth: "400px" }}>
         {/* nombre */}
         <div>
         <label>Nombre:</label><br/>

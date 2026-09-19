@@ -32,9 +32,9 @@ function DailyCard() {
         </div>
         <div className="daily_box__text--content">
           <p>
-            "A luxurious blend of exotic vanilla entwined with the earthy warmth
+            &quot;A luxurious blend of exotic vanilla entwined with the earthy warmth
             of cinnamon, enriched with botanical essences to create a soothing
-            and immersive jungle-inspired aroma." 🌿✨
+            and immersive jungle-inspired aroma.&quot; 🌿✨
           </p>
         </div>
       </section>

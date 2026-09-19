@@ -9,7 +9,7 @@ function DailySection() {
         <div className="daily_content-text">
           <p>
             Meow Jungle is packed with natural botanical extracts, infused with
-            essential oils, and rich in nourishing ingredients. It's perfect for
+            essential oils, and rich in nourishing ingredients. It&apos;s perfect for
             everyone seeking a moment of relaxation and self-care.
           </p>
         </div>
