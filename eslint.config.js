@@ -6,7 +6,7 @@ import tseslint from 'typescript-eslint'
 import react from 'eslint-plugin-react'
 
 export default tseslint.config(
-  { ignores: ['dist'] },
+  { ignores: ['dist', 'coverage', 'public', '**/.DS_Store'] },
   {
     extends: [js.configs.recommended, ...tseslint.configs.recommendedTypeChecked
     ],//tseslint.configs.recommended
@@ -15,7 +15,7 @@ export default tseslint.config(
       ecmaVersion: 2020,
       globals: globals.browser,
       parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        project: ['./tsconfig.json', './tsconfig.node.json'],
         tsconfigRootDir: import.meta.dirname,
       },
     },
