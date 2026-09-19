@@ -18,7 +18,7 @@ export default function ShippingForm() {
   return (
     <div className="container mt-4">
       <h4 className="mb-3">Datos de Envío</h4>
-      <form onSubmit={handleSubmit(onSubmit)} className="border p-4 rounded">
+      <form onSubmit={(event) => void handleSubmit(onSubmit)(event)} className="border p-4 rounded">
         
         {/* Nombre Completo */}
         <div className="mb-3">

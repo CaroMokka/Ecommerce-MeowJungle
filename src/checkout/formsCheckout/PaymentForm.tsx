@@ -24,7 +24,7 @@ export function PaymentMethodForm() {
   const selectedMethod = watch("paymentMethod");
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+    <form onSubmit={(event) => void handleSubmit(onSubmit)(event)} className="space-y-4">
       <h2 className="text-xl font-bold">Selecciona un método de pago</h2>
 
       <label className="flex items-center gap-2">
