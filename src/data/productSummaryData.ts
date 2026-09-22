@@ -366,7 +366,7 @@ export const products = [
     brand: "Meow Jungle Eco",
     description:
       "Este aceite esencial 100% puro es extraído de hojas de eucalipto cuidadosamente seleccionadas. Conocido por su capacidad para descongestionar y revitalizar, es ideal para difusores o masajes diluidos.",
-    image: "/img/aceite-eucalipto.webp",
+    image: "/img/oils_jungle.webp",
     alt: "Aceite esencial puro",
     price: 24.99,
     rating: 4.6,
