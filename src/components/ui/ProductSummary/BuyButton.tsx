@@ -17,7 +17,7 @@ function BuyButton({ product }: BuyButtonProps) {
             onClick={handleAddToCart}
             className={styles["product-summary__buy-button"]}
         >
-            Add to cart
+            Añadir al carrito
         </button>
     )
 }

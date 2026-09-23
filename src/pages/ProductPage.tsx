@@ -8,7 +8,7 @@ function ProductPage() {
   const { productId } = useParams<{ productId: string }>();
   const product = products.find((product) => product.id === Number(productId));
   if (!product) {
-    return <h1>Product not found</h1>;
+    return <h1>Producto no encontrado</h1>;
   }
   return (
     <>

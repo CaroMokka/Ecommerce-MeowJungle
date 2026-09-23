@@ -13,7 +13,6 @@ export const aboutBannerData = [
     subtitle: "",
     description:
       "Our creations are crafted with care and intention — from aromatic blends and exotic plants to mindful lifestyle pieces. Each item is designed to bring harmony, beauty, and presence into your daily life, while honoring the Earth and promoting cruelty-free, sustainable living.",
-    image: "https://example.com/about-banner.jpg",
     alt: "Learn about Meow Jungle Eco",
     cardFooter: "We’d love to help you bring the Meow Jungle experience into your home.",
     cardFooterBotton: "Feeling inspired? Contact us",
@@ -45,7 +44,7 @@ export const aboutBannerData = [
     title: "It's Eco-Friendly",
     subtitle: "",
     description:
-      "At Meow Jungle Eco, we’re proud to offer eco-friendly products that bring nature into your home while respecting the planet. Our sustainable plants, biodegradable materials, and cruelty-free essentials allow you to enjoy a serene environment without compromise. Each product is thoughtfully crafted to help you create your own peaceful sanctuary, all while making a positive impact on the Earth. Choose MeoJungle for a greener, healthier lifestyle – where beauty meets sustainability.",
+      "At Meow Jungle Eco, we’re proud to offer eco-friendly products that bring nature into your home while respecting the planet. Our sustainable plants, biodegradable materials, and cruelty-free essentials allow you to enjoy a serene environment without compromise. Each product is thoughtfully crafted to help you create your own peaceful sanctuary, all while making a positive impact on the Earth. Choose Meow Jungle for a greener, healthier lifestyle – where beauty meets sustainability.",
     image: "",
     alt: "Experience Eco-Friendly",
     cardFooter: "",
@@ -70,7 +69,6 @@ export const infoCardAbout = [
     titleInfoCard: "Our Vision",
     descriptionInfocard:
       "We envision a world where every home becomes a personal jungle — a living, breathing space of beauty, calm, and connection. A place where nature meets soul, and daily life becomes a celebration of the present moment. We want to inspire mindful living through rituals, scents, and greenery that ground you in joy.",
-    imageInfoCard: "https://example.com/ui-ux-design.jpg",
     altInfoCard: "Our Vision",
   },
   {
@@ -78,7 +76,6 @@ export const infoCardAbout = [
     titleInfoCard: "Our Mission",
     descriptionInfocard:
       "At Meow Jungle, our mission is to create more than a boutique — we cultivate an experience. Through exotic plants, soulful aromas, and thoughtfully chosen wellness items, we invite you to slow down and reconnect with the beauty of the present moment. Our purpose is to transform everyday spaces into sanctuaries of peace, sensuality, and joy — helping you nurture not only your home, but your inner jungle too.",
-    imageInfoCard: "https://example.com/web-development.jpg",
     altInfoCard: "Our Mission",
   },
   {
@@ -86,7 +83,6 @@ export const infoCardAbout = [
     titleInfoCard: "Our Values",
     descriptionInfocard:
       "At Meow Jungle, our values are rooted in the beauty of slow living and the power of presence. We believe in honoring life’s natural rhythms, where every plant and aroma becomes a gentle guide back to our senses and inner peace. Each product we curate is chosen with intention — to elevate mood, space, and spirit. Our commitment to sustainability flows through eco-conscious practices, from minimal packaging to ethical sourcing. For us, true wellness is found in simplicity — in a scent, a leaf, a quiet moment of stillness.",
-    imageInfoCard: "https://example.com/ui-ux-design.jpg",
     altInfoCard: "Our Values",
   },
 ];
