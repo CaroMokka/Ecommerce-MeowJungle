@@ -3,11 +3,10 @@ function LoverBox() {
   return (
     <div className="lover-box__content">
       <p className='lover-box__text'>
-        “My whole family loves Yogo so much! Wow, I had high hopes given the
-        environmental benefits compared to industrial dairy, and was still blown
-        away. Love it!”
+        “Meow Jungle es más que una boutique: cultivamos una experiencia que te
+        invita a reconectar con la belleza del momento presente.”
       </p>
-      <p className='lover-box__text'>- Karah J.</p>
+      <p className='lover-box__text'>- Meow Jungle</p>
     </div>
   );
 }

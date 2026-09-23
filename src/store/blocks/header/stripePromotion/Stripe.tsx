@@ -5,7 +5,7 @@ function Stripe() {
     <>
       <section className="container_stripe">
         <div className='stripe-message' >
-        Craving Relaxation? Get Your FREE Soap & Aromatherapy Sample Today!
+        ¿Buscas relajación? ¡Recibe hoy gratis tu muestra de jabón y aromaterapia!
         </div>
       </section>
     </>

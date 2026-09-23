@@ -5,8 +5,8 @@ function DailyBoxSpecial() {
     <section className="daily-box-special">
       <h1 className="daily-box-special__title">Gentle Zest</h1>
       <p className="daily-box-special__content">
-        &quot;Citrus is usually intense, but this freshness is pure gentleness. A
-        touch of mandarin, crafted to care for even the most sensitive skin.&quot;
+        &quot;Lo cítrico suele ser intenso, pero esta frescura es pura suavidad.
+        Una pizca de mandarina, creada para cuidar incluso la piel más sensible.&quot;
       </p>
     </section>
   );

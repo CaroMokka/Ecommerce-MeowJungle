@@ -28,13 +28,13 @@ function DailyCard() {
           </svg>
         </div>
         <div>
-          <h1 className="daily_box__title">Vanilla & Cinnamon Ritual</h1>
+          <h1 className="daily_box__title">Ritual de Vainilla y Canela</h1>
         </div>
         <div className="daily_box__text--content">
           <p>
-            &quot;A luxurious blend of exotic vanilla entwined with the earthy warmth
-            of cinnamon, enriched with botanical essences to create a soothing
-            and immersive jungle-inspired aroma.&quot; 🌿✨
+            &quot;Una mezcla lujosa de vainilla exótica entrelazada con la calidez
+            terrosa de la canela, enriquecida con esencias botánicas para crear un
+            aroma relajante e inmersivo inspirado en la jungla.&quot; 🌿✨
           </p>
         </div>
       </section>

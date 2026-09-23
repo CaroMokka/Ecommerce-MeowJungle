@@ -1,7 +1,7 @@
-# 🐒 Co-Jungle – Ecommerce
+# 🐾 Meow Jungle – Ecommerce
 
 
-Bienvenida/o a **Co-Jungle**, somos una boutique creada por y para amantes de la belleza, la naturaleza y la vida lenta. Este proyecto fullstack fue desarrollado como un MVP (Producto Mínimo Viable) con el objetivo de ofrecer una experiencia de compra fluida, moderna y atractiva, integrando funcionalidades clave como catálogo, carrito, autenticación, dashboard admin y pasarela de pagos.
+Bienvenida/o a **Meow Jungle**, somos una boutique creada por y para amantes de la belleza, la naturaleza y la vida lenta. Este proyecto se desarrolla como un MVP (Producto Mínimo Viable) de ecommerce en el frontend, con catálogo y carrito funcionales. La autenticación, el dashboard admin y la pasarela de pagos están planificados como roadmap (ver la sección 🔭 Roadmap).
 
 ---
 
@@ -23,7 +23,7 @@ Bienvenida/o a **Co-Jungle**, somos una boutique creada por y para amantes de la
 
 🔗 [Ver demo en producción (deploy frontend)](https://co-jungle.vercel.app) ( 🛠️ En construcción... )
 
-🔗 [Ver demo API REST (backend)]()
+🔗 [Ver demo API REST (backend)]() — pendiente, en roadmap
 
 ---
 
@@ -34,10 +34,12 @@ Bienvenida/o a **Co-Jungle**, somos una boutique creada por y para amantes de la
 - [Vite](https://vitejs.dev/)
 - [Bootstrap](https://getbootstrap.com/)
 - [React Router](https://reactrouter.com/)
-- [Context API / Zustand] para manejo de estado global
-- [JWT](https://jwt.io/) para autenticación
+- [Context API] para manejo de estado global (carrito en `src/context/cart`)
+- TypeScript
+- [Jest](https://jestjs.io/) + Testing Library
+- GitHub Actions (CI: lint, test y build)
 
-### Backend:
+### Backend (en roadmap):
 - [Node.js](https://nodejs.org/)
 - [Express](https://expressjs.com/)
 - [Sequelize ORM](https://sequelize.org/)
@@ -47,8 +49,16 @@ Bienvenida/o a **Co-Jungle**, somos una boutique creada por y para amantes de la
 
 ### Infraestructura:
 - Frontend en [Vercel](https://vercel.com/)
-- Backend en [Render / Railway](https://render.com/)
-- Base de datos en [Supabase / Neon](https://neon.tech/)
+- Backend en [Render / Railway](https://render.com/) (en roadmap)
+- Base de datos en [Supabase / Neon](https://neon.tech/) (en roadmap)
+
+---
+
+## 🔭 Roadmap
+
+- Autenticación de usuarios (JWT), dashboard admin y pasarela de pagos
+- Backend y base de datos (API REST)
+- Catálogo dinámico servido desde el backend
 
 ---
 

@@ -7,9 +7,10 @@ function Lovers() {
     <section className="lovers-section__wrapper">
       <h2 className="lovers-section__title">#MeowJungle Lovers</h2>
       <p className="lovers-section__content">
-        MeoJungle offers natural wellness products designed to bring calm,
-        balance, and relaxation into your life. From essential oils to soothing
-        candles, each item helps you create a peaceful, harmonious space.
+        Meow Jungle ofrece productos de bienestar natural diseñados para aportar
+        calma, equilibrio y relajación a tu vida. Desde aceites esenciales hasta
+        velas relajantes, cada artículo te ayuda a crear un espacio pacífico y
+        armonioso.
       </p>
       <LoversBoxes/>
     </section>

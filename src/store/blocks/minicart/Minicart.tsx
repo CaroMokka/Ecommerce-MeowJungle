@@ -53,7 +53,7 @@ function Minicart() {
             type="button"
             className="btn-close"
             data-bs-dismiss="offcanvas"
-            aria-label="Close"
+            aria-label="Cerrar"
           ></button>
         </div>
         <div className="offcanvas-body" style={{width:"60vh"}}>

@@ -20,14 +20,14 @@ describe("BuyButton", () => {
 
   it("se renderiza correctamente con el texto del botón", () => {
     render(<BuyButton product={testProduct} />);
-    const boton = screen.getByRole("button", { name: /add to cart/i });
+    const boton = screen.getByRole("button", { name: /añadir al carrito/i });
     expect(boton).toBeInTheDocument();
   });
 
   it("llama a dispatch con acción ADD_TO_CART al hacer clic", async () => {
     const user = userEvent.setup();
     render(<BuyButton product={testProduct} />);
-    const boton = screen.getByRole("button", { name: /add to cart/i });
+    const boton = screen.getByRole("button", { name: /añadir al carrito/i });
 
     await user.click(boton);
 

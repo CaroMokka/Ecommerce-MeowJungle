@@ -5,15 +5,15 @@ function DailySection() {
   return (
     <>
       <section className="daily_content">
-        <div className="daily_content-title">Your daily Meow*Jungle</div>
+        <div className="daily_content-title">Tu Meow*Jungle diario</div>
         <div className="daily_content-text">
           <p>
-            Meow Jungle is packed with natural botanical extracts, infused with
-            essential oils, and rich in nourishing ingredients. It&apos;s perfect for
-            everyone seeking a moment of relaxation and self-care.
+            Meow Jungle está repleto de extractos botánicos naturales, infusionado
+            con aceites esenciales y enriquecido con ingredientes nutritivos. Es
+            perfecto para quienes buscan un momento de relajación y autocuidado.
           </p>
         </div>
-        <button className="daily_content-btn">Contact us</button>
+        <button className="daily_content-btn">Contáctanos</button>
       </section>
       <DailyBoxes/>
       <DailyBoxSpecial/>
