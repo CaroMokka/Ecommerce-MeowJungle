@@ -7,7 +7,6 @@ import ProductPage from "./pages/ProductPage"
 import Cart from "./checkout/Cart";
 import Shipping from "./checkout/Shipping";
 import About from "./pages/About-us";
-import "./App.css";
 
 function App() {
   return (
