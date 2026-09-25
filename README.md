@@ -50,6 +50,8 @@ Flujo por ticket (feature-branch sobre `develop`):
 8. **CI verde** — GitHub Actions ejecuta lint, tests (con cobertura) y build en el PR. Debe quedar en verde (incluye gate de cobertura).
 9. **Merge y cierre** — la persona responsable aprueba y mergea el PR en GitHub, y cierra el ticket en Jira.
 
+**DoD y QA:** la Definition of Done y el proceso de QA están en [`docs/definition-of-done.md`](./docs/definition-of-done.md). Usa el template de PR (`.github/PULL_REQUEST_TEMPLATE.md`) y el template de issue (`.github/ISSUE_TEMPLATE/general.md`). CI verde no reemplaza la validación manual humana.
+
 **Responsables por paso:**
 
 | Paso | Responsable |
