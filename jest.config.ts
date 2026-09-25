@@ -22,4 +22,15 @@ export default {
   transform: {
     "^.+\\.(ts|tsx)$": "ts-jest",
   },
+  collectCoverageFrom: ["src/**/*.{ts,tsx}"],
+  coverageDirectory: "coverage",
+  coverageReporters: ["text-summary", "json-summary", "lcov"],
+  coverageThreshold: {
+    global: {
+      statements: 35,
+      branches: 40,
+      functions: 35,
+      lines: 35,
+    },
+  },
 };
