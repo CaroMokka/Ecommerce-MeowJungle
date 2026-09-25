@@ -8,6 +8,7 @@ Bienvenida/o a **Meow Jungle**, somos una boutique creada por y para amantes de 
 ## 🌱 Tabla de contenidos
 
 - [🚀 Demo](#-demo)
+- [🌿 Flujo de ramas](#-flujo-de-ramas)
 - [🛠️ Stack Tecnológico](#-stack-tecnológico)
 - [📦 Estructura del Proyecto](#-estructura-del-proyecto)
 - [🧠 Funcionalidades](#-funcionalidades)
@@ -24,6 +25,19 @@ Bienvenida/o a **Meow Jungle**, somos una boutique creada por y para amantes de 
 🔗 [Ver demo en producción (deploy frontend)](https://co-jungle.vercel.app) ( 🛠️ En construcción... )
 
 🔗 [Ver demo API REST (backend)]() — pendiente, en roadmap
+
+---
+
+## 🌿 Flujo de ramas e integración
+
+Decisión (ADR — CA-27):
+
+- **Rama canónica de integración**: `develop`.
+- **Feature-branch**: cada ticket crea su rama desde `develop` con el prefijo del ticket (ej. `CA-27-...`).
+- **Integración**: la feature se fusiona a `develop` mediante Pull Request con CI verde (lint, test y build).
+- **Release / estable**: `main` se mantiene estable y se actualiza mediante PR desde `develop` (sin commits directos a `main`).
+- **CI**: se ejecuta sobre Pull Requests dirigidas a `develop` y `main`.
+- **Default branch en GitHub**: `develop` (pendiente de aplicar en la configuración del repositorio).
 
 ---
 
