@@ -42,7 +42,6 @@ const departments = Array.from(new Set(products.map((p) => p.department).filter(
         placeholder="Buscar producto..."
         value={searchName}
         onChange={(e) => setSearchName(e.target.value)}
-        onBlur={() => setSearchName("")}
       />
       <select
         value={department}

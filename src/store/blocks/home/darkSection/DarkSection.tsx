@@ -13,7 +13,7 @@ function DarkSection() {
             un espacio pacífico y armonioso.
           </p>
         </div>
-        <a>¿Listo? Contáctanos</a>
+        <button type="button">¿Listo? Contáctanos</button>
       </div>
       <div className="dark-section__image">
         <img src="/img/soap_jungle.webp" />
