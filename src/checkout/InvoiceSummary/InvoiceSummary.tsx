@@ -10,7 +10,7 @@ function InvoiceSummary({ totalItems, totalAmount }: InvoiceSummaryProps) {
     
   return (
     <div className="d-flex flex-column">
-    <div className="card border border-black m-3" style={{ width: "18rem;" }}>
+    <div className="card border border-black m-3" style={{ width: "18rem" }}>
       <div className="card-body">
         <h3 className="card-title">Resumen de Pago</h3>
         <ul className="list-group list-group-flush">

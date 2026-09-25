@@ -1,4 +1,5 @@
 import "./Footer.css";
+import { Link } from "react-router-dom";
 
 function Footer() {
   return (
@@ -8,11 +9,11 @@ function Footer() {
       </div>
       <div className="footer-section__navbar">
         <nav>
-          <a>INICIO</a>
-          <a>NOSOTROS</a>
-          <a>PRODUCTOS</a>
-          <a>NUESTRAS TIENDAS</a>
-          <a>CONTACTO</a>
+          <Link to="/">INICIO</Link>
+          <Link to="/about">NOSOTROS</Link>
+          <Link to="/products">PRODUCTOS</Link>
+          <Link to="/">NUESTRAS TIENDAS</Link>
+          <button type="button">CONTACTO</button>
         </nav>
       </div>
       <div className="footer-section__form">
@@ -39,10 +40,10 @@ function Footer() {
 
       <div className="footer-section__navbar">
         <nav>
-          <a>Política de privacidad</a>
-          <a>Términos y condiciones</a>
-          <a>Licencia</a>
-          <a>Derechos de autor</a>
+          <span>Política de privacidad</span>
+          <span>Términos y condiciones</span>
+          <span>Licencia</span>
+          <span>Derechos de autor</span>
         </nav>
       </div>
       <p className="footer-section__paragraph" >Hecho por Caro</p>

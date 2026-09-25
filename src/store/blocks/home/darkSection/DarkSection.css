@@ -7,7 +7,7 @@
     color: #C1FBA4;
     text-align: center;
 }
-.dark-section__wrapper > a {
+.dark-section__wrapper > button {
     text-align: center;
     text-transform: uppercase;
     background-color: #3898ec00;
@@ -18,8 +18,10 @@
     padding-bottom: 12px; */
     padding: 12px;
     font-size: 1rem;
+    font-family: inherit;
     transition: background-color .5s;
     margin-top: 10vh;
+    cursor: pointer;
 }
 .dark-section__text{
     margin-bottom: 5vh;

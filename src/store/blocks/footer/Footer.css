@@ -12,11 +12,20 @@
     display: flex;
     justify-content: center;
 }
-.footer-section__navbar > nav > a {
+.footer-section__navbar > nav > a,
+.footer-section__navbar > nav > span,
+.footer-section__navbar > nav > button {
     font-size: 1rem;
     font-weight: 700;
     padding: 0 15px;
+}
+.footer-section__navbar > nav > a {
     cursor: pointer;
+}
+.footer-section__navbar > nav > button {
+    cursor: pointer;
+    border: none;
+    background: none;
 }
 .footer-section__form {
     display: flex;
