@@ -36,7 +36,7 @@ export const cartReducer = (
         ...state,
         cart: state.cart.map((item) =>
           item.id === Number(id)
-            ? { ...item, quantity }
+            ? { ...item, quantity: Math.max(1, quantity) }
             : item
         ),
       };
