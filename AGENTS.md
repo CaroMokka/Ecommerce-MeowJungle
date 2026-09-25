@@ -38,6 +38,7 @@ Frontend MVP de ecommerce **Meow Jungle** (React 19 + Vite 6 + TypeScript + Jest
 8. Contenido y UI en **español dominante**; marca canónica **Meow Jungle**.
 9. Commits en formato **convencional + ticket**: p.ej. `fix(content): [CA-25] ...`, `test(coverage): [CA-32] ...` (idioma libre, español o inglés).
 10. **No** incluyas secretos, tokens, `.env` ni artefactos generados (`coverage/`, `dist/`, `node_modules/`) — está en `.gitignore`.
+11. **Definición de terminado (DoD)**: consulta `docs/definition-of-done.md`; usa los templates `.github/PULL_REQUEST_TEMPLATE.md` (PRs) y `.github/ISSUE_TEMPLATE/` (issues). **CI verde ≠ QA completo**: la validación manual humana es requisito antes del merge.
 
 ## Puntos de doble chequeo
 
