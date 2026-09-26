@@ -1,50 +1,68 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { MemoryRouter, useLocation } from "react-router-dom";
 import { PaymentMethodForm } from "./PaymentForm";
 
+const mockDispatch = jest.fn();
+
+jest.mock("../../../src/context/cart/useCart", () => ({
+  __esModule: true,
+  default: () => ({ dispatch: mockDispatch, state: { cart: [] } }),
+}));
+
+function LocationProbe() {
+  const location = useLocation();
+  return <div>{location.pathname}::{JSON.stringify(location.state)}</div>;
+}
+
+function renderForm() {
+  return render(
+    <MemoryRouter initialEntries={["/checkout/payment"]}>
+      <PaymentMethodForm />
+      <LocationProbe />
+    </MemoryRouter>
+  );
+}
+
 describe("PaymentMethodForm", () => {
-  afterEach(() => {
-    jest.restoreAllMocks();
+  beforeEach(() => {
+    jest.clearAllMocks();
   });
 
   it("tiene credit-card como método seleccionado por defecto", () => {
-    render(<PaymentMethodForm />);
+    renderForm();
     expect(screen.getByLabelText("Tarjeta de Crédito")).toBeChecked();
     expect(screen.getByLabelText("PayPal")).not.toBeChecked();
     expect(screen.getByLabelText("Transferencia Bancaria")).not.toBeChecked();
   });
 
-  it("envía con la selección predeterminada credit-card al hacer submit", async () => {
+  it("envía con la selección predeterminada credit-card, vacía el carrito y navega a confirmación", async () => {
     const user = userEvent.setup();
-    const consoleSpy = jest.spyOn(console, "log").mockImplementation(() => {});
-    render(<PaymentMethodForm />);
+    renderForm();
 
-    await user.click(screen.getByRole("button", { name: "Confirmar método de pago" }));
-
-    await waitFor(() =>
-      expect(consoleSpy).toHaveBeenCalledWith(
-        "Método de pago seleccionado:",
-        "credit-card"
-      )
+    await user.click(
+      screen.getByRole("button", { name: "Confirmar método de pago" })
     );
+
+    expect(mockDispatch).toHaveBeenCalledWith({ type: "CLEAR_CART" });
+    expect(screen.getByText(/\/checkout\/confirmation/)).toBeInTheDocument();
+    expect(screen.getByText(/order-\d+/)).toBeInTheDocument();
   });
 
   it("cambia de método con el radio y envía la nueva selección", async () => {
     const user = userEvent.setup();
-    const consoleSpy = jest.spyOn(console, "log").mockImplementation(() => {});
-    render(<PaymentMethodForm />);
+    renderForm();
 
     await user.click(screen.getByLabelText("PayPal"));
     expect(screen.getByLabelText("Tarjeta de Crédito")).not.toBeChecked();
     expect(screen.getByLabelText("PayPal")).toBeChecked();
 
-    await user.click(screen.getByRole("button", { name: "Confirmar método de pago" }));
-
-    await waitFor(() =>
-      expect(consoleSpy).toHaveBeenCalledWith(
-        "Método de pago seleccionado:",
-        "paypal"
-      )
+    await user.click(
+      screen.getByRole("button", { name: "Confirmar método de pago" })
     );
+
+    expect(mockDispatch).toHaveBeenCalledWith({ type: "CLEAR_CART" });
+    expect(screen.getByText(/\/checkout\/confirmation/)).toBeInTheDocument();
+    expect(screen.getByText(/order-\d+/)).toBeInTheDocument();
   });
 });
