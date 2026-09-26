@@ -18,7 +18,7 @@ function CheckoutLayout() {
 
   const location = useLocation();
   const isCheckout = location.pathname === "/cart";
-  const isShipping = location.pathname === "/shipping";
+  const step = location.pathname;
   return (
     <section className="cart-view__container">
       <Stripe />
@@ -30,13 +30,10 @@ function CheckoutLayout() {
               <ProductsListCheckout cart={cart} />
             </>
           )}
-          {isShipping && (
-            <>
-              <ProfileForm/>
-              <ShippingForm />
-              <PaymentMethodForm />
-            </>
-          )}
+          {step === "/checkout/profile" && <ProfileForm />}
+          {step === "/checkout/shipping" && <ShippingForm />}
+          {step === "/checkout/payment" && <PaymentMethodForm />}
+          {step === "/checkout/confirmation" && <h3>Confirmación</h3>}
         </div>
         <div className="col-5">
           <InvoiceSummary totalItems={totalItems} totalAmount={totalAmount} />

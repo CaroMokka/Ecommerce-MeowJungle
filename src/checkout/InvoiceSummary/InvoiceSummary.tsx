@@ -36,7 +36,7 @@ function InvoiceSummary({ totalItems, totalAmount }: InvoiceSummaryProps) {
     </div>
 
     <div className="ms-auto m-3">
-    <Link to="/shipping" className="text-decoration-none">
+    <Link to="/checkout/profile" className="text-decoration-none">
       <button className="btn btn-primary mt-3">Ir a Pagar</button>
     </Link>
     </div>

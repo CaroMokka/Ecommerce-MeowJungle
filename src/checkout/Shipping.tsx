@@ -1,7 +1,0 @@
-import CheckoutLayout from "./checkoutLayout/CheckoutLayout";
-
-function Shipping() {
-  return <CheckoutLayout />;
-}
-
-export default Shipping;
