@@ -1,4 +1,6 @@
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import useCart from "../../context/cart/useCart";
 
 type PaymentMethodFormData = {
   paymentMethod: string;
@@ -16,9 +18,12 @@ export function PaymentMethodForm() {
     },
   });
 
-  const onSubmit = (data: PaymentMethodFormData) => {
-    console.log("Método de pago seleccionado:", data.paymentMethod);
-    // Aquí podrías enviarlo a tu backend o contexto
+  const { dispatch } = useCart();
+  const navigate = useNavigate();
+
+  const onSubmit = () => {
+    dispatch({ type: "CLEAR_CART" });
+    void navigate("/checkout/confirmation");
   };
 
   const selectedMethod = watch("paymentMethod");
