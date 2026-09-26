@@ -22,8 +22,9 @@ export function PaymentMethodForm() {
   const navigate = useNavigate();
 
   const onSubmit = () => {
+    const orderId = `order-${Date.now()}`;
     dispatch({ type: "CLEAR_CART" });
-    void navigate("/checkout/confirmation");
+    void navigate("/checkout/confirmation", { state: { orderId } });
   };
 
   const selectedMethod = watch("paymentMethod");

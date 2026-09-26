@@ -12,7 +12,7 @@ jest.mock("../../../src/context/cart/useCart", () => ({
 
 function LocationProbe() {
   const location = useLocation();
-  return <div>{location.pathname}</div>;
+  return <div>{location.pathname}::{JSON.stringify(location.state)}</div>;
 }
 
 function renderForm() {
@@ -45,7 +45,8 @@ describe("PaymentMethodForm", () => {
     );
 
     expect(mockDispatch).toHaveBeenCalledWith({ type: "CLEAR_CART" });
-    expect(screen.getByText("/checkout/confirmation")).toBeInTheDocument();
+    expect(screen.getByText(/\/checkout\/confirmation/)).toBeInTheDocument();
+    expect(screen.getByText(/order-\d+/)).toBeInTheDocument();
   });
 
   it("cambia de método con el radio y envía la nueva selección", async () => {
@@ -61,6 +62,7 @@ describe("PaymentMethodForm", () => {
     );
 
     expect(mockDispatch).toHaveBeenCalledWith({ type: "CLEAR_CART" });
-    expect(screen.getByText("/checkout/confirmation")).toBeInTheDocument();
+    expect(screen.getByText(/\/checkout\/confirmation/)).toBeInTheDocument();
+    expect(screen.getByText(/order-\d+/)).toBeInTheDocument();
   });
 });
