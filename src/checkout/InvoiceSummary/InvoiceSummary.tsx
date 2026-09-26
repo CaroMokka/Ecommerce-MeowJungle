@@ -19,10 +19,6 @@ function InvoiceSummary({ totalItems, totalAmount }: InvoiceSummaryProps) {
             <div className="text-end">{totalItems}</div>
           </div>
           <li className="list-group-item d-flex justify-content-between align-items-center">
-            <div>Descuentos</div>
-            <div className="text-end">$3.560</div>
-          </li>
-          <li className="list-group-item d-flex justify-content-between align-items-center">
             <div>SubTotal</div>
             <div className="text-end">$ {totalAmount}</div>
           </li>
