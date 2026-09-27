@@ -1,21 +1,29 @@
 import { cartReducer } from "./cartReducer";
-import { CartAction, CartState } from "./cartTypes";
+import { CartAction, CartItem, CartState } from "./cartTypes";
+import { createProductFixture } from "../../test/fixtures/productFixture";
+import { Product } from "../../types/Product";
 
-const itemA = { id: 1, name: "Jabón", price: 3500, quantity: 2 };
-const itemB = { id: 2, name: "Vela", price: 4200, quantity: 1 };
+const itemA: CartItem = {
+  ...createProductFixture({ id: 1, name: "Jabón", price: 3500 }),
+  quantity: 2,
+};
+const itemB: CartItem = {
+  ...createProductFixture({ id: 2, name: "Vela", price: 4200 }),
+  quantity: 1,
+};
 
 const state: CartState = { cart: [itemA, itemB] };
 
-const addToCart = (item: { id: number; name?: string; price?: number }): CartAction => ({
+const addToCart = (overrides: Partial<Product> & { id: number }): CartAction => ({
   type: "ADD_TO_CART",
-  payload: item,
+  payload: createProductFixture(overrides),
 });
 
 describe("cartReducer", () => {
   it("ADD_TO_CART agrega un item nuevo con quantity 1 y preserva el resto", () => {
     const result = cartReducer(state, addToCart({ id: 3, name: "Aceite", price: 2800 }));
     expect(result.cart).toHaveLength(3);
-    expect(result.cart[2]).toEqual({ id: 3, name: "Aceite", price: 2800, quantity: 1 });
+    expect(result.cart[2]).toMatchObject({ id: 3, name: "Aceite", price: 2800, quantity: 1 });
     expect(result.cart[0]).toEqual(itemA);
     expect(result.cart[1]).toEqual(itemB);
   });
@@ -42,6 +50,14 @@ describe("cartReducer", () => {
     expect(result.cart).toEqual(state.cart);
   });
 
+  it("REMOVE_FROM_CART con id no numérico (slug legacy) no elimina ningún item", () => {
+    const result = cartReducer(state, {
+      type: "REMOVE_FROM_CART",
+      payload: "esencia-de-lavanda",
+    });
+    expect(result.cart).toEqual(state.cart);
+  });
+
   it("CHANGE_QUANTITY actualiza la cantidad del item existente", () => {
     const result = cartReducer(state, { type: "CHANGE_QUANTITY", payload: { id: 1, quantity: 5 } });
     expect(result.cart[0]).toEqual({ ...itemA, quantity: 5 });
@@ -55,6 +71,14 @@ describe("cartReducer", () => {
 
   it("CHANGE_QUANTITY con id inexistente devuelve el carrito sin cambios", () => {
     const result = cartReducer(state, { type: "CHANGE_QUANTITY", payload: { id: 99, quantity: 4 } });
+    expect(result.cart).toEqual(state.cart);
+  });
+
+  it("CHANGE_QUANTITY con id no numérico (slug legacy) no altera el estado", () => {
+    const result = cartReducer(state, {
+      type: "CHANGE_QUANTITY",
+      payload: { id: "esencia-de-lavanda", quantity: 4 },
+    });
     expect(result.cart).toEqual(state.cart);
   });
 

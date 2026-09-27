@@ -1,5 +1,6 @@
 import ButtonPay from "../buttonsCart/ButtonPay";
 import ButtonBuy from "../buttonsCart/ButtonBuy";
+import { formatPrice } from "../../../../utils/formatPrice";
 
 type ResumeCartProps = {
   totalItems: number;
@@ -15,7 +16,7 @@ function CartSummary({ totalItems, totalAmount }: ResumeCartProps) {
         </div>
         <li className="list-group-item">
           <div>SubTotal</div>
-          <div>$ {totalAmount}</div>
+          <div>{formatPrice(totalAmount)}</div>
         </li>
         {/* <li className="list-group-item">
           <div>Descuentos</div>
@@ -23,7 +24,7 @@ function CartSummary({ totalItems, totalAmount }: ResumeCartProps) {
         </li> */}
         <li className="list-group-item">
           <div>Total</div>
-          <div>$ {totalAmount}</div>
+          <div>{formatPrice(totalAmount)}</div>
         </li>
       </ul>
 

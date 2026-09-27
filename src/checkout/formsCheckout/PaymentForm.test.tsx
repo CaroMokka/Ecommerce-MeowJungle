@@ -45,7 +45,7 @@ describe("PaymentMethodForm", () => {
     );
 
     expect(mockDispatch).toHaveBeenCalledWith({ type: "CLEAR_CART" });
-    expect(screen.getByText(/\/checkout\/confirmation/)).toBeInTheDocument();
+    await screen.findByText(/\/checkout\/confirmation/);
     expect(screen.getByText(/order-\d+/)).toBeInTheDocument();
   });
 
@@ -62,7 +62,7 @@ describe("PaymentMethodForm", () => {
     );
 
     expect(mockDispatch).toHaveBeenCalledWith({ type: "CLEAR_CART" });
-    expect(screen.getByText(/\/checkout\/confirmation/)).toBeInTheDocument();
+    await screen.findByText(/\/checkout\/confirmation/);
     expect(screen.getByText(/order-\d+/)).toBeInTheDocument();
   });
 });

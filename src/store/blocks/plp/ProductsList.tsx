@@ -3,7 +3,7 @@ import Footer from "../footer/Footer";
 import GridProducts from "./gridProducts/GridProducts";
 import ProductFilter from "../../../components/ui/ProductFilter/ProductFilter";
 import { ProductFilterProvider } from "../../../context/filterProducts/filterProductProvider";
-import { products } from "../../../data/productSummaryData";
+import { getProducts } from "../../../services/catalog/catalogRepository";
 
 function ProductsList() {
   return (
@@ -13,7 +13,7 @@ function ProductsList() {
         <div className="products-list__wrapper d-flex">
         
         <ProductFilterProvider>
-        <ProductFilter products={products} />
+        <ProductFilter products={getProducts()} />
           <GridProducts />
         </ProductFilterProvider>
         </div>

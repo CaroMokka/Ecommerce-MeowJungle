@@ -3,12 +3,13 @@ import userEvent from "@testing-library/user-event";
 import ProductFilter from "./ProductFilter";
 import { ProductFilterProvider } from "../../../context/filterProducts/filterProductProvider";
 import { useProductFilter } from "../../../context/filterProducts/useFilterProduct";
+import { createProductFixture } from "../../../test/fixtures/productFixture";
 import type { Product } from "../../../types/Product";
 
 const fixture: Product[] = [
-  { id: 1, name: "Jabón de Lavanda", department: "Bienestar", category: "Jabones" },
-  { id: 2, name: "Aceite esencial de Eucalipto", department: "Bienestar", category: "Aceites" },
-  { id: 3, name: "Vela de Soja Calmante", department: "Hogar", category: "Velas" },
+  createProductFixture({ id: 1, name: "Jabón de Lavanda", department: "Bienestar", category: "Jabones" }),
+  createProductFixture({ id: 2, name: "Aceite esencial de Eucalipto", department: "Bienestar", category: "Aceites" }),
+  createProductFixture({ id: 3, name: "Vela de Soja Calmante", department: "Hogar", category: "Velas" }),
 ];
 
 function Results() {

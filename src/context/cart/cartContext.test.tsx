@@ -3,9 +3,12 @@ import type { ReactNode } from "react";
 import { CartProvider } from "./cartContext";
 import useCart from "./useCart";
 import type { CartState } from "./cartTypes";
+import { createProductFixture } from "../../test/fixtures/productFixture";
 
 const LOCAL_STORAGE_KEY = "cartItems";
-const validItem = { id: 1, name: "Jabón", price: 3500, quantity: 2 };
+const jabon = createProductFixture({ id: 1, name: "Jabón", price: 3500 });
+const vela = createProductFixture({ id: 2, name: "Vela", price: 4200 });
+const validItem = { ...jabon, quantity: 2 };
 
 function renderCart() {
   return renderHook(() => useCart(), {
@@ -29,6 +32,32 @@ describe("CartProvider", () => {
     expect(result.current.state.cart).toEqual([validItem]);
   });
 
+  it("descarta items vacíos o sin shape mínimo y conserva los válidos", () => {
+    localStorage.setItem(
+      LOCAL_STORAGE_KEY,
+      JSON.stringify({
+        cart: [
+          validItem,
+          { ...vela, quantity: 1 },
+          { id: 6, price: 100 },
+          { quantity: 2 },
+        ],
+      })
+    );
+    const { result } = renderCart();
+    expect(result.current.state.cart).toEqual([validItem, { ...vela, quantity: 1 }]);
+  });
+
+  it("migra carritos de la era de slugs descartando items con id string", () => {
+    const legacyItem = { ...jabon, id: "esencia-de-lavanda", quantity: 2 };
+    localStorage.setItem(
+      LOCAL_STORAGE_KEY,
+      JSON.stringify({ cart: [legacyItem, { ...vela, quantity: 1 }] })
+    );
+    const { result } = renderCart();
+    expect(result.current.state.cart).toEqual([{ ...vela, quantity: 1 }]);
+  });
+
   it("no rompe la app cuando localStorage contiene JSON corrupto y usa fallback", () => {
     localStorage.setItem(LOCAL_STORAGE_KEY, "{carrito: no-valido");
     const { result } = renderCart();
@@ -44,20 +73,20 @@ describe("CartProvider", () => {
   it("persiste en localStorage cada cambio de estado", () => {
     const { result } = renderCart();
     act(() => {
-      result.current.dispatch({ type: "ADD_TO_CART", payload: { id: 1, name: "Jabón", price: 3500 } });
+      result.current.dispatch({ type: "ADD_TO_CART", payload: jabon });
     });
     const stored = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) ?? "{}") as CartState;
-    expect(stored.cart).toEqual([{ id: 1, name: "Jabón", price: 3500, quantity: 1 }]);
-    expect(result.current.state.cart).toEqual([{ id: 1, name: "Jabón", price: 3500, quantity: 1 }]);
+    expect(stored.cart).toEqual([{ ...jabon, quantity: 1 }]);
+    expect(result.current.state.cart).toEqual([{ ...jabon, quantity: 1 }]);
   });
 
   it("actualiza localStorage en cada cambio posterior", () => {
     const { result } = renderCart();
     act(() => {
-      result.current.dispatch({ type: "ADD_TO_CART", payload: { id: 1, name: "Jabón", price: 3500 } });
+      result.current.dispatch({ type: "ADD_TO_CART", payload: jabon });
     });
     act(() => {
-      result.current.dispatch({ type: "ADD_TO_CART", payload: { id: 2, name: "Vela", price: 4200 } });
+      result.current.dispatch({ type: "ADD_TO_CART", payload: vela });
     });
     const stored = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) ?? "{}") as CartState;
     expect(stored.cart).toHaveLength(2);
