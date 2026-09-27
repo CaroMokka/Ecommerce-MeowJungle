@@ -1,7 +1,7 @@
 import { Product } from "../../types/Product";
 
 const baseProduct: Product = {
-  id: "producto-de-prueba",
+  id: 1,
   name: "Producto de Prueba",
   brand: "Meow Jungle Eco",
   description: "Descripción de prueba.",

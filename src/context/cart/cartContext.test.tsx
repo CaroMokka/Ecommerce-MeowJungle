@@ -6,8 +6,8 @@ import type { CartState } from "./cartTypes";
 import { createProductFixture } from "../../test/fixtures/productFixture";
 
 const LOCAL_STORAGE_KEY = "cartItems";
-const jabon = createProductFixture({ id: "jabon", name: "Jabón", price: 3500 });
-const vela = createProductFixture({ id: "vela", name: "Vela", price: 4200 });
+const jabon = createProductFixture({ id: 1, name: "Jabón", price: 3500 });
+const vela = createProductFixture({ id: 2, name: "Vela", price: 4200 });
 const validItem = { ...jabon, quantity: 2 };
 
 function renderCart() {
@@ -32,13 +32,20 @@ describe("CartProvider", () => {
     expect(result.current.state.cart).toEqual([validItem]);
   });
 
-  it("descarta items sin shape mínimo (id/price/quantity) al inicializar desde localStorage", () => {
+  it("descarta items sin shape mínimo y conserva los válidos (id numérico o string)", () => {
     localStorage.setItem(
       LOCAL_STORAGE_KEY,
-      JSON.stringify({ cart: [validItem, { id: "roto", price: "abc" }, { id: 5, price: 100, quantity: 2 }] })
+      JSON.stringify({
+        cart: [
+          validItem,
+          { ...vela, quantity: 1 },
+          { id: "roto", quantity: 2 },
+          { id: 6, price: 100 },
+        ],
+      })
     );
     const { result } = renderCart();
-    expect(result.current.state.cart).toEqual([validItem]);
+    expect(result.current.state.cart).toEqual([validItem, { ...vela, quantity: 1 }]);
   });
 
   it("no rompe la app cuando localStorage contiene JSON corrupto y usa fallback", () => {
@@ -73,6 +80,6 @@ describe("CartProvider", () => {
     });
     const stored = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) ?? "{}") as CartState;
     expect(stored.cart).toHaveLength(2);
-    expect(stored.cart.map((item) => item.id)).toEqual(["jabon", "vela"]);
+    expect(stored.cart.map((item) => item.id)).toEqual([1, 2]);
   });
 });

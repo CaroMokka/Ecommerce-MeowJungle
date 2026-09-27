@@ -2,7 +2,7 @@ import { Product } from "../types/Product";
 
 export const products: Product[] = [
   {
-    id: "esencia-de-lavanda",
+    id: 1,
     name: "Esencia de Lavanda",
     brand: "Meow Jungle Eco",
     description:
@@ -32,7 +32,7 @@ export const products: Product[] = [
     },
   },
   {
-    id: "calathea-orbifolia",
+    id: 2,
     name: "Calathea Orbifolia",
     brand: "BotaniK",
     description:
@@ -62,7 +62,7 @@ export const products: Product[] = [
     },
   },
   {
-    id: "macetero-de-coco-reciclado",
+    id: 3,
     name: "Macetero de Coco Reciclado",
     brand: "EcoRaíz",
     description:
@@ -92,7 +92,7 @@ export const products: Product[] = [
     },
   },
   {
-    id: "kit-de-compostaje-de-cocina",
+    id: 4,
     name: "Kit de Compostaje de Cocina",
     brand: "VerdeVivo",
     description:
@@ -122,7 +122,7 @@ export const products: Product[] = [
     },
   },
   {
-    id: "pala-de-bambu",
+    id: 5,
     name: "Pala de Bambú",
     brand: "TierraSana",
     description:
@@ -152,7 +152,7 @@ export const products: Product[] = [
     },
   },
   {
-    id: "tierra-nutritiva-5kg",
+    id: 6,
     name: "Tierra Nutritiva 5kg",
     brand: "RaízFértil",
     description:
@@ -182,7 +182,7 @@ export const products: Product[] = [
     },
   },
   {
-    id: "set-de-etiquetas-plantables",
+    id: 7,
     name: "Set de Etiquetas Plantables",
     brand: "EcoRaíz",
     description:
@@ -212,7 +212,7 @@ export const products: Product[] = [
     },
   },
   {
-    id: "planta-zz",
+    id: 8,
     name: "Planta ZZ",
     brand: "BotaniK",
     description:
@@ -242,7 +242,7 @@ export const products: Product[] = [
     },
   },
   {
-    id: "pulverizador-de-vidrio-ambar",
+    id: 9,
     name: "Pulverizador de Vidrio Ámbar",
     brand: "Mist&Roots",
     description:
@@ -272,7 +272,7 @@ export const products: Product[] = [
     },
   },
   {
-    id: "guantes-de-jardin-organicos",
+    id: 10,
     name: "Guantes de Jardín Orgánicos",
     brand: "TierraSana",
     description:
@@ -302,7 +302,7 @@ export const products: Product[] = [
     },
   },
   {
-    id: "mini-invernadero-reutilizable",
+    id: 11,
     name: "Mini Invernadero Reutilizable",
     brand: "VerdeVivo",
     description:
@@ -333,7 +333,7 @@ export const products: Product[] = [
     },
   },
   {
-    id: "vela-aromatica-de-cedro-vainilla",
+    id: 12,
     name: "Vela Aromática de Cedro & Vainilla",
     brand: "Meow Jungle Eco",
     description:
@@ -363,7 +363,7 @@ export const products: Product[] = [
     },
   },
   {
-    id: "aceite-esencial-de-eucalipto",
+    id: 13,
     name: "Aceite Esencial de Eucalipto",
     brand: "Meow Jungle Eco",
     description:
@@ -393,7 +393,7 @@ export const products: Product[] = [
     },
   },
   {
-    id: "difusor-de-ceramica-artesanal",
+    id: 14,
     name: "Difusor de Cerámica Artesanal",
     brand: "Meow Jungle Eco",
     description:
@@ -423,7 +423,7 @@ export const products: Product[] = [
     },
   },
   {
-    id: "almohadilla-aromaterapia-relajacion",
+    id: 15,
     name: "Almohadilla de Aromaterapia para Relajación",
     brand: "Meow Jungle Eco",
     description:
@@ -453,7 +453,7 @@ export const products: Product[] = [
     },
   },
   {
-    id: "cojin-organico-de-lino-crudo",
+    id: 16,
     name: "Cojín Orgánico de Lino Crudo",
     brand: "Meow Jungle Eco",
     description: "Cojín decorativo elaborado con lino 100% orgánico, ideal para aportar textura y calidez a tus espacios.",
@@ -482,7 +482,7 @@ export const products: Product[] = [
     }
   },
   {
-    id: "manta-de-algodon-reciclado",
+    id: 17,
     name: "Manta de Algodón Reciclado",
     brand: "Meow Jungle Eco",
     description: "Manta suave y cálida tejida con algodón reciclado, perfecta para las noches frescas o para decorar tu sofá.",
@@ -511,7 +511,7 @@ export const products: Product[] = [
     }
   },
   {
-    id: "cuadro-botanico-papel-semilla",
+    id: 18,
     name: "Cuadro Botánico en Papel Semilla",
     brand: "Meow Jungle Eco",
     description: "Ilustración botánica impresa en papel semilla reciclado. Una vez terminada su vida útil, puedes plantarlo para hacer crecer flores silvestres.",
@@ -540,7 +540,7 @@ export const products: Product[] = [
     }
   },
   {
-    id: "cesta-organizadora-de-yute-trenzado",
+    id: 19,
     name: "Cesta Organizadora de Yute Trenzado",
     brand: "Meow Jungle Eco",
     description: "Cesta versátil tejida a mano con yute natural. Ideal para guardar textiles, revistas o plantas.",

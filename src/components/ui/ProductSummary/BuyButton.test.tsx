@@ -13,7 +13,7 @@ jest.mock("../../../context/cart/useCart", () => ({
 }));
 
 describe("BuyButton", () => {
-  const testProduct = createProductFixture({ id: "producto-1", name: "Producto 1" });
+  const testProduct = createProductFixture({ id: 1, name: "Producto 1" });
 
   beforeEach(() => {
     mockDispatch.mockClear();

@@ -7,9 +7,9 @@ import { createProductFixture } from "../../../test/fixtures/productFixture";
 import type { Product } from "../../../types/Product";
 
 const fixture: Product[] = [
-  createProductFixture({ id: "jabon-de-lavanda", name: "Jabón de Lavanda", department: "Bienestar", category: "Jabones" }),
-  createProductFixture({ id: "aceite-eucalipto", name: "Aceite esencial de Eucalipto", department: "Bienestar", category: "Aceites" }),
-  createProductFixture({ id: "vela-de-soja", name: "Vela de Soja Calmante", department: "Hogar", category: "Velas" }),
+  createProductFixture({ id: 1, name: "Jabón de Lavanda", department: "Bienestar", category: "Jabones" }),
+  createProductFixture({ id: 2, name: "Aceite esencial de Eucalipto", department: "Bienestar", category: "Aceites" }),
+  createProductFixture({ id: 3, name: "Vela de Soja Calmante", department: "Hogar", category: "Velas" }),
 ];
 
 function Results() {

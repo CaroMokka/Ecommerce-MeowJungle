@@ -6,7 +6,7 @@ import Footer from "../store/blocks/footer/Footer";
 
 function ProductPage() {
   const { productId } = useParams<{ productId: string }>();
-  const product = getProductById(productId ?? "");
+  const product = getProductById(Number(productId ?? ""));
   if (!product) {
     return <h1>Producto no encontrado</h1>;
   }

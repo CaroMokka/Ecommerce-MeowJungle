@@ -8,19 +8,19 @@ describe("catalogRepository", () => {
     expect(getProducts()).toEqual(products);
   });
 
-  it("getProductById devuelve el producto por slug", () => {
-    const product = getProductById("esencia-de-lavanda");
+  it("getProductById devuelve el producto por id numérico", () => {
+    const product = getProductById(1);
     expect(product?.name).toBe("Esencia de Lavanda");
   });
 
   it("getProductById devuelve undefined para un id inexistente", () => {
-    expect(getProductById("no-existe")).toBeUndefined();
+    expect(getProductById(999)).toBeUndefined();
   });
 
-  it("garantiza ids únicos y de tipo string en todo el contrato", () => {
+  it("garantiza ids únicos y de tipo numérico en todo el contrato", () => {
     const ids = products.map((product) => product.id);
     expect(new Set(ids).size).toBe(ids.length);
-    expect(ids.every((id) => typeof id === "string" && id.length > 0)).toBe(true);
+    expect(ids.every((id) => Number.isInteger(id) && id > 0)).toBe(true);
   });
 
   it("garantiza precios en centavos (enteros positivos)", () => {

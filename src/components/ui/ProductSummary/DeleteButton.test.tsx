@@ -14,7 +14,7 @@ jest.mock("../../../context/cart/useCart", () => ({
 
 describe("DeleteButton", () => {
   const mockProduct = createProductFixture({
-    id: "macetero-de-barro",
+    id: 7,
     name: "Macetero de barro",
     brand: "Raíz Tierra",
     price: 2000,

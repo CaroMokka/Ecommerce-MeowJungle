@@ -24,7 +24,7 @@ export const cartReducer = (
     }
 
     case "REMOVE_FROM_CART": {
-      const idCartItem = action.payload;
+      const idCartItem = Number(action.payload);
       return {
         ...state,
         cart: state.cart.filter((item) => item.id !== idCartItem),
@@ -35,7 +35,7 @@ export const cartReducer = (
       return {
         ...state,
         cart: state.cart.map((item) =>
-          item.id === id
+          item.id === Number(id)
             ? { ...item, quantity: Math.max(1, quantity) }
             : item
         ),

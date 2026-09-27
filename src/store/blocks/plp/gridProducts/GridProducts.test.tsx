@@ -9,8 +9,8 @@ import { createProductFixture } from "../../../../test/fixtures/productFixture";
 import type { Product } from "../../../../types/Product";
 
 const products: Product[] = [
-  createProductFixture({ id: "jabon", name: "Jabón", price: 3500 }),
-  createProductFixture({ id: "vela", name: "Vela", price: 4200 }),
+  createProductFixture({ id: 1, name: "Jabón", price: 3500 }),
+  createProductFixture({ id: 2, name: "Vela", price: 4200 }),
 ];
 
 function Seed({ items }: { items: Product[] }) {
