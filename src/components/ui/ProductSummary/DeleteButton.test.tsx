@@ -37,7 +37,7 @@ describe("DeleteButton", () => {
 
     expect(mockDispatch).toHaveBeenCalledWith({
       type: "REMOVE_FROM_CART",
-      payload: String(mockProduct.id),
+      payload: mockProduct.id,
     });
   });
 });

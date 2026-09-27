@@ -27,7 +27,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         cart: parsedCart.cart.filter(
           (item) =>
             item &&
-            (typeof item.id === "string" || typeof item.id === "number") &&
+            typeof item.id === "number" &&
             typeof item.price === "number" &&
             typeof item.quantity === "number"
         ),

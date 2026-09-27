@@ -8,7 +8,7 @@ type DeleteButtonProps = {
   const DeleteButton = ({ product }: DeleteButtonProps) => {
     const { dispatch } = useCart();
     const handleDelete = () => {
-      dispatch({ type: "REMOVE_FROM_CART", payload: String(product.id) });
+      dispatch({ type: "REMOVE_FROM_CART", payload: product.id });
     };
     return (
       <button onClick={handleDelete}>

@@ -1,5 +1,11 @@
 import { CartAction, CartState } from "./cartTypes";
 
+const normalizeId = (id: string | number): number | string => {
+  if (typeof id === "number") return id;
+  const numericId = Number(id);
+  return Number.isFinite(numericId) ? numericId : id;
+};
+
 export const cartReducer = (
   state: CartState,
   action: CartAction
@@ -24,7 +30,7 @@ export const cartReducer = (
     }
 
     case "REMOVE_FROM_CART": {
-      const idCartItem = Number(action.payload);
+      const idCartItem = normalizeId(action.payload);
       return {
         ...state,
         cart: state.cart.filter((item) => item.id !== idCartItem),
@@ -32,10 +38,11 @@ export const cartReducer = (
     }
     case "CHANGE_QUANTITY": {
         const {id, quantity} = action.payload;
+        const normalizedId = normalizeId(id);
       return {
         ...state,
         cart: state.cart.map((item) =>
-          item.id === Number(id)
+          item.id === normalizedId
             ? { ...item, quantity: Math.max(1, quantity) }
             : item
         ),

@@ -50,6 +50,14 @@ describe("cartReducer", () => {
     expect(result.cart).toEqual(state.cart);
   });
 
+  it("REMOVE_FROM_CART con id no numérico (slug legacy) no elimina ningún item", () => {
+    const result = cartReducer(state, {
+      type: "REMOVE_FROM_CART",
+      payload: "esencia-de-lavanda",
+    });
+    expect(result.cart).toEqual(state.cart);
+  });
+
   it("CHANGE_QUANTITY actualiza la cantidad del item existente", () => {
     const result = cartReducer(state, { type: "CHANGE_QUANTITY", payload: { id: 1, quantity: 5 } });
     expect(result.cart[0]).toEqual({ ...itemA, quantity: 5 });
@@ -63,6 +71,14 @@ describe("cartReducer", () => {
 
   it("CHANGE_QUANTITY con id inexistente devuelve el carrito sin cambios", () => {
     const result = cartReducer(state, { type: "CHANGE_QUANTITY", payload: { id: 99, quantity: 4 } });
+    expect(result.cart).toEqual(state.cart);
+  });
+
+  it("CHANGE_QUANTITY con id no numérico (slug legacy) no altera el estado", () => {
+    const result = cartReducer(state, {
+      type: "CHANGE_QUANTITY",
+      payload: { id: "esencia-de-lavanda", quantity: 4 },
+    });
     expect(result.cart).toEqual(state.cart);
   });
 

@@ -32,20 +32,30 @@ describe("CartProvider", () => {
     expect(result.current.state.cart).toEqual([validItem]);
   });
 
-  it("descarta items sin shape mínimo y conserva los válidos (id numérico o string)", () => {
+  it("descarta items vacíos o sin shape mínimo y conserva los válidos", () => {
     localStorage.setItem(
       LOCAL_STORAGE_KEY,
       JSON.stringify({
         cart: [
           validItem,
           { ...vela, quantity: 1 },
-          { id: "roto", quantity: 2 },
           { id: 6, price: 100 },
+          { quantity: 2 },
         ],
       })
     );
     const { result } = renderCart();
     expect(result.current.state.cart).toEqual([validItem, { ...vela, quantity: 1 }]);
+  });
+
+  it("migra carritos de la era de slugs descartando items con id string", () => {
+    const legacyItem = { ...jabon, id: "esencia-de-lavanda", quantity: 2 };
+    localStorage.setItem(
+      LOCAL_STORAGE_KEY,
+      JSON.stringify({ cart: [legacyItem, { ...vela, quantity: 1 }] })
+    );
+    const { result } = renderCart();
+    expect(result.current.state.cart).toEqual([{ ...vela, quantity: 1 }]);
   });
 
   it("no rompe la app cuando localStorage contiene JSON corrupto y usa fallback", () => {
