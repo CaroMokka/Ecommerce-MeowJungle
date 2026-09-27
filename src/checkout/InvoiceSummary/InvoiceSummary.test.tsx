@@ -25,7 +25,7 @@ describe("InvoiceSummary", () => {
     expect(screen.getByText("3")).toBeInTheDocument();
     expect(screen.getByText("SubTotal")).toBeInTheDocument();
     expect(screen.getByText("Total")).toBeInTheDocument();
-    expect(screen.getAllByText("$250.00")).toHaveLength(2);
+    expect(screen.getAllByText("$25.000")).toHaveLength(2);
   });
 
   it("incluye botón Ir a Pagar hacia /checkout/profile", () => {
