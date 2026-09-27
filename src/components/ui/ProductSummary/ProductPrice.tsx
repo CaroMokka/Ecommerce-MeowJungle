@@ -1,4 +1,5 @@
 import style from "./productSummary.module.scss";
+import { formatPrice } from "../../../utils/formatPrice";
 
 function ProductPrice({ unitPrice, subTotalPrice }: { unitPrice?: number, subTotalPrice?: number }) {
   return (
@@ -6,14 +7,14 @@ function ProductPrice({ unitPrice, subTotalPrice }: { unitPrice?: number, subTot
       {
         unitPrice && (
           <span className={style["product-summary__price--unit"]}>
-            ${unitPrice?.toFixed(2)} <small>un</small>
+            {formatPrice(unitPrice)} <small>un</small>
           </span>
         )
       }
       {
         subTotalPrice && (
           <span className={style["product-summary__price--total"]}>
-            <strong>${subTotalPrice?.toFixed(2)}</strong> <small>t</small>
+            <strong>{formatPrice(subTotalPrice)}</strong> <small>t</small>
           </span>
         )
       }

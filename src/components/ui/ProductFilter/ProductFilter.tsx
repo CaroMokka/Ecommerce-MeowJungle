@@ -19,7 +19,7 @@ function ProductFilter({ products }: ProductFilterProps) {
 
   useEffect(() => {
     const filtered = products.filter((product) => {
-      const matchName = product.name?.toLowerCase().includes(searchName.toLowerCase());
+      const matchName = product.name.toLowerCase().includes(searchName.toLowerCase());
       const matchDepartment = department ? product.department === department : true;
       const matchCategory = category ? product.category === category : true;
 

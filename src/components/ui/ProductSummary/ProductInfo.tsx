@@ -13,7 +13,7 @@ function ProductInfo({ product, variant }: ProductInfoProps) {
 
   const productInCart = cart.find((item) => item.id === product.id);
   const quantity = productInCart?.quantity ?? 1;
-  const subTotal = (product.price ?? 0) * quantity;
+  const subTotal = product.price * quantity;
 
   return (
     <div className={styles["product-summary__col-right"]}>

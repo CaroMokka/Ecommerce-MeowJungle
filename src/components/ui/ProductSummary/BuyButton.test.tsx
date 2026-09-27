@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import BuyButton from "./BuyButton";
+import { createProductFixture } from "../../../test/fixtures/productFixture";
 
 const mockDispatch = jest.fn();
 
@@ -12,7 +13,7 @@ jest.mock("../../../context/cart/useCart", () => ({
 }));
 
 describe("BuyButton", () => {
-  const testProduct = { id: 1, name: "Producto 1" };
+  const testProduct = createProductFixture({ id: "producto-1", name: "Producto 1" });
 
   beforeEach(() => {
     mockDispatch.mockClear();

@@ -20,7 +20,18 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         return initialState;
       }
       const parsedCart = JSON.parse(storedCart) as CartState;
-      return Array.isArray(parsedCart.cart) ? parsedCart : initialState;
+      if (!Array.isArray(parsedCart.cart)) {
+        return initialState;
+      }
+      return {
+        cart: parsedCart.cart.filter(
+          (item) =>
+            item &&
+            typeof item.id === "string" &&
+            typeof item.price === "number" &&
+            typeof item.quantity === "number"
+        ),
+      };
     } catch {
       return initialState;
     }

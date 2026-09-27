@@ -5,11 +5,12 @@ import GridProducts from "./GridProducts";
 import { ProductFilterProvider } from "../../../../context/filterProducts/filterProductProvider";
 import { useProductFilter } from "../../../../context/filterProducts/useFilterProduct";
 import { CartProvider } from "../../../../context/cart/cartContext";
+import { createProductFixture } from "../../../../test/fixtures/productFixture";
 import type { Product } from "../../../../types/Product";
 
 const products: Product[] = [
-  { id: 1, name: "Jabón", price: 3500 },
-  { id: 2, name: "Vela", price: 4200 },
+  createProductFixture({ id: "jabon", name: "Jabón", price: 3500 }),
+  createProductFixture({ id: "vela", name: "Vela", price: 4200 }),
 ];
 
 function Seed({ items }: { items: Product[] }) {

@@ -13,7 +13,7 @@ function CheckoutLayout() {
   const { cart } = state;
   const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
   const totalAmount = cart.reduce(
-    (acc, item) => acc + item.quantity * (item.price ?? 0),
+    (acc, item) => acc + item.quantity * item.price,
     0
   );
 

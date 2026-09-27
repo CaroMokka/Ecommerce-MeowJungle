@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { formatPrice } from "../../utils/formatPrice";
 
 type InvoiceSummaryProps = {
   totalItems: number;
@@ -20,12 +21,12 @@ function InvoiceSummary({ totalItems, totalAmount }: InvoiceSummaryProps) {
           </div>
           <li className="list-group-item d-flex justify-content-between align-items-center">
             <div>SubTotal</div>
-            <div className="text-end">$ {totalAmount}</div>
+            <div className="text-end">{formatPrice(totalAmount)}</div>
           </li>
 
           <li className="list-group-item d-flex justify-content-between align-items-center">
             <div>Total</div>
-            <div className="text-end fw-semibold">$ {totalAmount}</div>
+            <div className="text-end fw-semibold">{formatPrice(totalAmount)}</div>
           </li>
         </ul>
       </div>

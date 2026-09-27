@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import DeleteButton from "./DeleteButton";
+import { createProductFixture } from "../../../test/fixtures/productFixture";
 
 const mockDispatch = jest.fn();
 
@@ -12,14 +13,14 @@ jest.mock("../../../context/cart/useCart", () => ({
 }));
 
 describe("DeleteButton", () => {
-  const mockProduct = {
-    id: 7,
+  const mockProduct = createProductFixture({
+    id: "macetero-de-barro",
     name: "Macetero de barro",
     brand: "Raíz Tierra",
-    price: 20,
+    price: 2000,
     tags: ["cerámica", "artesanal"],
     description: "Ideal para tus plantas pequeñas.",
-  };
+  });
 
   beforeEach(() => {
     mockDispatch.mockClear();

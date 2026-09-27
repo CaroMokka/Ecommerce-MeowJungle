@@ -8,7 +8,7 @@ function Minicart() {
  
 
   const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
-  const totalAmount = cart.reduce((acc, item)=> acc + item.quantity * (item.price ?? 0), 0)
+  const totalAmount = cart.reduce((acc, item)=> acc + item.quantity * item.price, 0)
 
   return (
     <>
