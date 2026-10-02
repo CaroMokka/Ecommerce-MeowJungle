@@ -77,6 +77,42 @@ describe("CartProvider", () => {
     expect(result.current.state.cart).toEqual([]);
   });
 
+  it("capita la cantidad al stock vigente del catálogo al hidratar", () => {
+    localStorage.setItem(
+      LOCAL_STORAGE_KEY,
+      JSON.stringify({ cart: [{ productId: 1, quantity: 99 }] })
+    );
+    const { result } = renderCart();
+    expect(result.current.state.cart).toEqual([{ productId: 1, quantity: 50 }]);
+    const stored = JSON.parse(
+      localStorage.getItem(LOCAL_STORAGE_KEY) ?? "{}"
+    ) as CartState;
+    expect(stored.cart).toEqual([{ productId: 1, quantity: 50 }]);
+  });
+
+  it("descarta productIds que ya no existen en el catálogo al hidratar", () => {
+    localStorage.setItem(
+      LOCAL_STORAGE_KEY,
+      JSON.stringify({ cart: [{ productId: 123, quantity: 1 }] })
+    );
+    const { result } = renderCart();
+    expect(result.current.state.cart).toEqual([]);
+    const stored = JSON.parse(
+      localStorage.getItem(LOCAL_STORAGE_KEY) ?? "{}"
+    ) as CartState;
+    expect(stored.cart).toEqual([]);
+  });
+
+  it("no toca un carrito ya válido y reconciliado", () => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify({ cart: [validItem] }));
+    const { result } = renderCart();
+    expect(result.current.state.cart).toEqual([validItem]);
+    const stored = JSON.parse(
+      localStorage.getItem(LOCAL_STORAGE_KEY) ?? "{}"
+    ) as CartState;
+    expect(stored.cart).toEqual([validItem]);
+  });
+
   it("persiste en localStorage cada cambio de estado", () => {
     const { result } = renderCart();
     act(() => {

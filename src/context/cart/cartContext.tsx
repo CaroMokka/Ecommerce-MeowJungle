@@ -6,7 +6,7 @@ import {
   useMemo,
 } from "react";
 import { cartReducer } from "./cartReducer";
-import { CartState, CartAction } from "./cartTypes";
+import { CartState, CartAction, CartItem } from "./cartTypes";
 import { CartLine, selectCartLines } from "../../services/cart/cartLines";
 import { getProducts } from "../../services/catalog/catalogRepository";
 
@@ -32,14 +32,16 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       if (!Array.isArray(parsedCart.cart)) {
         return initialState;
       }
-      return {
-        cart: parsedCart.cart.filter(
-          (item) =>
-            item &&
-            typeof item.productId === "number" &&
-            typeof item.quantity === "number"
-        ),
-      };
+      const rawCart = parsedCart.cart.filter(
+        (item): item is CartItem =>
+          item &&
+          typeof item.productId === "number" &&
+          typeof item.quantity === "number"
+      );
+      const cleanCart = selectCartLines(rawCart, getProducts()).map(
+        ({ productId, quantity }) => ({ productId, quantity })
+      );
+      return { cart: cleanCart };
     } catch {
       return initialState;
     }
