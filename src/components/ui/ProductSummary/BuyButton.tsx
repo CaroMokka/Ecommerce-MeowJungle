@@ -10,7 +10,7 @@ function BuyButton({ product }: BuyButtonProps) {
     const {  dispatch } = useCart();
 
     const handleAddToCart = () => {
-        dispatch({ type: "ADD_TO_CART", payload: product })
+        dispatch({ type: "ADD_TO_CART", payload: product.id })
     }
     return (
         <button

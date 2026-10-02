@@ -1,6 +1,5 @@
-import { Product } from "../../types/Product";
-
-export interface CartItem extends Product {
+export interface CartItem {
+  productId: number;
   quantity: number;
 }
 
@@ -9,8 +8,8 @@ export interface CartState {
 }
 
 export type CartAction =
-  | { type: "ADD_TO_CART"; payload: Product }
-  | { type: "REMOVE_FROM_CART"; payload: string | number }
-  | { type: "CHANGE_QUANTITY"; payload: { id: string | number; quantity: number } } 
+  | { type: "ADD_TO_CART"; payload: number }
+  | { type: "REMOVE_FROM_CART"; payload: number }
+  | { type: "CHANGE_QUANTITY"; payload: { productId: number; quantity: number } }
   | { type: "CLEAR_CART" }
 

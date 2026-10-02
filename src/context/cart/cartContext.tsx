@@ -1,6 +1,14 @@
-import { createContext, useReducer, ReactNode, useEffect } from "react";
+import {
+  createContext,
+  useReducer,
+  ReactNode,
+  useEffect,
+  useMemo,
+} from "react";
 import { cartReducer } from "./cartReducer";
 import { CartState, CartAction } from "./cartTypes";
+import { CartLine, selectCartLines } from "../../services/cart/cartLines";
+import { getProducts } from "../../services/catalog/catalogRepository";
 
 const initialState: CartState = {
   cart: [],
@@ -9,8 +17,9 @@ const LOCAL_STORAGE_KEY = "cartItems";
 
 const CartContext = createContext<{
   state: CartState;
+  lines: CartLine[];
   dispatch: React.Dispatch<CartAction>;
-}>({ state: initialState, dispatch: () => null });
+}>({ state: initialState, lines: [], dispatch: () => null });
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(cartReducer, initialState, () => {
@@ -27,8 +36,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         cart: parsedCart.cart.filter(
           (item) =>
             item &&
-            typeof item.id === "number" &&
-            typeof item.price === "number" &&
+            typeof item.productId === "number" &&
             typeof item.quantity === "number"
         ),
       };
@@ -37,12 +45,17 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     }
   });
 
+  const lines = useMemo(
+    () => selectCartLines(state.cart, getProducts()),
+    [state.cart]
+  );
+
   useEffect(() => {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state));
   }, [state]);
 
   return (
-    <CartContext.Provider value={{ state, dispatch }}>
+    <CartContext.Provider value={{ state, lines, dispatch }}>
       {children}
     </CartContext.Provider>
   );

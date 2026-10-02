@@ -1,89 +1,64 @@
 import { cartReducer } from "./cartReducer";
-import { CartAction, CartItem, CartState } from "./cartTypes";
-import { createProductFixture } from "../../test/fixtures/productFixture";
-import { Product } from "../../types/Product";
+import { CartItem, CartState } from "./cartTypes";
 
-const itemA: CartItem = {
-  ...createProductFixture({ id: 1, name: "Jabón", price: 3500 }),
-  quantity: 2,
-};
-const itemB: CartItem = {
-  ...createProductFixture({ id: 2, name: "Vela", price: 4200 }),
-  quantity: 1,
-};
+const itemA: CartItem = { productId: 1, quantity: 2 };
+const itemB: CartItem = { productId: 2, quantity: 1 };
 
 const state: CartState = { cart: [itemA, itemB] };
 
-const addToCart = (overrides: Partial<Product> & { id: number }): CartAction => ({
-  type: "ADD_TO_CART",
-  payload: createProductFixture(overrides),
-});
-
 describe("cartReducer", () => {
   it("ADD_TO_CART agrega un item nuevo con quantity 1 y preserva el resto", () => {
-    const result = cartReducer(state, addToCart({ id: 3, name: "Aceite", price: 2800 }));
+    const result = cartReducer(state, { type: "ADD_TO_CART", payload: 3 });
     expect(result.cart).toHaveLength(3);
-    expect(result.cart[2]).toMatchObject({ id: 3, name: "Aceite", price: 2800, quantity: 1 });
+    expect(result.cart[2]).toEqual({ productId: 3, quantity: 1 });
     expect(result.cart[0]).toEqual(itemA);
     expect(result.cart[1]).toEqual(itemB);
   });
 
-  it("ADD_TO_CART con item existente suma cantidades por id sin duplicar", () => {
-    const result = cartReducer(state, addToCart({ id: 1, name: "Jabón", price: 3500 }));
+  it("ADD_TO_CART con item existente suma cantidades por productId sin duplicar", () => {
+    const result = cartReducer(state, { type: "ADD_TO_CART", payload: 1 });
     expect(result.cart).toHaveLength(2);
-    expect(result.cart[0]).toEqual({ ...itemA, quantity: 3 });
+    expect(result.cart[0]).toEqual({ productId: 1, quantity: 3 });
     expect(result.cart[1]).toEqual(itemB);
   });
 
-  it("REMOVE_FROM_CART elimina el item por id numérico", () => {
+  it("ADD_TO_CART con NaN no agrega ningún item", () => {
+    const result = cartReducer(state, { type: "ADD_TO_CART", payload: Number.NaN });
+    expect(result.cart).toEqual(state.cart);
+  });
+
+  it("REMOVE_FROM_CART elimina el item por productId", () => {
     const result = cartReducer(state, { type: "REMOVE_FROM_CART", payload: 1 });
     expect(result.cart).toEqual([itemB]);
   });
 
-  it("REMOVE_FROM_CART acepta id como string", () => {
-    const result = cartReducer(state, { type: "REMOVE_FROM_CART", payload: "2" });
-    expect(result.cart).toEqual([itemA]);
-  });
-
-  it("REMOVE_FROM_CART con id inexistente devuelve el carrito sin cambios", () => {
+  it("REMOVE_FROM_CART con productId inexistente devuelve el carrito sin cambios", () => {
     const result = cartReducer(state, { type: "REMOVE_FROM_CART", payload: 99 });
     expect(result.cart).toEqual(state.cart);
   });
 
-  it("REMOVE_FROM_CART con id no numérico (slug legacy) no elimina ningún item", () => {
-    const result = cartReducer(state, {
-      type: "REMOVE_FROM_CART",
-      payload: "esencia-de-lavanda",
-    });
-    expect(result.cart).toEqual(state.cart);
-  });
-
   it("CHANGE_QUANTITY actualiza la cantidad del item existente", () => {
-    const result = cartReducer(state, { type: "CHANGE_QUANTITY", payload: { id: 1, quantity: 5 } });
-    expect(result.cart[0]).toEqual({ ...itemA, quantity: 5 });
+    const result = cartReducer(state, {
+      type: "CHANGE_QUANTITY",
+      payload: { productId: 1, quantity: 5 },
+    });
+    expect(result.cart[0]).toEqual({ productId: 1, quantity: 5 });
     expect(result.cart[1]).toEqual(itemB);
   });
 
-  it("CHANGE_QUANTITY acepta id como string", () => {
-    const result = cartReducer(state, { type: "CHANGE_QUANTITY", payload: { id: "2", quantity: 4 } });
-    expect(result.cart[1]).toEqual({ ...itemB, quantity: 4 });
-  });
-
-  it("CHANGE_QUANTITY con id inexistente devuelve el carrito sin cambios", () => {
-    const result = cartReducer(state, { type: "CHANGE_QUANTITY", payload: { id: 99, quantity: 4 } });
-    expect(result.cart).toEqual(state.cart);
-  });
-
-  it("CHANGE_QUANTITY con id no numérico (slug legacy) no altera el estado", () => {
+  it("CHANGE_QUANTITY con productId inexistente devuelve el carrito sin cambios", () => {
     const result = cartReducer(state, {
       type: "CHANGE_QUANTITY",
-      payload: { id: "esencia-de-lavanda", quantity: 4 },
+      payload: { productId: 99, quantity: 4 },
     });
     expect(result.cart).toEqual(state.cart);
   });
 
   it("CHANGE_QUANTITY nunca reduce la cantidad por debajo de 1", () => {
-    const result = cartReducer(state, { type: "CHANGE_QUANTITY", payload: { id: 1, quantity: 0 } });
+    const result = cartReducer(state, {
+      type: "CHANGE_QUANTITY",
+      payload: { productId: 1, quantity: 0 },
+    });
     expect(result.cart[0].quantity).toBe(1);
   });
 
