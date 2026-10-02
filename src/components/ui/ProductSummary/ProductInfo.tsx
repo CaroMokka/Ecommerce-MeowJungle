@@ -8,12 +8,11 @@ import { ProductInfoProps } from "./types";
 import useCart from "../../../context/cart/useCart";
 
 function ProductInfo({ product, variant }: ProductInfoProps) {
-  const { state } = useCart();
-  const { cart } = state;
+  const { lines } = useCart();
 
-  const productInCart = cart.find((item) => item.id === product.id);
-  const quantity = productInCart?.quantity ?? 1;
-  const subTotal = product.price * quantity;
+  const productLine = lines.find((line) => line.productId === product.id);
+  const quantity = productLine?.quantity ?? 1;
+  const subTotal = productLine?.lineTotal ?? product.price;
 
   return (
     <div className={styles["product-summary__col-right"]}>

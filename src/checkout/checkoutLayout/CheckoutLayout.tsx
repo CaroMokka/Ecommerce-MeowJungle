@@ -9,13 +9,9 @@ import Confirmation from "../confirmation/Confirmation";
 import useCart from "../../context/cart/useCart";
 
 function CheckoutLayout() {
-  const { state } = useCart();
-  const { cart } = state;
-  const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
-  const totalAmount = cart.reduce(
-    (acc, item) => acc + item.quantity * item.price,
-    0
-  );
+  const { lines } = useCart();
+  const totalItems = lines.reduce((acc, line) => acc + line.quantity, 0);
+  const totalAmount = lines.reduce((acc, line) => acc + line.lineTotal, 0);
 
   const location = useLocation();
   const isCheckout = location.pathname === "/cart";
@@ -28,7 +24,7 @@ function CheckoutLayout() {
           {isCheckout && (
             <>
               <h3>Productos</h3>
-              <ProductsListCheckout cart={cart} />
+              <ProductsListCheckout lines={lines} />
             </>
           )}
           {step === "/checkout/profile" && <ProfileForm />}

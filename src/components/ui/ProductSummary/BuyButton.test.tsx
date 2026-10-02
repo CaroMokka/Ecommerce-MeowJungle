@@ -35,7 +35,7 @@ describe("BuyButton", () => {
     expect(mockDispatch).toHaveBeenCalledTimes(1);
     expect(mockDispatch).toHaveBeenCalledWith({
       type: "ADD_TO_CART",
-      payload: testProduct,
+      payload: testProduct.id,
     });
   });
 });

@@ -4,7 +4,7 @@ import useCart from "../../../context/cart/useCart";
 
 type Props = {
   quantity?: number;
-  productId: string | number;
+  productId: number;
 }
 function ProductQuantity({ quantity = 1, productId }: Props) {
     const [localQty, setLocalQty] = useState<number>(quantity);
@@ -17,7 +17,7 @@ function ProductQuantity({ quantity = 1, productId }: Props) {
         if(newQuantity < 1) return;
         dispatch({
           type: "CHANGE_QUANTITY",
-          payload: { id: productId, quantity: newQuantity }
+          payload: { productId, quantity: newQuantity }
         })
         setLocalQty(newQuantity);
         // onChange?.(newQuantity); 
