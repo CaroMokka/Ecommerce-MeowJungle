@@ -6,9 +6,9 @@ import type { CartState } from "./cartTypes";
 import { createProductFixture } from "../../test/fixtures/productFixture";
 
 const LOCAL_STORAGE_KEY = "cartItems";
-const jabon = createProductFixture({ id: 1, name: "Jabón", price: 3500 });
-const vela = createProductFixture({ id: 2, name: "Vela", price: 4200 });
-const validItem = { ...jabon, quantity: 2 };
+
+const validItem = { productId: 1, quantity: 2 };
+const secondItem = { productId: 2, quantity: 1 };
 
 function renderCart() {
   return renderHook(() => useCart(), {
@@ -27,38 +27,45 @@ describe("CartProvider", () => {
   });
 
   it("inicializa desde localStorage con datos válidos", () => {
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify({ cart: [validItem] }));
+    localStorage.setItem(
+      LOCAL_STORAGE_KEY,
+      JSON.stringify({ cart: [validItem] })
+    );
     const { result } = renderCart();
     expect(result.current.state.cart).toEqual([validItem]);
   });
 
-  it("descarta items vacíos o sin shape mínimo y conserva los válidos", () => {
+  it("descarta items sin shape mínimo y conserva los válidos", () => {
     localStorage.setItem(
       LOCAL_STORAGE_KEY,
       JSON.stringify({
         cart: [
           validItem,
-          { ...vela, quantity: 1 },
-          { id: 6, price: 100 },
+          secondItem,
+          { productId: 6 },
           { quantity: 2 },
+          null,
         ],
       })
     );
     const { result } = renderCart();
-    expect(result.current.state.cart).toEqual([validItem, { ...vela, quantity: 1 }]);
+    expect(result.current.state.cart).toEqual([validItem, secondItem]);
   });
 
-  it("migra carritos de la era de slugs descartando items con id string", () => {
-    const legacyItem = { ...jabon, id: "esencia-de-lavanda", quantity: 2 };
+  it("descarta carritos de la era del snapshot (sin productId)", () => {
+    const legacyItem = {
+      ...createProductFixture({ id: 1, name: "Jabón", price: 3500 }),
+      quantity: 2,
+    };
     localStorage.setItem(
       LOCAL_STORAGE_KEY,
-      JSON.stringify({ cart: [legacyItem, { ...vela, quantity: 1 }] })
+      JSON.stringify({ cart: [legacyItem, secondItem] })
     );
     const { result } = renderCart();
-    expect(result.current.state.cart).toEqual([{ ...vela, quantity: 1 }]);
+    expect(result.current.state.cart).toEqual([secondItem]);
   });
 
-  it("no rompe la app cuando localStorage contiene JSON corrupto y usa fallback", () => {
+  it("no rompe la app cuando localStorage contiene JSON corrupto", () => {
     localStorage.setItem(LOCAL_STORAGE_KEY, "{carrito: no-valido");
     const { result } = renderCart();
     expect(result.current.state.cart).toEqual([]);
@@ -70,26 +77,79 @@ describe("CartProvider", () => {
     expect(result.current.state.cart).toEqual([]);
   });
 
+  it("capita la cantidad al stock vigente del catálogo al hidratar", () => {
+    localStorage.setItem(
+      LOCAL_STORAGE_KEY,
+      JSON.stringify({ cart: [{ productId: 1, quantity: 99 }] })
+    );
+    const { result } = renderCart();
+    expect(result.current.state.cart).toEqual([{ productId: 1, quantity: 50 }]);
+    const stored = JSON.parse(
+      localStorage.getItem(LOCAL_STORAGE_KEY) ?? "{}"
+    ) as CartState;
+    expect(stored.cart).toEqual([{ productId: 1, quantity: 50 }]);
+  });
+
+  it("descarta productIds que ya no existen en el catálogo al hidratar", () => {
+    localStorage.setItem(
+      LOCAL_STORAGE_KEY,
+      JSON.stringify({ cart: [{ productId: 123, quantity: 1 }] })
+    );
+    const { result } = renderCart();
+    expect(result.current.state.cart).toEqual([]);
+    const stored = JSON.parse(
+      localStorage.getItem(LOCAL_STORAGE_KEY) ?? "{}"
+    ) as CartState;
+    expect(stored.cart).toEqual([]);
+  });
+
+  it("no toca un carrito ya válido y reconciliado", () => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify({ cart: [validItem] }));
+    const { result } = renderCart();
+    expect(result.current.state.cart).toEqual([validItem]);
+    const stored = JSON.parse(
+      localStorage.getItem(LOCAL_STORAGE_KEY) ?? "{}"
+    ) as CartState;
+    expect(stored.cart).toEqual([validItem]);
+  });
+
   it("persiste en localStorage cada cambio de estado", () => {
     const { result } = renderCart();
     act(() => {
-      result.current.dispatch({ type: "ADD_TO_CART", payload: jabon });
+      result.current.dispatch({ type: "ADD_TO_CART", payload: 1 });
     });
-    const stored = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) ?? "{}") as CartState;
-    expect(stored.cart).toEqual([{ ...jabon, quantity: 1 }]);
-    expect(result.current.state.cart).toEqual([{ ...jabon, quantity: 1 }]);
+    const stored = JSON.parse(
+      localStorage.getItem(LOCAL_STORAGE_KEY) ?? "{}"
+    ) as CartState;
+    expect(stored.cart).toEqual([{ productId: 1, quantity: 1 }]);
+    expect(result.current.state.cart).toEqual([{ productId: 1, quantity: 1 }]);
   });
 
   it("actualiza localStorage en cada cambio posterior", () => {
     const { result } = renderCart();
     act(() => {
-      result.current.dispatch({ type: "ADD_TO_CART", payload: jabon });
+      result.current.dispatch({ type: "ADD_TO_CART", payload: 1 });
     });
     act(() => {
-      result.current.dispatch({ type: "ADD_TO_CART", payload: vela });
+      result.current.dispatch({ type: "ADD_TO_CART", payload: 2 });
     });
-    const stored = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) ?? "{}") as CartState;
+    const stored = JSON.parse(
+      localStorage.getItem(LOCAL_STORAGE_KEY) ?? "{}"
+    ) as CartState;
     expect(stored.cart).toHaveLength(2);
-    expect(stored.cart.map((item) => item.id)).toEqual([1, 2]);
+    expect(stored.cart.map((item) => item.productId)).toEqual([1, 2]);
+  });
+
+  it("expone lines reconciliadas con el catálogo", () => {
+    const { result } = renderCart();
+    act(() => {
+      result.current.dispatch({ type: "ADD_TO_CART", payload: 1 });
+    });
+    expect(result.current.lines).toHaveLength(1);
+    expect(result.current.lines[0]).toMatchObject({
+      productId: 1,
+      quantity: 1,
+      product: { id: 1, name: "Esencia de Lavanda" },
+    });
   });
 });

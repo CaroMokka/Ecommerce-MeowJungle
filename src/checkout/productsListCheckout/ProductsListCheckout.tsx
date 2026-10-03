@@ -1,19 +1,19 @@
 import ProductSummary from "../../components/ui/ProductSummary/ProductSummary";
-import { CartItem } from "../../context/cart/cartTypes";
+import { CartLine } from "../../services/cart/cartLines";
 
 type ProductsListCheckoutProps = {
-  cart: CartItem[];
+  lines: CartLine[];
 }
 
-function ProductsListCheckout({ cart }: ProductsListCheckoutProps) {
+function ProductsListCheckout({ lines }: ProductsListCheckoutProps) {
 
   return (
     <div>
-      {cart.map((item) => {
+      {lines.map((line) => {
         return (
           <ProductSummary
-            key={item.id}
-            product={item}
+            key={line.productId}
+            product={line.product}
             variant="minicart"
           />
         );

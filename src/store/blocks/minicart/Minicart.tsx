@@ -3,12 +3,10 @@ import CartSummary from "./cartSummary/CartSummary"
 import EmptyCartMessage from "./emptyCartMessage/EmptyCartMessage"
 import useCart from "../../../context/cart/useCart";
 function Minicart() {
-  const { state } = useCart();
-  const { cart } = state;
- 
+  const { lines } = useCart();
 
-  const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
-  const totalAmount = cart.reduce((acc, item)=> acc + item.quantity * item.price, 0)
+  const totalItems = lines.reduce((acc, line) => acc + line.quantity, 0);
+  const totalAmount = lines.reduce((acc, line) => acc + line.lineTotal, 0);
 
   return (
     <>
@@ -58,12 +56,12 @@ function Minicart() {
         </div>
         <div className="offcanvas-body" style={{width:"60vh"}}>
           {
-            cart.length === 0 ? (
+            lines.length === 0 ? (
               <EmptyCartMessage/>
             ) :
             (
               <>
-              < ListCart cart={cart}/>
+              < ListCart lines={lines}/>
               <CartSummary totalItems={totalItems} totalAmount={totalAmount} />
               </>
             )

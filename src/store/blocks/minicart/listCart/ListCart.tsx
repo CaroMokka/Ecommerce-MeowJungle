@@ -1,18 +1,18 @@
-import { CartItem } from "../../../../context/cart/cartTypes";
+import { CartLine } from "../../../../services/cart/cartLines";
 import ProductSummary from "../../../../components/ui/ProductSummary/ProductSummary";
 
-
 type ListCartProps = {
-  cart: CartItem[];
+  lines: CartLine[];
 }
-function ListCart({ cart }: ListCartProps) {
+
+function ListCart({ lines }: ListCartProps) {
   return (
     <div>
-      {cart.map((item) => {
+      {lines.map((line) => {
         return (
           <ProductSummary
-            key={item.id}
-            product={item}
+            key={line.productId}
+            product={line.product}
             variant="minicart"
           />
         );
