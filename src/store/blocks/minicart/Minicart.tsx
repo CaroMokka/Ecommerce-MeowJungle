@@ -2,11 +2,12 @@ import ListCart from "./listCart/ListCart"
 import CartSummary from "./cartSummary/CartSummary"
 import EmptyCartMessage from "./emptyCartMessage/EmptyCartMessage"
 import useCart from "../../../context/cart/useCart";
+import { calculateCartTotals } from "../../../services/cart/cartTotals";
 function Minicart() {
   const { lines } = useCart();
 
-  const totalItems = lines.reduce((acc, line) => acc + line.quantity, 0);
-  const totalAmount = lines.reduce((acc, line) => acc + line.lineTotal, 0);
+  const { itemCount: totalItems, subtotal: totalAmount } =
+    calculateCartTotals(lines);
 
   return (
     <>
