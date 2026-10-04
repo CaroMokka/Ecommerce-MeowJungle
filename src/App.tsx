@@ -1,6 +1,7 @@
 import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
 import ScrollToTop from "./components/common/scrollToTop/ScrollToTop";
 import { CartProvider } from "./context/cart/cartContext";
+import { CheckoutProvider } from "./context/checkout/checkoutContext";
 import Home from "./store/blocks/home/Home";
 import Products from "./store/blocks/plp/ProductsList";
 import ProductPage from "./pages/ProductPage"
@@ -19,15 +20,50 @@ function App() {
           <Route path="/products" element={<Products />} />
           <Route path="/product/:productId" element={<ProductPage />} />
           <Route path="/about" element={<About/>} />
-          <Route path="/cart" element={<Cart />} />
           <Route
             path="/shipping"
             element={<Navigate to="/checkout/profile" replace />}
           />
-          <Route path="/checkout/profile" element={<CheckoutLayout />} />
-          <Route path="/checkout/shipping" element={<CheckoutLayout />} />
-          <Route path="/checkout/payment" element={<CheckoutLayout />} />
-          <Route path="/checkout/confirmation" element={<CheckoutLayout />} />
+          <Route
+            path="/cart"
+            element={
+              <CheckoutProvider>
+                <Cart />
+              </CheckoutProvider>
+            }
+          />
+          <Route
+            path="/checkout/profile"
+            element={
+              <CheckoutProvider>
+                <CheckoutLayout />
+              </CheckoutProvider>
+            }
+          />
+          <Route
+            path="/checkout/shipping"
+            element={
+              <CheckoutProvider>
+                <CheckoutLayout />
+              </CheckoutProvider>
+            }
+          />
+          <Route
+            path="/checkout/payment"
+            element={
+              <CheckoutProvider>
+                <CheckoutLayout />
+              </CheckoutProvider>
+            }
+          />
+          <Route
+            path="/checkout/confirmation"
+            element={
+              <CheckoutProvider>
+                <CheckoutLayout />
+              </CheckoutProvider>
+            }
+          />
         </Routes>
       </BrowserRouter>
       </CartProvider>

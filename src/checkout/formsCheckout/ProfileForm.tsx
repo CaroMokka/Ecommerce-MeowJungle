@@ -1,4 +1,6 @@
-import { SubmitHandler, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import useCheckout from "../../context/checkout/useCheckout";
 
 interface ProfileFormData {
   name: string;
@@ -13,9 +15,12 @@ export const ProfileForm = () => {
     formState: { errors },
   } = useForm<ProfileFormData>();
 
-  const onSubmit: SubmitHandler<ProfileFormData> = (data) => {
-    console.log("object", data);
-    alert("Perfil enviado correctamente ✅");
+  const { completeStep } = useCheckout();
+  const navigate = useNavigate();
+
+  const onSubmit = () => {
+    completeStep("profile");
+    void navigate("/checkout/shipping");
   };
 
   return (

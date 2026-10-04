@@ -2,12 +2,17 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter, useLocation } from "react-router-dom";
 import { PaymentMethodForm } from "./PaymentForm";
+import { CheckoutProvider } from "../../context/checkout/checkoutContext";
 
 const mockDispatch = jest.fn();
 
 jest.mock("../../../src/context/cart/useCart", () => ({
   __esModule: true,
-  default: () => ({ dispatch: mockDispatch, state: { cart: [] } }),
+  default: () => ({
+    dispatch: mockDispatch,
+    state: { cart: [{ productId: 1, quantity: 1 }] },
+    lines: [{ productId: 1, quantity: 1 }],
+  }),
 }));
 
 function LocationProbe() {
@@ -18,8 +23,10 @@ function LocationProbe() {
 function renderForm() {
   return render(
     <MemoryRouter initialEntries={["/checkout/payment"]}>
-      <PaymentMethodForm />
-      <LocationProbe />
+      <CheckoutProvider initialCompletedSteps={["profile", "shipping", "payment"]}>
+        <PaymentMethodForm />
+        <LocationProbe />
+      </CheckoutProvider>
     </MemoryRouter>
   );
 }

@@ -1,4 +1,6 @@
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import useCheckout from "../../context/checkout/useCheckout";
 
 interface FormData {
   fullName: string
@@ -8,11 +10,14 @@ interface FormData {
   country: string
 }
 export default function ShippingForm() {
-  const { register, handleSubmit, reset, formState: { errors } } = useForm<FormData>();
+  const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
 
-  const onSubmit = (data: FormData): void => {
-    console.log("Shipping Info:", data);
-    reset()
+  const { completeStep } = useCheckout();
+  const navigate = useNavigate();
+
+  const onSubmit = (): void => {
+    completeStep("shipping");
+    void navigate("/checkout/payment");
   };
 
   return (
