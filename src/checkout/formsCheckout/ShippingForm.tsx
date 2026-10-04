@@ -10,8 +10,7 @@ interface FormData {
 export default function ShippingForm() {
   const { register, handleSubmit, reset, formState: { errors } } = useForm<FormData>();
 
-  const onSubmit = (data: FormData): void => {
-    console.log("Shipping Info:", data);
+  const onSubmit = (): void => {
     reset()
   };
 

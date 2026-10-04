@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ProfileForm } from "./ProfileForm";
 
@@ -32,7 +32,6 @@ describe("ProfileForm", () => {
 
   it("con datos válidos no muestra errores y ejecuta el onSubmit", async () => {
     const user = userEvent.setup();
-    const consoleSpy = jest.spyOn(console, "log").mockImplementation(() => {});
     const alertSpy = jest.spyOn(window, "alert").mockImplementation(() => {});
     render(<ProfileForm />);
 
@@ -44,13 +43,6 @@ describe("ProfileForm", () => {
 
     expect(screen.queryByText(/es obligatorio/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/no es válido/i)).not.toBeInTheDocument();
-    await waitFor(() =>
-      expect(consoleSpy).toHaveBeenCalledWith("object", {
-        name: "Caro",
-        lastName: "Aguirre",
-        email: "caro@example.com",
-      })
-    );
     expect(alertSpy).toHaveBeenCalledWith("Perfil enviado correctamente ✅");
   });
 });

@@ -1,4 +1,4 @@
-import { SubmitHandler, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 
 interface ProfileFormData {
   name: string;
@@ -13,8 +13,7 @@ export const ProfileForm = () => {
     formState: { errors },
   } = useForm<ProfileFormData>();
 
-  const onSubmit: SubmitHandler<ProfileFormData> = (data) => {
-    console.log("object", data);
+  const onSubmit = () => {
     alert("Perfil enviado correctamente ✅");
   };
 

@@ -34,7 +34,6 @@ describe("ShippingForm", () => {
 
   it("acepta datos válidos, ejecuta el onSubmit y resetea el formulario", async () => {
     const user = userEvent.setup();
-    const consoleSpy = jest.spyOn(console, "log").mockImplementation(() => {});
     render(<ShippingForm />);
 
     const fullName = screen.getByPlaceholderText("Ingresa tu nombre completo");
@@ -51,15 +50,6 @@ describe("ShippingForm", () => {
 
     expect(screen.queryByText(/es obligatorio/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/no válido/i)).not.toBeInTheDocument();
-    await waitFor(() =>
-      expect(consoleSpy).toHaveBeenCalledWith("Shipping Info:", {
-        fullName: "Caro Mora",
-        address: "Calle 123",
-        city: "Santiago",
-        zipCode: "12345",
-        country: "CAN",
-      })
-    );
     await waitFor(() => {
       expect(fullName).toHaveValue("");
       expect(zip).toHaveValue("");
