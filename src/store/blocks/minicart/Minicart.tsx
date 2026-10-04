@@ -18,6 +18,9 @@ function Minicart() {
         data-bs-toggle="offcanvas"
         data-bs-target="#offcanvasRight"
         aria-controls="offcanvasRight"
+        aria-label="Abrir carrito de compras"
+        aria-expanded="false"
+        aria-haspopup="dialog"
       >
         <svg
           width="32"

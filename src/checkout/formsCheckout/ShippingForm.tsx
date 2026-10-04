@@ -27,8 +27,9 @@ export default function ShippingForm() {
 
         {/* Nombre Completo */}
         <div className="mb-3">
-          <label className="form-label">Nombre completo</label>
+          <label className="form-label" htmlFor="fullName">Nombre completo</label>
           <input
+            id="fullName"
             {...register("fullName", { required: "El nombre completo es obligatorio" })}
             className={`form-control ${errors.fullName ? "is-invalid" : ""}`}
             placeholder="Ingresa tu nombre completo"
@@ -38,8 +39,9 @@ export default function ShippingForm() {
 
         {/* Dirección */}
         <div className="mb-3">
-          <label className="form-label">Dirección</label>
+          <label className="form-label" htmlFor="address">Dirección</label>
           <input
+            id="address"
             {...register("address", { required: "La dirección es obligatoria" })}
             className={`form-control ${errors.address ? "is-invalid" : ""}`}
             placeholder="Ingresa tu dirección"
@@ -49,8 +51,9 @@ export default function ShippingForm() {
 
         {/* Ciudad */}
         <div className="mb-3">
-          <label className="form-label">Ciudad</label>
+          <label className="form-label" htmlFor="city">Ciudad</label>
           <input
+            id="city"
             {...register("city", { required: "La ciudad es obligatoria" })}
             className={`form-control ${errors.city ? "is-invalid" : ""}`}
             placeholder="Ingresa tu ciudad"
@@ -60,8 +63,9 @@ export default function ShippingForm() {
 
         {/* Código Postal */}
         <div className="mb-3">
-          <label className="form-label">Código postal</label>
+          <label className="form-label" htmlFor="zipCode">Código postal</label>
           <input
+            id="zipCode"
             {...register("zipCode", { required: "El código postal es obligatorio", pattern: { value: /^[0-9]{5}$/, message: "Código postal no válido" } })}
             className={`form-control ${errors.zipCode ? "is-invalid" : ""}`}
             placeholder="Ingresa tu código postal"
@@ -71,8 +75,9 @@ export default function ShippingForm() {
 
         {/* País */}
         <div className="mb-3">
-          <label className="form-label">País</label>
+          <label className="form-label" htmlFor="country">País</label>
           <select
+            id="country"
             {...register("country", { required: "Por favor selecciona un país" })}
             className={`form-control ${errors.country ? "is-invalid" : ""}`}
           >
