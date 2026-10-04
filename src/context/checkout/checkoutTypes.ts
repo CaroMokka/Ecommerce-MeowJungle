@@ -17,3 +17,9 @@ const STEP_BY_PATH: Record<string, CheckoutStep> = {
 
 export const resolveStep = (pathname: string): CheckoutStep =>
   STEP_BY_PATH[pathname] ?? "cart";
+
+const checkoutSteps = CHECKOUT_STEPS as readonly CheckoutStep[];
+
+export const isCheckoutStep = (value: unknown): value is CheckoutStep =>
+  typeof value === "string" &&
+  (value === "cart" || checkoutSteps.includes(value as CheckoutStep));

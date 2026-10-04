@@ -19,15 +19,15 @@ export function PaymentMethodForm() {
     },
   });
 
-  const { dispatch } = useCart();
-  const { completeStep } = useCheckout();
+  const { dispatch, lines } = useCart();
+  const { completeStep, placeOrder } = useCheckout();
   const navigate = useNavigate();
 
   const onSubmit = () => {
-    const orderId = `order-${Date.now()}`;
     completeStep("payment");
+    placeOrder(lines);
     dispatch({ type: "CLEAR_CART" });
-    void navigate("/checkout/confirmation", { state: { orderId } });
+    void navigate("/checkout/confirmation");
   };
 
   const selectedMethod = watch("paymentMethod");

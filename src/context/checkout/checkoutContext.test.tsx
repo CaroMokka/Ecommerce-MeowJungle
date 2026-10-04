@@ -6,6 +6,8 @@ import { CartProvider } from "../cart/cartContext";
 import { CheckoutProvider } from "./checkoutContext";
 import useCheckout from "./useCheckout";
 import { CheckoutStep, resolveStep } from "./checkoutTypes";
+import { CartLine } from "../../services/cart/cartLines";
+import { createProductFixture } from "../../test/fixtures/productFixture";
 
 const LOCAL_STORAGE_KEY = "cartItems";
 const CART_WITH_ITEM = JSON.stringify({
@@ -68,6 +70,7 @@ describe("resolveStep", () => {
 
 describe("CheckoutProvider guard de carrito vacío", () => {
   beforeEach(() => {
+    sessionStorage.clear();
     localStorage.clear();
   });
 
@@ -90,6 +93,7 @@ describe("CheckoutProvider guard de carrito vacío", () => {
 
 describe("CheckoutProvider guard de orden de pasos", () => {
   beforeEach(() => {
+    sessionStorage.clear();
     localStorage.setItem(LOCAL_STORAGE_KEY, CART_WITH_ITEM);
   });
 
@@ -139,8 +143,93 @@ describe("CheckoutProvider guard de orden de pasos", () => {
   });
 });
 
+describe("CheckoutProvider persisted steps", () => {
+  beforeEach(() => {
+    sessionStorage.clear();
+    localStorage.setItem(LOCAL_STORAGE_KEY, CART_WITH_ITEM);
+  });
+
+  it("restaura completedSteps válidos desde sessionStorage", () => {
+    sessionStorage.setItem(
+      "checkoutSteps",
+      JSON.stringify(["profile", "shipping", "payment"])
+    );
+    render(<Harness initialEntry="/checkout/confirmation" />);
+    expect(screen.getByText("CONFIRMATION PAGE")).toBeInTheDocument();
+  });
+
+  it("ignora pasos inválidos y conserva los válidos", () => {
+    sessionStorage.setItem(
+      "checkoutSteps",
+      JSON.stringify(["profile", "bogus", 42])
+    );
+    render(<Harness initialEntry="/checkout/shipping" />);
+    expect(screen.getByText("SHIPPING PAGE")).toBeInTheDocument();
+  });
+
+  it("usa fallback vacío cuando el storage no tiene pasos válidos", () => {
+    sessionStorage.setItem("checkoutSteps", JSON.stringify(["bogus"]));
+    render(<Harness initialEntry="/checkout/shipping" />);
+    expect(screen.getByText("PROFILE PAGE")).toBeInTheDocument();
+  });
+});
+
+describe("CheckoutProvider order", () => {
+  beforeEach(() => {
+    sessionStorage.clear();
+    localStorage.setItem(LOCAL_STORAGE_KEY, CART_WITH_ITEM);
+  });
+
+  const lineFixture: CartLine[] = [
+    {
+      productId: 1,
+      quantity: 1,
+      lineTotal: 1000,
+      product: createProductFixture({ id: 1, price: 1000 }),
+    },
+  ];
+
+  function OrderProbe() {
+    const { order, placeOrder } = useCheckout();
+    return (
+      <div>
+        <span>ORDER:{order ? order.id : "none"}</span>
+        <button onClick={() => placeOrder(lineFixture)}>place</button>
+      </div>
+    );
+  }
+
+  function OrderWrapper({ children }: { children: ReactNode }) {
+    return (
+      <MemoryRouter initialEntries={["/cart"]}>
+        <CartProvider>
+          <CheckoutProvider>{children}</CheckoutProvider>
+        </CartProvider>
+      </MemoryRouter>
+    );
+  }
+
+  it("placeOrder crea la orden, la expone y la persiste en sessionStorage", async () => {
+    render(
+      <OrderWrapper>
+        <OrderProbe />
+      </OrderWrapper>
+    );
+
+    await userEvent.click(screen.getByRole("button", { name: "place" }));
+
+    expect(await screen.findByText(/ORDER:order-\d+/)).toBeInTheDocument();
+
+    const stored = JSON.parse(
+      sessionStorage.getItem("checkoutOrder") ?? "{}"
+    ) as { id?: string };
+    expect(stored.id).toBeDefined();
+  });
+});
+
 describe("useCheckout", () => {
   beforeEach(() => {
+    sessionStorage.clear();
     localStorage.clear();
   });
 

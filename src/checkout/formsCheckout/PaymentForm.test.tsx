@@ -3,6 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { MemoryRouter, useLocation } from "react-router-dom";
 import { PaymentMethodForm } from "./PaymentForm";
 import { CheckoutProvider } from "../../context/checkout/checkoutContext";
+import useCheckout from "../../context/checkout/useCheckout";
 
 const mockDispatch = jest.fn();
 
@@ -17,7 +18,12 @@ jest.mock("../../../src/context/cart/useCart", () => ({
 
 function LocationProbe() {
   const location = useLocation();
-  return <div>{location.pathname}::{JSON.stringify(location.state)}</div>;
+  return <div>{location.pathname}</div>;
+}
+
+function OrderProbe() {
+  const { order } = useCheckout();
+  return <div>ORDER:{order ? order.id : "none"}</div>;
 }
 
 function renderForm() {
@@ -26,6 +32,7 @@ function renderForm() {
       <CheckoutProvider initialCompletedSteps={["profile", "shipping", "payment"]}>
         <PaymentMethodForm />
         <LocationProbe />
+        <OrderProbe />
       </CheckoutProvider>
     </MemoryRouter>
   );
@@ -33,6 +40,7 @@ function renderForm() {
 
 describe("PaymentMethodForm", () => {
   beforeEach(() => {
+    sessionStorage.clear();
     jest.clearAllMocks();
   });
 
@@ -53,7 +61,7 @@ describe("PaymentMethodForm", () => {
 
     expect(mockDispatch).toHaveBeenCalledWith({ type: "CLEAR_CART" });
     await screen.findByText(/\/checkout\/confirmation/);
-    expect(screen.getByText(/order-\d+/)).toBeInTheDocument();
+    expect(await screen.findByText(/ORDER:order-\d+/)).toBeInTheDocument();
   });
 
   it("cambia de método con el radio y envía la nueva selección", async () => {
@@ -70,6 +78,6 @@ describe("PaymentMethodForm", () => {
 
     expect(mockDispatch).toHaveBeenCalledWith({ type: "CLEAR_CART" });
     await screen.findByText(/\/checkout\/confirmation/);
-    expect(screen.getByText(/order-\d+/)).toBeInTheDocument();
+    expect(await screen.findByText(/ORDER:order-\d+/)).toBeInTheDocument();
   });
 });
