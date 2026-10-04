@@ -16,7 +16,7 @@ function DarkSection() {
         <button type="button">¿Listo? Contáctanos</button>
       </div>
       <div className="dark-section__image">
-        <img src="/img/soap_jungle.webp" />
+        <img src="/img/soap_jungle.webp" alt="" />
       </div>
     </section>
   );

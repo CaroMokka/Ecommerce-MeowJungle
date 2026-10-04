@@ -63,7 +63,7 @@ describe("ProfileForm", () => {
     const inputs = screen.getAllByRole("textbox");
     await user.type(inputs[0], "Caro");
     await user.type(inputs[1], "Aguirre");
-    await user.type(inputs[2], "caro@example.com");
+    await user.type(screen.getByLabelText("Email:"), "caro@example.com");
     await user.click(screen.getByRole("button", { name: "Guardar Perfil" }));
 
     expect(screen.queryByText(/es obligatorio/i)).not.toBeInTheDocument();

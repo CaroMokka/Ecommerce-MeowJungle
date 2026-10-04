@@ -66,7 +66,7 @@ describe("ShippingForm", () => {
     await user.type(screen.getByPlaceholderText("Ingresa tu dirección"), "Calle 123");
     await user.type(screen.getByPlaceholderText("Ingresa tu ciudad"), "Santiago");
     await user.type(screen.getByPlaceholderText("Ingresa tu código postal"), "12345");
-    await user.selectOptions(screen.getByRole("combobox"), "CAN");
+    await user.selectOptions(screen.getByLabelText("País"), "CAN");
     await user.click(screen.getByRole("button", { name: "Enviar" }));
 
     expect(screen.queryByText(/es obligatorio/i)).not.toBeInTheDocument();
