@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import useCart from "../../context/cart/useCart";
+import useCheckout from "../../context/checkout/useCheckout";
 
 type PaymentMethodFormData = {
   paymentMethod: string;
@@ -19,10 +20,12 @@ export function PaymentMethodForm() {
   });
 
   const { dispatch } = useCart();
+  const { completeStep } = useCheckout();
   const navigate = useNavigate();
 
   const onSubmit = () => {
     const orderId = `order-${Date.now()}`;
+    completeStep("payment");
     dispatch({ type: "CLEAR_CART" });
     void navigate("/checkout/confirmation", { state: { orderId } });
   };

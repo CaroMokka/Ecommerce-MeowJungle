@@ -1,15 +1,41 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { MemoryRouter, useLocation } from "react-router-dom";
 import ShippingForm from "./ShippingForm";
+import { CartProvider } from "../../context/cart/cartContext";
+import { CheckoutProvider } from "../../context/checkout/checkoutContext";
+
+const LOCAL_STORAGE_KEY = "cartItems";
+
+function LocationProbe() {
+  const location = useLocation();
+  return <div>{location.pathname}</div>;
+}
+
+function renderForm() {
+  return render(
+    <MemoryRouter initialEntries={["/checkout/shipping"]}>
+      <CartProvider>
+        <CheckoutProvider initialCompletedSteps={["profile"]}>
+          <ShippingForm />
+          <LocationProbe />
+        </CheckoutProvider>
+      </CartProvider>
+    </MemoryRouter>
+  );
+}
 
 describe("ShippingForm", () => {
-  afterEach(() => {
-    jest.restoreAllMocks();
+  beforeEach(() => {
+    localStorage.setItem(
+      LOCAL_STORAGE_KEY,
+      JSON.stringify({ cart: [{ productId: 1, quantity: 1 }] })
+    );
   });
 
   it("muestra errores de campos requeridos al enviar vacío", async () => {
     const user = userEvent.setup();
-    render(<ShippingForm />);
+    renderForm();
     await user.click(screen.getByRole("button", { name: "Enviar" }));
 
     expect(await screen.findByText("El nombre completo es obligatorio")).toBeInTheDocument();
@@ -21,7 +47,7 @@ describe("ShippingForm", () => {
 
   it("rechaza un código postal que no tiene 5 dígitos", async () => {
     const user = userEvent.setup();
-    render(<ShippingForm />);
+    renderForm();
     await user.type(screen.getByPlaceholderText("Ingresa tu nombre completo"), "Caro Mora");
     await user.type(screen.getByPlaceholderText("Ingresa tu dirección"), "Calle 123");
     await user.type(screen.getByPlaceholderText("Ingresa tu ciudad"), "Santiago");
@@ -32,27 +58,19 @@ describe("ShippingForm", () => {
     expect(await screen.findByText("Código postal no válido")).toBeInTheDocument();
   });
 
-  it("acepta datos válidos, ejecuta el onSubmit y resetea el formulario", async () => {
+  it("acepta datos válidos, completa el paso y navega a /checkout/payment", async () => {
     const user = userEvent.setup();
-    render(<ShippingForm />);
+    renderForm();
 
-    const fullName = screen.getByPlaceholderText("Ingresa tu nombre completo");
-    const address = screen.getByPlaceholderText("Ingresa tu dirección");
-    const city = screen.getByPlaceholderText("Ingresa tu ciudad");
-    const zip = screen.getByPlaceholderText("Ingresa tu código postal");
-
-    await user.type(fullName, "Caro Mora");
-    await user.type(address, "Calle 123");
-    await user.type(city, "Santiago");
-    await user.type(zip, "12345");
+    await user.type(screen.getByPlaceholderText("Ingresa tu nombre completo"), "Caro Mora");
+    await user.type(screen.getByPlaceholderText("Ingresa tu dirección"), "Calle 123");
+    await user.type(screen.getByPlaceholderText("Ingresa tu ciudad"), "Santiago");
+    await user.type(screen.getByPlaceholderText("Ingresa tu código postal"), "12345");
     await user.selectOptions(screen.getByRole("combobox"), "CAN");
     await user.click(screen.getByRole("button", { name: "Enviar" }));
 
     expect(screen.queryByText(/es obligatorio/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/no válido/i)).not.toBeInTheDocument();
-    await waitFor(() => {
-      expect(fullName).toHaveValue("");
-      expect(zip).toHaveValue("");
-    });
+    expect(await screen.findByText("/checkout/payment")).toBeInTheDocument();
   });
 });
