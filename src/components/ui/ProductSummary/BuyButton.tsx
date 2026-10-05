@@ -5,9 +5,10 @@ import { ProductInfoProps } from "../../../components/ui/ProductSummary/types"
 
 type BuyButtonProps = {
     product: ProductInfoProps["product"];
+    disabled?: boolean;
 }
 
-function BuyButton({ product }: BuyButtonProps) {
+function BuyButton({ product, disabled = false }: BuyButtonProps) {
     const {  dispatch } = useCart();
 
     const handleAddToCart = () => {
@@ -20,10 +21,12 @@ function BuyButton({ product }: BuyButtonProps) {
     }
     return (
         <button
+            type="button"
             onClick={handleAddToCart}
+            disabled={disabled}
             className={styles["product-summary__buy-button"]}
         >
-            Añadir al carrito
+            {disabled ? "Agotado" : "Añadir al carrito"}
         </button>
     )
 }

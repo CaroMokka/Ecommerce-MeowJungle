@@ -7,7 +7,7 @@ import styles from "./productSummary.module.scss";
 import { ProductInfoProps } from "./types";
 import useCart from "../../../context/cart/useCart";
 
-function ProductInfo({ product, variant }: ProductInfoProps) {
+function ProductInfo({ product, variant, unitPrice, addDisabled, children }: ProductInfoProps) {
   const { lines } = useCart();
 
   const productLine = lines.find((line) => line.productId === product.id);
@@ -29,10 +29,12 @@ function ProductInfo({ product, variant }: ProductInfoProps) {
           </>
         )}
 
-        <ProductPrice unitPrice={product.price} />
+        <ProductPrice unitPrice={unitPrice ?? product.price} />
+
+        {children}
 
         {(variant === "pdp" || variant === "shelf") && (
-          <BuyButton product={product} />
+          <BuyButton product={product} disabled={addDisabled} />
         )}
         {variant === "minicart" && (
           <>
