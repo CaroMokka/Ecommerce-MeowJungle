@@ -52,7 +52,7 @@ describe("BuyButton", () => {
     expect(mockDispatch).toHaveBeenCalledTimes(1);
     expect(mockDispatch).toHaveBeenCalledWith({
       type: "ADD_TO_CART",
-      payload: testProduct.id,
+      payload: { productId: testProduct.id, variantId: undefined },
     });
   });
 
@@ -69,5 +69,43 @@ describe("BuyButton", () => {
       productName: testProduct.name,
       price: testProduct.price,
     });
+  });
+
+  it("agrega la variante seleccionada con su precio ajustado", async () => {
+    const user = userEvent.setup();
+    const productWithVariants = createProductFixture({
+      id: 12,
+      name: "Vela Aromática",
+      price: 2499,
+      variants: [
+        { id: "vela-180g", name: "180 g", priceModifier: 0, stock: 40 },
+        { id: "vela-400g", name: "400 g", priceModifier: 1500, stock: 25 },
+      ],
+    });
+    render(<BuyButton product={productWithVariants} variantId="vela-400g" />);
+
+    await user.click(screen.getByRole("button", { name: /añadir al carrito/i }));
+
+    expect(mockDispatch).toHaveBeenCalledWith({
+      type: "ADD_TO_CART",
+      payload: { productId: 12, variantId: "vela-400g" },
+    });
+    expect(mockTrack).toHaveBeenCalledWith("add_to_cart", {
+      productId: 12,
+      productName: "Vela Aromática",
+      price: 3999,
+      variantId: "vela-400g",
+    });
+  });
+
+  it("muestra Agotado y no permite comprar una variante sin stock", async () => {
+    const user = userEvent.setup();
+    render(<BuyButton product={testProduct} variantId="vela-400g" disabled />);
+
+    const boton = screen.getByRole("button", { name: "Agotado" });
+    await user.click(boton);
+
+    expect(boton).toBeDisabled();
+    expect(mockDispatch).not.toHaveBeenCalled();
   });
 });

@@ -35,6 +35,7 @@ function ProductDetail({ product }: ProductDetailProps) {
             variant="pdp"
             unitPrice={unitPrice}
             addDisabled={soldOut}
+            variantId={selectedVariant?.id}
           >
             {product.variants && product.variants.length > 0 && (
               <VariantSelector

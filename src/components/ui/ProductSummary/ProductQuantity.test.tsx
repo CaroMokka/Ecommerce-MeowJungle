@@ -46,4 +46,14 @@ describe("ProductQuantity", () => {
       payload: { productId: 7, quantity: 3 },
     });
   });
+
+  it("incluye el variantId de la línea al cambiar la cantidad", async () => {
+    render(<ProductQuantity productId={7} variantId="vela-400g" quantity={2} />);
+    const user = userEvent.setup();
+    await user.click(screen.getByRole("button", { name: "+" }));
+    expect(mockDispatch).toHaveBeenCalledWith({
+      type: "CHANGE_QUANTITY",
+      payload: { productId: 7, variantId: "vela-400g", quantity: 3 },
+    });
+  });
 });

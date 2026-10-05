@@ -116,7 +116,7 @@ describe("CartProvider", () => {
   it("persiste en localStorage cada cambio de estado", () => {
     const { result } = renderCart();
     act(() => {
-      result.current.dispatch({ type: "ADD_TO_CART", payload: 1 });
+      result.current.dispatch({ type: "ADD_TO_CART", payload: { productId: 1 } });
     });
     const stored = JSON.parse(
       localStorage.getItem(LOCAL_STORAGE_KEY) ?? "{}"
@@ -128,10 +128,10 @@ describe("CartProvider", () => {
   it("actualiza localStorage en cada cambio posterior", () => {
     const { result } = renderCart();
     act(() => {
-      result.current.dispatch({ type: "ADD_TO_CART", payload: 1 });
+      result.current.dispatch({ type: "ADD_TO_CART", payload: { productId: 1 } });
     });
     act(() => {
-      result.current.dispatch({ type: "ADD_TO_CART", payload: 2 });
+      result.current.dispatch({ type: "ADD_TO_CART", payload: { productId: 2 } });
     });
     const stored = JSON.parse(
       localStorage.getItem(LOCAL_STORAGE_KEY) ?? "{}"
@@ -143,7 +143,7 @@ describe("CartProvider", () => {
   it("expone lines reconciliadas con el catálogo", () => {
     const { result } = renderCart();
     act(() => {
-      result.current.dispatch({ type: "ADD_TO_CART", payload: 1 });
+      result.current.dispatch({ type: "ADD_TO_CART", payload: { productId: 1 } });
     });
     expect(result.current.lines).toHaveLength(1);
     expect(result.current.lines[0]).toMatchObject({

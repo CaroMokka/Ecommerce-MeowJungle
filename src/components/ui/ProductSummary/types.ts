@@ -6,6 +6,7 @@ export interface ProductSummaryProps {
     product: Product;
     variant?: ProductSummaryVariant;
     onClick?: () => void;
+    variantId?: string;
 }
 export interface ProductInfoProps {
     product: Product;
@@ -13,6 +14,7 @@ export interface ProductInfoProps {
     onClick?: () => void;
     unitPrice?: number;
     addDisabled?: boolean;
+    variantId?: string;
     children?: ReactNode;
 }
 export interface MinicartItemProps {

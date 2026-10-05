@@ -43,7 +43,7 @@ describe("DeleteButton", () => {
     expect(mockDispatch).toHaveBeenCalledTimes(1);
     expect(mockDispatch).toHaveBeenCalledWith({
       type: "REMOVE_FROM_CART",
-      payload: testProduct.id,
+      payload: { productId: testProduct.id, variantId: undefined },
     });
   });
 
@@ -59,6 +59,25 @@ describe("DeleteButton", () => {
     expect(mockTrack).toHaveBeenCalledWith("remove_from_cart", {
       productId: testProduct.id,
       productName: testProduct.name,
+    });
+  });
+
+  it("elimina solo la línea de la variante seleccionada", async () => {
+    const user = userEvent.setup();
+    render(<DeleteButton product={testProduct} variantId="vela-400g" />);
+
+    await user.click(
+      screen.getByRole("button", { name: /eliminar producto/i })
+    );
+
+    expect(mockDispatch).toHaveBeenCalledWith({
+      type: "REMOVE_FROM_CART",
+      payload: { productId: testProduct.id, variantId: "vela-400g" },
+    });
+    expect(mockTrack).toHaveBeenCalledWith("remove_from_cart", {
+      productId: testProduct.id,
+      productName: testProduct.name,
+      variantId: "vela-400g",
     });
   });
 });

@@ -196,8 +196,10 @@ describe("CheckoutProvider order", () => {
 
   const lineFixture: CartLine[] = [
     {
+      lineKey: "1",
       productId: 1,
       quantity: 1,
+      unitPrice: 1000,
       lineTotal: 1000,
       product: createProductFixture({ id: 1, price: 1000 }),
     },
