@@ -39,6 +39,60 @@ Frontend MVP de ecommerce **Meow Jungle** (React 19 + Vite 6 + TypeScript + Jest
 9. Commits en formato **convencional + ticket**: p.ej. `fix(content): [CA-25] ...`, `test(coverage): [CA-32] ...` (idioma libre, español o inglés).
 10. **No** incluyas secretos, tokens, `.env` ni artefactos generados (`coverage/`, `dist/`, `node_modules/`) — está en `.gitignore`.
 11. **Definición de terminado (DoD)**: consulta `docs/definition-of-done.md`; usa los templates `.github/PULL_REQUEST_TEMPLATE.md` (PRs) y `.github/ISSUE_TEMPLATE/` (issues). **CI verde ≠ QA completo**: la validación manual humana es requisito antes del merge.
+12. **TDD obligatorio para lógica crítica**: si el cambio toca precios, cantidades, stock, totales o reglas de negocio, escribe los tests **antes** de implementar (RED → GREEN → REFACTOR). Ver [TDD obligatorio para lógica crítica](#tdd-obligatorio-para-lógica-crítica).
+
+## TDD obligatorio para lógica crítica
+
+En MeowJungle se aplica **TDD de forma obligatoria** en toda implementación cuya corrección dependa de cálculos, cantidades, valores monetarios, reglas de negocio o transformaciones deterministas.
+
+### Aplica obligatoriamente a
+
+- Cálculos de precios, subtotales, totales, descuentos, impuestos y envío.
+- Cantidades, stock y límites de inventario.
+- Funciones de reconciliación o normalización de datos.
+- Construcción y transformación de `Order`, `OrderLine`, `CartLine` y estados equivalentes.
+- Reglas de negocio deterministas.
+- Conversiones o cálculos donde un error numérico pueda producir un resultado incorrecto para el usuario o el negocio.
+
+### Secuencia obligatoria
+
+1. **RED** — escribir primero los tests que expresen el comportamiento esperado.
+2. **GREEN** — implementar la mínima lógica necesaria para que los tests pasen.
+3. **REFACTOR** — mejorar la implementación manteniendo todos los tests en verde.
+
+No se debe implementar primero y escribir los tests posteriormente, salvo autorización explícita.
+
+### Casos límite a cubrir
+
+Cuando corresponda, los tests deben cubrir:
+
+- Valor cero y vacío.
+- Mínimo y máximo.
+- Múltiples elementos.
+- Decimales.
+- Cantidades inválidas.
+- Stock insuficiente.
+- Datos inexistentes.
+- Redondeos.
+- Combinaciones relevantes de reglas.
+
+### No aplica obligatoriamente
+
+- Cambios puramente visuales, CSS y layout.
+- Copy y contenido.
+- Ajustes de UI sin lógica crítica.
+- Integración de componentes cuando el comportamiento ya está cubierto por tests de dominio.
+- Tareas exploratorias o de infraestructura donde primero sea necesario establecer una interfaz.
+
+Para estos casos se mantiene el flujo normal: implementar → testear → verificar.
+
+### Regla de oro
+
+**Si un error puede cambiar cuánto paga el cliente, cuánto stock se vende, qué pedido se registra o qué resultado numérico obtiene el sistema → TDD primero.**
+
+### Responsabilidad
+
+`OP` (el agente que implementa) es responsable de respetar la secuencia RED → GREEN → REFACTOR en el alcance definido arriba, y de declarar en el PR qué lógica crítica se tocó y qué tests se escribieron primero.
 
 ## Puntos de doble chequeo
 

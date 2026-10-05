@@ -45,6 +45,7 @@ Flujo por ticket (feature-branch sobre `develop`):
 3. **Branch** — desde `develop`: `git checkout -b CA-XX-<descripción>`.
 4. **SPEC (cuando aplica)** — el agente escribe una propuesta corta (contexto + opciones + recomendación) y espera el OK antes de implementar (ej.: CA-27, estrategia de ramas).
 5. **Implementación + validación local** — cambios en la rama y chequeo: `npm run lint`, `npm test -- --coverage` y `npm run build`.
+   - **TDD cuando la lógica es crítica**: si el cambio toca precios, cantidades, stock, totales o reglas de negocio, escribe primero los tests (RED → GREEN → REFACTOR). No se implementa primero y se prueba después, salvo autorización explícita. La regla completa está en [`AGENTS.md` → TDD obligatorio para lógica crítica](./AGENTS.md#tdd-obligatorio-para-lógica-crítica).
 6. **Autorización humana** — **antes de push y PR** se presentan los cambios a la persona responsable y se espera su aprobación explícita. Regla del laboratorio.
 7. **Push + PR** — se pushea la rama y se abre el PR hacia `develop` con la descripción de lo implementado.
 8. **CI verde** — GitHub Actions ejecuta lint, tests (con cobertura) y build en el PR. Debe quedar en verde (incluye gate de cobertura).
@@ -59,6 +60,8 @@ Flujo por ticket (feature-branch sobre `develop`):
 | 3–5, 7 (redacción) | Agente (OpenCode) |
 | 4 aprobación, 6 autorización, 8–9 | Persona responsable del repo (revisión, merge, cierre de ticket) |
 | Config de GitHub (default branch, protección) | Persona responsable (manual) |
+
+**TDD obligatorio para lógica crítica**: en MeowJungle se exige TDD (RED → GREEN → REFACTOR) en toda implementación cuya corrección dependa de cálculos, cantidades, valores monetarios o reglas de negocio, y también en funciones de reconciliación y construcción de `Order`, `OrderLine` y `CartLine`. Si un error puede cambiar cuánto paga el cliente, cuánto stock se vende, qué pedido se registra o qué resultado numérico obtiene el sistema, los tests se escriben primero. No aplica a cambios visuales, CSS, copy o ajustes de UI sin lógica crítica. La regla completa, con los casos límite a cubrir y las exclusiones, está en [`AGENTS.md` → TDD obligatorio para lógica crítica](./AGENTS.md#tdd-obligatorio-para-lógica-crítica).
 
 **Release**: `main` se actualiza solo vía PR desde `develop` (sin commits directos).
 
