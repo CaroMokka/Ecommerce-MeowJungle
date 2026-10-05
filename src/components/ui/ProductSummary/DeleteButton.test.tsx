@@ -2,8 +2,13 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import DeleteButton from "./DeleteButton";
 import { createProductFixture } from "../../../test/fixtures/productFixture";
+import type {
+  AnalyticsEvent,
+  AnalyticsPayload,
+} from "../../../services/analytics/analytics";
 
 const mockDispatch = jest.fn();
+const mockTrack = jest.fn<void, [AnalyticsEvent, AnalyticsPayload?]>();
 
 jest.mock("../../../context/cart/useCart", () => ({
   __esModule: true,
@@ -12,32 +17,48 @@ jest.mock("../../../context/cart/useCart", () => ({
   }),
 }));
 
+jest.mock("../../../services/analytics/analytics", () => ({
+  __esModule: true,
+  track: (event: AnalyticsEvent, payload?: AnalyticsPayload): void => {
+    mockTrack(event, payload);
+  },
+}));
+
 describe("DeleteButton", () => {
-  const mockProduct = createProductFixture({
-    id: 7,
-    name: "Macetero de barro",
-    brand: "Raíz Tierra",
-    price: 2000,
-    tags: ["cerámica", "artesanal"],
-    description: "Ideal para tus plantas pequeñas.",
-  });
+  const testProduct = createProductFixture({ id: 7, name: "Producto 7" });
 
   beforeEach(() => {
     mockDispatch.mockClear();
+    mockTrack.mockClear();
   });
 
-  it("dispara REMOVE_FROM_CART con el id del producto al hacer clic", async () => {
-    render(<DeleteButton product={mockProduct} />);
+  it("elimina el producto del carrito al hacer clic", async () => {
     const user = userEvent.setup();
+    render(<DeleteButton product={testProduct} />);
 
-    const button = screen.getByRole("button", { name: /eliminar producto/i });
-    expect(button).toBeInTheDocument();
+    await user.click(
+      screen.getByRole("button", { name: /eliminar producto/i })
+    );
 
-    await user.click(button);
-
+    expect(mockDispatch).toHaveBeenCalledTimes(1);
     expect(mockDispatch).toHaveBeenCalledWith({
       type: "REMOVE_FROM_CART",
-      payload: mockProduct.id,
+      payload: testProduct.id,
+    });
+  });
+
+  it("emite el evento remove_from_cart con el producto eliminado", async () => {
+    const user = userEvent.setup();
+    render(<DeleteButton product={testProduct} />);
+
+    await user.click(
+      screen.getByRole("button", { name: /eliminar producto/i })
+    );
+
+    expect(mockTrack).toHaveBeenCalledTimes(1);
+    expect(mockTrack).toHaveBeenCalledWith("remove_from_cart", {
+      productId: testProduct.id,
+      productName: testProduct.name,
     });
   });
 });

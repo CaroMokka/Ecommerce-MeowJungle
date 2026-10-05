@@ -1,8 +1,9 @@
-import { createContext, ReactNode, useState } from "react";
+import { createContext, ReactNode, useEffect, useRef, useState } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import useCart from "../cart/useCart";
 import { CartLine } from "../../services/cart/cartLines";
 import { Order, createOrder } from "../../services/order/order";
+import { track } from "../../services/analytics/analytics";
 import {
   CheckoutStep,
   CHECKOUT_STEPS,
@@ -99,21 +100,39 @@ export const CheckoutProvider = ({
     const nextOrder = createOrder(orderLines);
     setOrder(nextOrder);
     sessionStorage.setItem(ORDER_KEY, JSON.stringify(nextOrder));
+    track("purchase", {
+      orderId: nextOrder.id,
+      itemCount: nextOrder.itemCount,
+      subtotal: nextOrder.subtotal,
+    });
     return nextOrder;
   };
 
-  if (activeStep !== "cart") {
-    const missingStep = requiredBefore(activeStep).find(
-      (step) => !completedSteps.includes(step)
-    );
+  const missingStep =
+    activeStep !== "cart"
+      ? requiredBefore(activeStep).find(
+          (step) => !completedSteps.includes(step)
+        )
+      : undefined;
 
-    if (missingStep) {
-      return <Navigate to={`/checkout/${missingStep}`} replace />;
-    }
+  const blockedByEmptyCart =
+    activeStep !== "cart" && guardedSteps.has(activeStep) && lines.length === 0;
 
-    if (guardedSteps.has(activeStep) && lines.length === 0) {
-      return <Navigate to="/cart" replace />;
-    }
+  const trackedBeginCheckout = useRef(false);
+
+  useEffect(() => {
+    if (activeStep !== "profile" || missingStep || blockedByEmptyCart) return;
+    if (trackedBeginCheckout.current) return;
+    trackedBeginCheckout.current = true;
+    track("begin_checkout");
+  }, [activeStep, missingStep, blockedByEmptyCart]);
+
+  if (missingStep) {
+    return <Navigate to={`/checkout/${missingStep}`} replace />;
+  }
+
+  if (blockedByEmptyCart) {
+    return <Navigate to="/cart" replace />;
   }
 
   return (
