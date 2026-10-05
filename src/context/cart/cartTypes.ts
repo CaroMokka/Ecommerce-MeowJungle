@@ -1,6 +1,12 @@
 export interface CartItem {
   productId: number;
+  variantId?: string;
   quantity: number;
+}
+
+export interface CartItemKey {
+  productId: number;
+  variantId?: string;
 }
 
 export interface CartState {
@@ -8,8 +14,7 @@ export interface CartState {
 }
 
 export type CartAction =
-  | { type: "ADD_TO_CART"; payload: number }
-  | { type: "REMOVE_FROM_CART"; payload: number }
-  | { type: "CHANGE_QUANTITY"; payload: { productId: number; quantity: number } }
+  | { type: "ADD_TO_CART"; payload: CartItemKey }
+  | { type: "REMOVE_FROM_CART"; payload: CartItemKey }
+  | { type: "CHANGE_QUANTITY"; payload: CartItemKey & { quantity: number } }
   | { type: "CLEAR_CART" }
-

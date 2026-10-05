@@ -1,4 +1,5 @@
 import { CartAction, CartState } from "./cartTypes";
+import { getLineKey } from "../../services/cart/cartLines";
 
 export const cartReducer = (
   state: CartState,
@@ -6,16 +7,17 @@ export const cartReducer = (
 ): CartState => {
   switch (action.type) {
     case "ADD_TO_CART": {
-      const productId = action.payload;
+      const { productId, variantId } = action.payload;
       if (!Number.isInteger(productId)) {
         return state;
       }
-      const exists = state.cart.find((item) => item.productId === productId);
+      const lineKey = getLineKey({ productId, variantId });
+      const exists = state.cart.some((item) => getLineKey(item) === lineKey);
       if (exists) {
         return {
           ...state,
           cart: state.cart.map((item) =>
-            item.productId === productId
+            getLineKey(item) === lineKey
               ? { ...item, quantity: item.quantity + 1 }
               : item
           ),
@@ -23,22 +25,24 @@ export const cartReducer = (
       }
       return {
         ...state,
-        cart: [...state.cart, { productId, quantity: 1 }],
+        cart: [...state.cart, { productId, variantId, quantity: 1 }],
       };
     }
 
     case "REMOVE_FROM_CART": {
+      const lineKey = getLineKey(action.payload);
       return {
         ...state,
-        cart: state.cart.filter((item) => item.productId !== action.payload),
+        cart: state.cart.filter((item) => getLineKey(item) !== lineKey),
       };
     }
     case "CHANGE_QUANTITY": {
-      const { productId, quantity } = action.payload;
+      const { quantity } = action.payload;
+      const lineKey = getLineKey(action.payload);
       return {
         ...state,
         cart: state.cart.map((item) =>
-          item.productId === productId
+          getLineKey(item) === lineKey
             ? { ...item, quantity: Math.max(1, quantity) }
             : item
         ),

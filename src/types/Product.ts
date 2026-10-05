@@ -12,6 +12,13 @@ export interface ProductDimensions {
   depth: string;
 }
 
+export interface ProductVariant {
+  id: string;
+  name: string;
+  priceModifier: number;
+  stock: number;
+}
+
 export interface Product {
   id: number;
   name: string;
@@ -19,6 +26,8 @@ export interface Product {
   description: string;
   image: string;
   alt: string;
+  gallery?: string[];
+  variants?: ProductVariant[];
   price: number;
   rating: number;
   reviews: number;

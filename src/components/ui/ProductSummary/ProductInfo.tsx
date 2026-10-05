@@ -6,13 +6,28 @@ import DeleteButton from "./DeleteButton"
 import styles from "./productSummary.module.scss";
 import { ProductInfoProps } from "./types";
 import useCart from "../../../context/cart/useCart";
+import {
+  findVariant,
+  getLineKey,
+  getUnitPrice,
+} from "../../../services/cart/cartLines";
 
-function ProductInfo({ product, variant }: ProductInfoProps) {
+function ProductInfo({
+  product,
+  variant,
+  variantId,
+  unitPrice,
+  addDisabled,
+  children,
+}: ProductInfoProps) {
   const { lines } = useCart();
 
-  const productLine = lines.find((line) => line.productId === product.id);
+  const lineKey = getLineKey({ productId: product.id, variantId });
+  const productLine = lines.find((line) => line.lineKey === lineKey);
+  const selectedVariant = findVariant(product, variantId);
   const quantity = productLine?.quantity ?? 1;
-  const subTotal = productLine?.lineTotal ?? product.price;
+  const displayUnitPrice = unitPrice ?? getUnitPrice(product, variantId);
+  const subTotal = productLine?.lineTotal ?? displayUnitPrice;
 
   return (
     <div className={styles["product-summary__col-right"]}>
@@ -29,17 +44,33 @@ function ProductInfo({ product, variant }: ProductInfoProps) {
           </>
         )}
 
-        <ProductPrice unitPrice={product.price} />
+        <ProductPrice unitPrice={displayUnitPrice} />
+
+        {children}
 
         {(variant === "pdp" || variant === "shelf") && (
-          <BuyButton product={product} />
+          <BuyButton
+            product={product}
+            variantId={variantId}
+            disabled={addDisabled}
+          />
         )}
         {variant === "minicart" && (
           <>
-            <ProductQuantity quantity={quantity ?? 1} productId={product.id} />
+            {selectedVariant && (
+              <small className={styles["product-summary__brand"]}>
+                {selectedVariant.name}
+              </small>
+            )}
+            <ProductQuantity
+              quantity={quantity ?? 1}
+              productId={product.id}
+              variantId={variantId}
+            />
             {quantity > 1 && <ProductPrice subTotalPrice={subTotal} />}
             <DeleteButton
               product={product}
+              variantId={variantId}
             />
           </>
         )}

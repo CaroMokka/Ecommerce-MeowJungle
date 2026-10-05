@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { getProductById } from "../services/catalog/catalogRepository";
-import ProductSummary from "../components/ui/ProductSummary/ProductSummary";
+import ProductDetail from "../components/ui/ProductDetail/ProductDetail";
 import Header from "../store/blocks/header/Header";
 import Footer from "../store/blocks/footer/Footer";
 
@@ -14,7 +14,7 @@ function ProductPage() {
     <>
       <Header />
       <div className="global-page__wrapper">
-        <ProductSummary product={product} variant="pdp" />
+        <ProductDetail key={product.id} product={product} />
       </div>
 
       <Footer />

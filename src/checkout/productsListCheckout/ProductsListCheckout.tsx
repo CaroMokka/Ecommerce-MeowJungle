@@ -12,9 +12,10 @@ function ProductsListCheckout({ lines }: ProductsListCheckoutProps) {
       {lines.map((line) => {
         return (
           <ProductSummary
-            key={line.productId}
+            key={line.lineKey}
             product={line.product}
             variant="minicart"
+            variantId={line.variantId}
           />
         );
       })}

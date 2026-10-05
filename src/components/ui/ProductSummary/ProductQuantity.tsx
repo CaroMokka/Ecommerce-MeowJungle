@@ -4,15 +4,16 @@ import useCart from "../../../context/cart/useCart";
 type Props = {
   quantity?: number;
   productId: number;
+  variantId?: string;
 }
-function ProductQuantity({ quantity = 1, productId }: Props) {
+function ProductQuantity({ quantity = 1, productId, variantId }: Props) {
     const { dispatch } = useCart()
 
     const handleQuantityChange = (newQuantity: number) => {
         if(newQuantity < 1) return;
         dispatch({
           type: "CHANGE_QUANTITY",
-          payload: { productId, quantity: newQuantity }
+          payload: { productId, variantId, quantity: newQuantity }
         })
     }
   return (

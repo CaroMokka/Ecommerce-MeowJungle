@@ -1,4 +1,11 @@
-import { selectCartLines, CartLineInput } from "./cartLines";
+import {
+  selectCartLines,
+  findVariant,
+  getAvailableStock,
+  getLineKey,
+  getUnitPrice,
+  CartLineInput,
+} from "./cartLines";
 import { createProductFixture } from "../../test/fixtures/productFixture";
 
 const jabon = createProductFixture({ id: 1, name: "Jabón", price: 3500, stock: 5 });
@@ -122,5 +129,139 @@ describe("selectCartLines", () => {
     selectCartLines(cart, catalog);
     expect(JSON.stringify(cart)).toBe(cartSnapshot);
     expect(JSON.stringify(catalog)).toBe(catalogSnapshot);
+  });
+
+  describe("con variantes", () => {
+    const vela = createProductFixture({
+      id: 4,
+      name: "Vela",
+      price: 2499,
+      stock: 10,
+      variants: [
+        { id: "vela-180g", name: "180 g", priceModifier: 0, stock: 8 },
+        { id: "vela-400g", name: "400 g", priceModifier: 1500, stock: 2 },
+      ],
+    });
+    const catalogoConVariantes = [vela];
+
+    it("calcula el precio unitario con el modificador de la variante", () => {
+      const result = selectCartLines(
+        [{ productId: 4, variantId: "vela-400g", quantity: 2 }],
+        catalogoConVariantes
+      );
+
+      expect(result[0].unitPrice).toBe(3999);
+      expect(result[0].lineTotal).toBe(7998);
+    });
+
+    it("expone lineKey y variantId para identificar la línea", () => {
+      const result = selectCartLines(
+        [{ productId: 4, variantId: "vela-400g", quantity: 1 }],
+        catalogoConVariantes
+      );
+
+      expect(result[0].lineKey).toBe("4:vela-400g");
+      expect(result[0].variantId).toBe("vela-400g");
+    });
+
+    it("genera una línea distinta por cada variante del mismo producto", () => {
+      const result = selectCartLines(
+        [
+          { productId: 4, variantId: "vela-180g", quantity: 1 },
+          { productId: 4, variantId: "vela-400g", quantity: 1 },
+        ],
+        catalogoConVariantes
+      );
+
+      expect(result).toHaveLength(2);
+      expect(result.map((line) => line.lineKey)).toEqual([
+        "4:vela-180g",
+        "4:vela-400g",
+      ]);
+    });
+
+    it("limita la cantidad al stock de la variante, no al del producto", () => {
+      const result = selectCartLines(
+        [{ productId: 4, variantId: "vela-400g", quantity: 9 }],
+        catalogoConVariantes
+      );
+
+      expect(result[0].quantity).toBe(2);
+      expect(result[0].lineTotal).toBe(7998);
+    });
+
+    it("excluye la línea cuando la variante ya no existe en el catálogo", () => {
+      const result = selectCartLines(
+        [{ productId: 4, variantId: "vela-999g", quantity: 1 }],
+        catalogoConVariantes
+      );
+
+      expect(result).toEqual([]);
+    });
+
+    it("consolida por variante sin mezclar cantidades de otra variante", () => {
+      const result = selectCartLines(
+        [
+          { productId: 4, variantId: "vela-180g", quantity: 2 },
+          { productId: 4, variantId: "vela-180g", quantity: 3 },
+          { productId: 4, variantId: "vela-400g", quantity: 1 },
+        ],
+        catalogoConVariantes
+      );
+
+      expect(result).toHaveLength(2);
+      expect(result[0].quantity).toBe(5);
+      expect(result[1].quantity).toBe(1);
+    });
+
+    it("mantiene el precio base cuando la línea no tiene variantId", () => {
+      const result = selectCartLines(
+        [{ productId: 4, quantity: 1 }],
+        catalogoConVariantes
+      );
+
+      expect(result[0].unitPrice).toBe(2499);
+      expect(result[0].lineKey).toBe("4");
+    });
+  });
+
+  describe("helpers de variante", () => {
+    const producto = createProductFixture({
+      id: 5,
+      name: "Aceite",
+      price: 3999,
+      stock: 20,
+      variants: [
+        { id: "10ml", name: "10 ml", priceModifier: 0, stock: 6 },
+        { id: "30ml", name: "30 ml", priceModifier: 1200, stock: 0 },
+      ],
+    });
+
+    it("getUnitPrice suma el modificador de la variante indicada", () => {
+      expect(getUnitPrice(producto, "30ml")).toBe(5199);
+      expect(getUnitPrice(producto)).toBe(3999);
+    });
+
+    it("getAvailableStock usa el stock de la variante o el del producto", () => {
+      expect(getAvailableStock(producto, "10ml")).toBe(6);
+      expect(getAvailableStock(producto, "30ml")).toBe(0);
+      expect(getAvailableStock(producto)).toBe(20);
+    });
+
+    it("getUnitPrice y getAvailableStock ignoran un variantId desconocido", () => {
+      expect(getUnitPrice(producto, "no-existe")).toBe(3999);
+      expect(getAvailableStock(producto, "no-existe")).toBe(20);
+    });
+
+    it("getLineKey compone productId y variantId", () => {
+      expect(getLineKey({ productId: 5, variantId: "10ml" })).toBe("5:10ml");
+      expect(getLineKey({ productId: 5 })).toBe("5");
+    });
+
+    it("findVariant devuelve la variante buscada o undefined", () => {
+      expect(findVariant(producto, "10ml")).toEqual(producto.variants?.[0]);
+      expect(findVariant(producto)).toBeUndefined();
+      expect(findVariant(producto, "no-existe")).toBeUndefined();
+    });
   });
 });

@@ -36,10 +36,11 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         (item): item is CartItem =>
           item &&
           typeof item.productId === "number" &&
-          typeof item.quantity === "number"
+          typeof item.quantity === "number" &&
+          (item.variantId === undefined || typeof item.variantId === "string")
       );
       const cleanCart = selectCartLines(rawCart, getProducts()).map(
-        ({ productId, quantity }) => ({ productId, quantity })
+        ({ productId, variantId, quantity }) => ({ productId, variantId, quantity })
       );
       return { cart: cleanCart };
     } catch {
