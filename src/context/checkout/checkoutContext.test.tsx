@@ -8,6 +8,10 @@ import useCheckout from "./useCheckout";
 import { CheckoutStep, resolveStep } from "./checkoutTypes";
 import { CartLine } from "../../services/cart/cartLines";
 import { createProductFixture } from "../../test/fixtures/productFixture";
+import type {
+  AnalyticsEvent,
+  AnalyticsPayload,
+} from "../../services/analytics/analytics";
 
 const LOCAL_STORAGE_KEY = "cartItems";
 const CART_WITH_ITEM = JSON.stringify({
@@ -90,6 +94,15 @@ describe("CheckoutProvider guard de carrito vacío", () => {
     expect(screen.getByText("CART PAGE")).toBeInTheDocument();
   });
 });
+
+const mockTrack = jest.fn<void, [AnalyticsEvent, AnalyticsPayload?]>();
+
+jest.mock("../../services/analytics/analytics", () => ({
+  __esModule: true,
+  track: (event: AnalyticsEvent, payload?: AnalyticsPayload): void => {
+    mockTrack(event, payload);
+  },
+}));
 
 describe("CheckoutProvider guard de orden de pasos", () => {
   beforeEach(() => {
@@ -177,6 +190,7 @@ describe("CheckoutProvider persisted steps", () => {
 describe("CheckoutProvider order", () => {
   beforeEach(() => {
     sessionStorage.clear();
+    mockTrack.mockClear();
     localStorage.setItem(LOCAL_STORAGE_KEY, CART_WITH_ITEM);
   });
 
@@ -224,6 +238,64 @@ describe("CheckoutProvider order", () => {
       sessionStorage.getItem("checkoutOrder") ?? "{}"
     ) as { id?: string };
     expect(stored.id).toBeDefined();
+  });
+
+  it("placeOrder emite el evento purchase con el total del snapshot", async () => {
+    render(
+      <OrderWrapper>
+        <OrderProbe />
+      </OrderWrapper>
+    );
+
+    await userEvent.click(screen.getByRole("button", { name: "place" }));
+
+    expect(mockTrack).toHaveBeenCalledTimes(1);
+    const [event, payload] = mockTrack.mock.calls[0];
+    expect(event).toBe("purchase");
+    const purchase = payload as unknown as {
+      orderId: string;
+      itemCount: number;
+      subtotal: number;
+    };
+    expect(purchase.orderId).toMatch(/^order-\d+$/);
+    expect(purchase.itemCount).toBe(1);
+    expect(purchase.subtotal).toBe(1000);
+  });
+});
+
+describe("CheckoutProvider eventos del embudo", () => {
+  beforeEach(() => {
+    mockTrack.mockClear();
+    sessionStorage.clear();
+  });
+
+  it("emite begin_checkout al entrar al paso profile con carrito", () => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, CART_WITH_ITEM);
+
+    render(<Harness initialEntry="/checkout/profile" />);
+
+    expect(mockTrack).toHaveBeenCalledWith("begin_checkout", undefined);
+  });
+
+  it("no emite begin_checkout cuando el paso profile redirige por carrito vacío", () => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify({ cart: [] }));
+
+    render(<Harness initialEntry="/checkout/profile" />);
+
+    expect(mockTrack).not.toHaveBeenCalledWith("begin_checkout", undefined);
+  });
+
+  it("no emite begin_checkout en los pasos posteriores al profile", () => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, CART_WITH_ITEM);
+
+    render(
+      <Harness
+        initialEntry="/checkout/shipping"
+        initialCompletedSteps={["profile"]}
+      />
+    );
+
+    expect(mockTrack).not.toHaveBeenCalledWith("begin_checkout", undefined);
   });
 });
 
