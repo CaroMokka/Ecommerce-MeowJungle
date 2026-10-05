@@ -6,7 +6,11 @@ import DeleteButton from "./DeleteButton"
 import styles from "./productSummary.module.scss";
 import { ProductInfoProps } from "./types";
 import useCart from "../../../context/cart/useCart";
-import { findVariant, getLineKey } from "../../../services/cart/cartLines";
+import {
+  findVariant,
+  getLineKey,
+  getUnitPrice,
+} from "../../../services/cart/cartLines";
 
 function ProductInfo({
   product,
@@ -22,7 +26,8 @@ function ProductInfo({
   const productLine = lines.find((line) => line.lineKey === lineKey);
   const selectedVariant = findVariant(product, variantId);
   const quantity = productLine?.quantity ?? 1;
-  const subTotal = productLine?.lineTotal ?? unitPrice ?? product.price;
+  const displayUnitPrice = unitPrice ?? getUnitPrice(product, variantId);
+  const subTotal = productLine?.lineTotal ?? displayUnitPrice;
 
   return (
     <div className={styles["product-summary__col-right"]}>
@@ -39,7 +44,7 @@ function ProductInfo({
           </>
         )}
 
-        <ProductPrice unitPrice={unitPrice ?? product.price} />
+        <ProductPrice unitPrice={displayUnitPrice} />
 
         {children}
 
