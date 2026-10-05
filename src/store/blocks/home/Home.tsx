@@ -1,4 +1,5 @@
 import Header from "../header/Header";
+import NewsletterForm from "../../../components/common/newsletter/NewsletterForm";
 import DailySection from "./dailySection/DailySection";
 import MainBanner from "./mainBanner/MainBanner";
 import LoversSection from "./loversSection/LoversSection";
@@ -15,6 +16,7 @@ function Home() {
         <DailySection />
         <LoversSection />
         <DarkSection />
+        <NewsletterForm />
       </div>
       <Footer/>
     </section>
