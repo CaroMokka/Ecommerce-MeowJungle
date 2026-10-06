@@ -1,0 +1,11 @@
+.loading-state {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem 1rem;
+}
+
+.loading-state__message {
+  margin: 0;
+  font-size: 1.1rem;
+}

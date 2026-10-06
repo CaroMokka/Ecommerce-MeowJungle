@@ -1,5 +1,7 @@
 import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
+import { useState } from "react";
 import ScrollToTop from "./components/common/scrollToTop/ScrollToTop";
+import ErrorBoundary from "./components/ui/ErrorBoundary/ErrorBoundary";
 import { CartProvider } from "./context/cart/cartContext";
 import { CheckoutProvider } from "./context/checkout/checkoutContext";
 import Home from "./store/blocks/home/Home";
@@ -10,11 +12,17 @@ import CheckoutLayout from "./checkout/checkoutLayout/CheckoutLayout";
 import About from "./pages/About-us";
 
 function App() {
+  const [errorBoundaryKey, setErrorBoundaryKey] = useState(0);
+
   return (
     
       <CartProvider>
         <BrowserRouter>
         <ScrollToTop />
+        <ErrorBoundary
+          key={errorBoundaryKey}
+          onReset={() => setErrorBoundaryKey((key) => key + 1)}
+        >
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<Products />} />
@@ -65,6 +73,7 @@ function App() {
             }
           />
         </Routes>
+        </ErrorBoundary>
       </BrowserRouter>
       </CartProvider>
   
