@@ -1,4 +1,5 @@
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { getProductById } from "../services/catalog/catalogRepository";
 import ProductDetail from "../components/ui/ProductDetail/ProductDetail";
 import Header from "../store/blocks/header/Header";
@@ -8,7 +9,19 @@ function ProductPage() {
   const { productId } = useParams<{ productId: string }>();
   const product = getProductById(Number(productId ?? ""));
   if (!product) {
-    return <h1>Producto no encontrado</h1>;
+    return (
+      <>
+        <Header />
+        <div className="global-page__wrapper">
+          <div className="product-not-found">
+            <h1>Producto no encontrado</h1>
+            <p>El producto que buscas no existe o ya no está disponible.</p>
+            <Link to="/products">Volver a productos</Link>
+          </div>
+        </div>
+        <Footer />
+      </>
+    );
   }
   return (
     <>
